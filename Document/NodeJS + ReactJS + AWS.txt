@@ -1,0 +1,4 @@
+NodeJS Docs: https://nodejs.org/en/docs/
+npm Docs: https://docs.npmjs.com/
+ReactJS Docs: https://reactjs.org/docs/getting-started.html
+AWS Docs: https://docs.aws.amazon.com/
