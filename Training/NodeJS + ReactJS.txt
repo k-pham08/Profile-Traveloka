@@ -1,2 +1,0 @@
-ReactJS: https://school.coders-x.com/courses/5c24f438f530b05ddc81e982
-NodeJS: https://school.coders-x.com/courses/5bab88af10dac510bfa58fc1
