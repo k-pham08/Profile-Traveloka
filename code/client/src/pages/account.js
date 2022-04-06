@@ -7,7 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
-import { Link, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import FormDialog from "../components/formDialog";
 
@@ -62,8 +63,10 @@ export default function Account() {
 										Edit
 									</Button>
 									<Link
-										href="/detail"
-										underline="none"
+										to="/detail"
+										style={{
+											textDecoration: "none",
+										}}
 									>
 										<Button variant="outlined">
 											Detail
