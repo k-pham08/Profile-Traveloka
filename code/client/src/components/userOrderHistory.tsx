@@ -1,8 +1,8 @@
 import { Paper } from "@mui/material";
 import React from "react";
 
-import OrderFillter from "../components/orderFilter";
-import OrderResult from "../components/orderResult";
+import OrderFillter from "./orderFilter";
+import OrderResult from "./orderResult";
 export default function userOrderHistory() {
 	return (
 		<Paper sx={{ display: "flex", flexWrap: "wrap", mt: 2 }}>

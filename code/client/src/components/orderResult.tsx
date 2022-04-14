@@ -29,8 +29,13 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 	},
 }));
 
-function createData(name, calories, fat, carbs, protein) {
-	return { name, calories, fat, carbs, protein };
+function createData(
+	name: string,
+	calories: number,
+	fat: number,
+	carbs: string
+) {
+	return { name, calories, fat, carbs };
 }
 
 const rows = [

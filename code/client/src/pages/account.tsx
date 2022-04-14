@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 
 import FormDialog from "../components/formDialog";
 
-function createData(username, password, role) {
+function createData(username: string, password: string, role: string) {
 	return { username, password, role };
 }
 
@@ -34,14 +34,14 @@ export default function Account() {
 						<TableCell align="right">Password</TableCell>
 						<TableCell align="right">Role</TableCell>
 						<TableCell align="right">
-							<FormDialog tittle="Add"></FormDialog>
+							<FormDialog></FormDialog>
 						</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
 					{rows.map((row) => (
 						<TableRow
-							key={row.name}
+							key={row.username}
 							sx={{
 								"&:last-child td, &:last-child th": {
 									border: 0,

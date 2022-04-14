@@ -4,15 +4,19 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
-import AdapterDateFns from "@mui/lab/AdapterDateFns";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
-import { Select } from "@mui/material";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { Select, SelectChangeEvent } from "@mui/material";
 import { MenuItem } from "@mui/material";
 import { Paper } from "@mui/material";
 import { Button } from "@mui/material";
 
 export default function UserInfo() {
+	const [date, setDate] = React.useState<Date | null>(
+		new Date("2022-08-18T21:11:54")
+	);
+
 	const [values, setValues] = React.useState({
 		amount: "",
 		password: "",
@@ -21,11 +25,15 @@ export default function UserInfo() {
 		showPassword: false,
 	});
 
-	const handleChange = (prop) => (event) => {
-		setValues({ ...values, [prop]: event.target.value });
+	const handleDateChange = (newValue: Date | null) => {
+		setDate(newValue);
 	};
 
-	const [value, setValue] = React.useState(null);
+	const [gender, setGender] = React.useState("");
+
+	const handleGenderChange = (event: SelectChangeEvent) => {
+		setGender(event.target.value as string);
+	};
 
 	return (
 		<Paper sx={{ display: "flex", flexWrap: "wrap", mb: 2 }}>
@@ -48,10 +56,11 @@ export default function UserInfo() {
 					Gender
 				</InputLabel>
 				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
+					labelId="gender-select-label"
+					id="gender-select"
 					label="Gender"
-					onChange={handleChange}
+					value={gender}
+					onChange={handleGenderChange}
 				>
 					<MenuItem value={10}>Male</MenuItem>
 					<MenuItem value={20}>Female</MenuItem>
@@ -60,13 +69,12 @@ export default function UserInfo() {
 			</FormControl>
 			<FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
 				<LocalizationProvider dateAdapter={AdapterDateFns}>
-					<DatePicker
-						label="Date of birth"
-						value={value}
-						onChange={(newValue) => {
-							setValue(newValue);
-						}}
-						renderInput={(params) => (
+					<DesktopDatePicker
+						label="Date desktop"
+						inputFormat="MM/dd/yyyy"
+						value={date}
+						onChange={handleDateChange}
+						renderInput={(params: any) => (
 							<TextField {...params} />
 						)}
 					/>
@@ -84,7 +92,7 @@ export default function UserInfo() {
 				<InputLabel htmlFor="outlined">Phone number</InputLabel>
 				<OutlinedInput id="outlined" label="Phone-number" />
 			</FormControl>
-			<FormControl fullwidth sx={{ m: 1 }}>
+			<FormControl fullWidth sx={{ m: 1 }}>
 				<Button variant="contained">Save</Button>
 			</FormControl>
 		</Paper>

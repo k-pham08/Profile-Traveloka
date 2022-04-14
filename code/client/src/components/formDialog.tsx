@@ -5,8 +5,12 @@ import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
+import { Select, SelectChangeEvent } from "@mui/material";
+import { MenuItem } from "@mui/material";
+import { InputLabel } from "@mui/material";
+import { FormControl } from "@mui/material";
 
-export default function FormDialog(props) {
+export default function FormDialog() {
 	const [open, setOpen] = React.useState(false);
 
 	const handleClickOpen = () => {
@@ -15,6 +19,12 @@ export default function FormDialog(props) {
 
 	const handleClose = () => {
 		setOpen(false);
+	};
+
+	const [role, setRole] = React.useState("");
+
+	const handleRoleChange = (event: SelectChangeEvent) => {
+		setRole(event.target.value as string);
 	};
 
 	return (
@@ -43,15 +53,22 @@ export default function FormDialog(props) {
 						fullWidth
 						variant="standard"
 					/>
-					<TextField
-						autoFocus
-						margin="dense"
-						id="role"
-						label="Role"
-						type="text"
-						fullWidth
-						variant="standard"
-					/>
+					<FormControl sx={{ mt: 2, width: "25ch" }}>
+						<InputLabel id="role-select-label">
+							Role
+						</InputLabel>
+						<Select
+							labelId="role-select-label"
+							id="role-select"
+							label="Role"
+							value={role}
+							onChange={handleRoleChange}
+						>
+							<MenuItem value={10}>ADMIN</MenuItem>
+							<MenuItem value={20}>Partner</MenuItem>
+							<MenuItem value={30}>Customer</MenuItem>
+						</Select>
+					</FormControl>
 				</DialogContent>
 				<DialogActions>
 					<Button onClick={handleClose}>Cancel</Button>

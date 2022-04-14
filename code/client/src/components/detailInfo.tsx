@@ -9,8 +9,17 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Select } from "@mui/material";
 import { MenuItem } from "@mui/material";
+
+interface State {
+	amount: string;
+	password: string;
+	weight: string;
+	weightRange: string;
+	showPassword: boolean;
+}
+
 export default function InputAdornments() {
-	const [values, setValues] = React.useState({
+	const [values, setValues] = React.useState<State>({
 		amount: "",
 		password: "",
 		weight: "",
@@ -18,9 +27,11 @@ export default function InputAdornments() {
 		showPassword: false,
 	});
 
-	const handleChange = (prop) => (event) => {
-		setValues({ ...values, [prop]: event.target.value });
-	};
+	const handleChange =
+		(prop: keyof State) =>
+		(event: React.ChangeEvent<HTMLInputElement>) => {
+			setValues({ ...values, [prop]: event.target.value });
+		};
 
 	const handleClickShowPassword = () => {
 		setValues({
@@ -29,7 +40,9 @@ export default function InputAdornments() {
 		});
 	};
 
-	const handleMouseDownPassword = (event) => {
+	const handleMouseDownPassword = (
+		event: React.MouseEvent<HTMLButtonElement>
+	) => {
 		event.preventDefault();
 	};
 
@@ -58,7 +71,6 @@ export default function InputAdornments() {
 						labelId="demo-simple-select-label"
 						id="demo-simple-select"
 						label="Gender"
-						onChange={handleChange}
 					>
 						<MenuItem value={10}>Male</MenuItem>
 						<MenuItem value={20}>Female</MenuItem>
