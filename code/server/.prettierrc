@@ -1,4 +1,19 @@
 {
-  "singleQuote": true,
-  "trailingComma": "all"
+  "prettier/prettier": [
+    "error",
+    {
+      "endOfLine": "auto"
+    },
+    {
+      "fileInfoOptions": {
+        "withNodeModules": true
+      }
+    }
+  ],
+  "semi": true,
+  "trailingComma": "all",
+  "singleQuote": false,
+  "printWidth": 180,
+  "tabWidth": 2,
+  "arrowParens": "avoid"
 }
