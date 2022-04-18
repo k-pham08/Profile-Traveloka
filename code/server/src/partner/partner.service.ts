@@ -3,8 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreatePartnerDto } from "./dto/create-partner.dto";
 import { UpdatePartnerDto } from "./dto/update-partner.dto";
-import { Partner } from "./entities/Partner";
-
+import { Partner } from "../entities/Partner";
 @Injectable()
 export class PartnerService {
   constructor(
@@ -12,19 +11,19 @@ export class PartnerService {
     private readonly partnerRepository: Repository<Partner>,
   ) {}
 
-  create(createPartnerDto: CreatePartnerDto) {
-    return this.partnerRepository.create(createPartnerDto);
+  create(createPartnerDto) {
+    return this.partnerRepository.save(createPartnerDto);
   }
 
   findAll() {
     return this.partnerRepository.find();
   }
 
-  findOne(id: string) {
-    return this.partnerRepository.findOne({ where: { id } });
+  findOne(id) {
+    return this.partnerRepository.findOne(id);
   }
 
-  update(id: string, updatePartnerDto: UpdatePartnerDto) {
+  update(id: string, updatePartnerDto) {
     return this.partnerRepository.update(id, updatePartnerDto);
   }
 

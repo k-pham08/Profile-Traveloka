@@ -7,7 +7,7 @@
     "username": "khoapham-08",
     "password": "khoapham08",
     "database": "",
-    "synchronize": true,
+    "synchronize": false,
     "entities": ["entities/*.js"]
   }
 ]

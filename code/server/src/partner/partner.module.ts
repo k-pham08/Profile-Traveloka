@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common";
 import { PartnerService } from "./partner.service";
 import { PartnerController } from "./partner.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { Partner } from "./entities/Partner";
+import { Partner } from "../entities/Partner";
 
 @Module({
   imports: [TypeOrmModule.forFeature([Partner])],

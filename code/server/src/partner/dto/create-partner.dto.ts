@@ -1,11 +1,22 @@
+import { ApiProperty } from "@nestjs/swagger";
+
 export class CreatePartnerDto {
-  id: string;
+  @ApiProperty()
   name: string;
-  phone: string;
+  @ApiProperty()
+  phone: number;
+  @ApiProperty()
   email: string;
+  @ApiProperty()
   job: string;
+  @ApiProperty()
   companyName: string;
+  @ApiProperty()
   country: string;
+  @ApiProperty()
   officeAddress: string;
-  officePhone: string;
+  @ApiProperty()
+  officePhone: number;
+  @ApiProperty()
+  account_id: string;
 }

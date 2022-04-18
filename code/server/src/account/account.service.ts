@@ -3,8 +3,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { CreateAccountDto } from "./dto/create-account.dto";
 import { UpdateAccountDto } from "./dto/update-account.dto";
-import { Account } from "./entities/Account";
-
+import { Account } from "../entities/Account";
 @Injectable()
 export class AccountService {
   constructor(
@@ -12,15 +11,15 @@ export class AccountService {
     private readonly accRepository: Repository<Account>,
   ) {}
   create(createAccountDto: CreateAccountDto) {
-    return this.accRepository.create(createAccountDto);
+    return this.accRepository.save(createAccountDto);
   }
 
   findAll(): Promise<Account[]> {
     return this.accRepository.find();
   }
 
-  findOne(id: string): Promise<Account> {
-    return this.accRepository.findOne({ where: { id } });
+  findOne(id): Promise<Account> {
+    return this.accRepository.findOne(id);
   }
 
   update(id: string, updateAccountDto: UpdateAccountDto) {

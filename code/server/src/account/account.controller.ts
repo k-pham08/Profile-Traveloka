@@ -3,7 +3,6 @@ import { ApiTags } from "@nestjs/swagger";
 import { AccountService } from "./account.service";
 import { CreateAccountDto } from "./dto/create-account.dto";
 import { UpdateAccountDto } from "./dto/update-account.dto";
-import { Account } from "./entities/Account";
 
 @ApiTags("Account")
 @Controller("account")
