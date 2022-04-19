@@ -6,27 +6,31 @@ import { UpdateAccountDto } from "./dto/update-account.dto";
 import { Account } from "../entities/Account";
 @Injectable()
 export class AccountService {
-  constructor(
-    @InjectRepository(Account)
-    private readonly accRepository: Repository<Account>,
-  ) {}
-  create(createAccountDto: CreateAccountDto) {
-    return this.accRepository.save(createAccountDto);
-  }
+     constructor(
+          @InjectRepository(Account)
+          private readonly accRepository: Repository<Account>,
+     ) {}
+     create(createAccountDto: CreateAccountDto) {
+          return this.accRepository.save(createAccountDto);
+     }
 
-  findAll(): Promise<Account[]> {
-    return this.accRepository.find();
-  }
+     findAll(): Promise<Account[]> {
+          return this.accRepository.find();
+     }
 
-  findOne(id): Promise<Account> {
-    return this.accRepository.findOne(id);
-  }
+     findByUsername(username): Promise<Account> {
+          return this.accRepository.findOne(username);
+     }
 
-  update(id: string, updateAccountDto: UpdateAccountDto) {
-    return this.accRepository.update(id, updateAccountDto);
-  }
+     findOne(id): Promise<Account> {
+          return this.accRepository.findOne(id);
+     }
 
-  remove(id: string) {
-    return this.accRepository.delete(id);
-  }
+     update(id: string, updateAccountDto: UpdateAccountDto) {
+          return this.accRepository.update(id, updateAccountDto);
+     }
+
+     remove(id: string) {
+          return this.accRepository.delete(id);
+     }
 }

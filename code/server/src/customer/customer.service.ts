@@ -7,28 +7,32 @@ import { Customer } from "../entities/Customer";
 
 @Injectable()
 export class CustomerService {
-  constructor(
-    @InjectRepository(Customer)
-    private readonly cusRepository: Repository<Customer>,
-  ) {}
+     constructor(
+          @InjectRepository(Customer)
+          private readonly cusRepository: Repository<Customer>,
+     ) {}
 
-  create(createCustomerDto) {
-    return this.cusRepository.save(createCustomerDto);
-  }
+     create(createCustomerDto) {
+          return this.cusRepository.save(createCustomerDto);
+     }
 
-  findAll() {
-    return this.cusRepository.find();
-  }
+     findAll() {
+          return this.cusRepository.find();
+     }
 
-  findOne(id) {
-    return this.cusRepository.findOne(id);
-  }
+     findByAccountId(accountId) {
+          return this.findOne(accountId);
+     }
 
-  update(id: string, updateCustomerDto) {
-    return this.cusRepository.update(id, updateCustomerDto);
-  }
+     findOne(id) {
+          return this.cusRepository.findOne(id);
+     }
 
-  remove(id: string) {
-    return this.cusRepository.delete(id);
-  }
+     update(id: string, updateCustomerDto) {
+          return this.cusRepository.update(id, updateCustomerDto);
+     }
+
+     remove(id: string) {
+          return this.cusRepository.delete(id);
+     }
 }

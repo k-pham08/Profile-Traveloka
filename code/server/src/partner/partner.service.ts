@@ -6,28 +6,32 @@ import { UpdatePartnerDto } from "./dto/update-partner.dto";
 import { Partner } from "../entities/Partner";
 @Injectable()
 export class PartnerService {
-  constructor(
-    @InjectRepository(Partner)
-    private readonly partnerRepository: Repository<Partner>,
-  ) {}
+     constructor(
+          @InjectRepository(Partner)
+          private readonly partnerRepository: Repository<Partner>,
+     ) {}
 
-  create(createPartnerDto) {
-    return this.partnerRepository.save(createPartnerDto);
-  }
+     create(createPartnerDto) {
+          return this.partnerRepository.save(createPartnerDto);
+     }
 
-  findAll() {
-    return this.partnerRepository.find();
-  }
+     findByAccountId(accountId) {
+          return this.partnerRepository.findOne(accountId);
+     }
 
-  findOne(id) {
-    return this.partnerRepository.findOne(id);
-  }
+     findAll() {
+          return this.partnerRepository.find();
+     }
 
-  update(id: string, updatePartnerDto) {
-    return this.partnerRepository.update(id, updatePartnerDto);
-  }
+     findOne(id) {
+          return this.partnerRepository.findOne(id);
+     }
 
-  remove(id: string) {
-    return this.partnerRepository.delete(id);
-  }
+     update(id: string, updatePartnerDto) {
+          return this.partnerRepository.update(id, updatePartnerDto);
+     }
+
+     remove(id: string) {
+          return this.partnerRepository.delete(id);
+     }
 }

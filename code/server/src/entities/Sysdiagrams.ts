@@ -2,18 +2,18 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity("sysdiagrams", { schema: "dbo" })
 export class Sysdiagrams {
-  @Column("nvarchar", { name: "name", unique: true, length: 128 })
-  name: string;
+     @Column("nvarchar", { name: "name", unique: true, length: 128 })
+     name: string;
 
-  @Column("int", { name: "principal_id", unique: true })
-  principalId: number;
+     @Column("int", { name: "principal_id", unique: true })
+     principalId: number;
 
-  @PrimaryGeneratedColumn({ type: "int", name: "diagram_id" })
-  diagramId: number;
+     @PrimaryGeneratedColumn({ type: "int", name: "diagram_id" })
+     diagramId: number;
 
-  @Column("int", { name: "version", nullable: true })
-  version: number | null;
+     @Column("int", { name: "version", nullable: true })
+     version: number | null;
 
-  @Column("varbinary", { name: "definition", nullable: true, length: 1 })
-  definition: Buffer | null;
+     @Column("varbinary", { name: "definition", nullable: true, length: 1 })
+     definition: Buffer | null;
 }
