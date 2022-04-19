@@ -1,4 +1,4 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
+import { Column, Entity, Index, OneToOne } from "typeorm";
 import { Customer } from "./Customer";
 import { Partner } from "./Partner";
 
@@ -20,9 +20,9 @@ export class Account {
   @Column("varchar", { name: "type", nullable: true, length: 10 })
   type: string | null;
 
-  @OneToMany(() => Customer, customer => customer.account)
-  customers: Customer[];
+  @OneToOne(() => Customer, customer => customer.customer)
+  customer: Customer;
 
-  @OneToMany(() => Partner, partner => partner.account)
-  partners: Partner[];
+  @OneToOne(() => Partner, partner => partner.partner)
+  partner: Partner;
 }

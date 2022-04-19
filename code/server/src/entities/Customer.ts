@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, OneToOne } from "typeorm";
 import { Account } from "./Account";
 
 @Entity("Customer", { schema: "dbo" })
@@ -28,7 +28,10 @@ export class Customer {
   @Column("numeric", { name: "phone", nullable: true, precision: 11, scale: 0 })
   phone: number | null;
 
-  @ManyToOne(() => Account, account => account.customers)
-  @JoinColumn([{ name: "account_id", referencedColumnName: "accountId" }])
-  account: Account;
+  @Column("uniqueidentifier", { name: "account_id" })
+  accountId: string;
+
+  @OneToOne(() => Account, account => account.customer)
+  @JoinColumn([{ name: "customer_id", referencedColumnName: "accountId" }])
+  customer: Account;
 }

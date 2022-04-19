@@ -1,42 +1,46 @@
-create table ACCOUNT(
-	[id] uniqueidentifier not null default NEWID() primary key,
-	[username] nvarchar(50) not null,
-	[password] nvarchar(50) not null,
-	[type] nvarchar(50) check (type in ('CUSTOMER', 'PARTNER', 'ADMIN')) not null,
-)
-
+Create table [Account] (
+	[account_id] Uniqueidentifier NOT NULL default(newid()),
+	[username] varchar(10) NULL,
+	[password] varchar(10) NULL,
+	[type] varchar(10) NULL,
+Primary Key  ([account_id])
+) 
 go
 
-create table CUSTOMER(
-	[id] uniqueidentifier not null primary key,
-	[first_name] nvarchar(50) not null,
-	[last_name] nvarchar(50) not null,
-	[email] nvarchar(100) not null,
-
-	[gender] bit not null default 0,
-	[address] nvarchar(200) not null,
-	[birthday] Date not null,
-	[phone] char(10) not null,
-)
-
+Create table [Customer] (
+	[customer_id] Uniqueidentifier NOT NULL default(newid()),
+	[name] Nvarchar(255) NULL,
+	[gender] Bit NULL,
+	[birthday] Datetime NULL,
+	[address] Nvarchar(255) NULL,
+	[email] varchar(255) NULL,
+	[phone] Numeric(11,0) NULL,
+	[account_id] Uniqueidentifier NOT NULL,
+Primary Key  ([customer_id])
+) 
 go
 
-create table [PARTNER](
-	[id] uniqueidentifier not null primary key,
-	[first_name] nvarchar(50) not null,
-	[last_name] nvarchar(50) not null,
-	[email] nvarchar(50) not null,
-	
-	[job] nvarchar(50) not null,
-	[company_name] nvarchar(50) not null,
-	[country] nvarchar(50) not null,
-	[office_address] nvarchar(200) not null,
-	[office_phone] char(10) not null,
-)
-
+Create table [Partner] (
+	[partner_id] Uniqueidentifier NOT NULL default(newid()),
+	[name] Nvarchar(255) NULL,
+	[phone] Numeric(11,0) NULL,
+	[email] varchar(255) NULL,
+	[job] Nvarchar(255) NULL,
+	[company_name] Nvarchar(255) NULL,
+	[country] Nvarchar(255) NULL,
+	[office_address] Nvarchar(255) NULL,
+	[office_phone] Numeric(11,0) NULL,
+	[account_id] Uniqueidentifier NOT NULL,
+Primary Key  ([partner_id])
+) 
 go
 
-alter table ACCOUNT add 
-	constraint FK_ACCOUNT_PARTNER foreign key (id) references [PARTNER](id),
-	constraint FK_ACCOUNT_CUSTOMER foreign key (id) references CUSTOMER(id)
-go
+
+ALTER TABLE Customer
+ADD CONSTRAINT fk_account_customer
+FOREIGN KEY (customer_id) REFERENCES Account
+
+ALTER TABLE Partner
+ADD CONSTRAINT fk_account_partner
+FOREIGN KEY (partner_id) REFERENCES Account
+

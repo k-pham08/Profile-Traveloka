@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, OneToOne } from "typeorm";
 import { Account } from "./Account";
 
 @Entity("Partner", { schema: "dbo" })
@@ -39,7 +39,10 @@ export class Partner {
   })
   officePhone: number | null;
 
-  @ManyToOne(() => Account, account => account.partners)
-  @JoinColumn([{ name: "account_id", referencedColumnName: "accountId" }])
-  account: Account;
+  @Column("uniqueidentifier", { name: "account_id" })
+  accountId: string;
+
+  @OneToOne(() => Account, account => account.partner)
+  @JoinColumn([{ name: "partner_id", referencedColumnName: "accountId" }])
+  partner: Account;
 }
