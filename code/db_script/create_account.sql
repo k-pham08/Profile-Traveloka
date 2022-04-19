@@ -2,7 +2,7 @@ create table ACCOUNT(
 	[id] uniqueidentifier not null default NEWID() primary key,
 	[username] nvarchar(50) not null,
 	[password] nvarchar(50) not null,
-	[type] nvarchar(50) check (type in ('CUSTOMER', 'PARTNER')) not null,
+	[type] nvarchar(50) check (type in ('CUSTOMER', 'PARTNER', 'ADMIN')) not null,
 )
 
 go
