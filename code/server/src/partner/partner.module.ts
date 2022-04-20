@@ -8,5 +8,6 @@ import { Partner } from "../entities/Partner";
      imports: [TypeOrmModule.forFeature([Partner])],
      controllers: [PartnerController],
      providers: [PartnerService],
+     exports: [PartnerService],
 })
 export class PartnerModule {}
