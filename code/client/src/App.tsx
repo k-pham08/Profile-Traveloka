@@ -1,25 +1,22 @@
-import React from "react";
-import Appbar from "./components/appbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./App.css";
-import Account from "./pages/account";
-import Detail from "./pages/detail";
-import Voucher from "./pages/voucher";
+import { routerConfig } from "./router";
+import { SnackbarProvider } from "notistack";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./utils/theme";
 
 function App() {
 	return (
-		<BrowserRouter>
-			<div className="App">
-				<Appbar></Appbar>
-				{/* <Account></Account> */}
-			</div>
-
-			<Routes>
-				<Route path="/account" element={<Account />} />
-				<Route path="/voucher" element={<Voucher />} />
-				<Route path="/detail" element={<Detail />} />
-			</Routes>
-		</BrowserRouter>
+		<ThemeProvider theme={theme}>
+			<SnackbarProvider maxSnack={3}>
+				<BrowserRouter>
+					<Routes>
+						{routerConfig.map(({ path, element }) => (
+							<Route path={path} element={element} />
+						))}
+					</Routes>
+				</BrowserRouter>
+			</SnackbarProvider>
+		</ThemeProvider>
 	);
 }
 

@@ -1,22 +1,22 @@
-import * as React from "react";
+import { FC } from "react";
 import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
 import Divider from "@mui/material/Divider";
 import MenuList from "@mui/material/MenuList";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemText from "@mui/material/ListItemText";
 
 import { Link } from "@mui/material";
-import UserInfo from "../components/userInfo";
-import UserReward from "../components/userReward";
-import UserOrderHistory from "../components/userOrderHistory";
 
-export default function Detail() {
+import UserInfo from "../../components/userInfo";
+import UserReward from "../../components/userReward";
+import UserOrderHistory from "../../components/userOrderHistory";
+import { BasicLayout } from "../../layouts/BasicLayout";
+
+export const Profile: FC = () => {
 	return (
-		<Grid container spacing={2} mt={2}>
-			<Grid item xs></Grid>
-			<Grid item xs={3}>
-				<Paper sx={{ width: 320 }}>
+		<BasicLayout>
+			<Grid container spacing={2} direction="row">
+				<Grid item md={3}>
 					<MenuList dense>
 						<MenuItem>
 							<Link
@@ -81,14 +81,13 @@ export default function Detail() {
 							</Link>
 						</MenuItem>
 					</MenuList>
-				</Paper>
+				</Grid>
+				<Grid item md>
+					<UserInfo />
+					<UserReward />
+					<UserOrderHistory />
+				</Grid>
 			</Grid>
-			<Grid item xs={7}>
-				<UserInfo />
-				<UserReward />
-				<UserOrderHistory />
-			</Grid>
-			<Grid item xs></Grid>
-		</Grid>
+		</BasicLayout>
 	);
-}
+};

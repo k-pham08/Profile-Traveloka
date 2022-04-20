@@ -52,7 +52,7 @@ export default function CustomizedTables() {
 			<Table sx={{ minWidth: 700 }} aria-label="customized table">
 				<TableHead>
 					<TableRow>
-						<StyledTableCell>Created Date</StyledTableCell>
+						<StyledTableCell>Order Date</StyledTableCell>
 						<StyledTableCell align="right">
 							Guess Number
 						</StyledTableCell>

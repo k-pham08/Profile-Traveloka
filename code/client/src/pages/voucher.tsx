@@ -1,5 +1,10 @@
-import React from "react";
+import { FC } from "react";
+import { BasicLayout } from "../layouts/BasicLayout";
 
-export default function voucher() {
-	return <div>voucher</div>;
-}
+export const Voucher: FC = () => {
+	return (
+		<BasicLayout>
+			<div>Voucher</div>
+		</BasicLayout>
+	);
+};

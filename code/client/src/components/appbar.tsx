@@ -11,12 +11,12 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
+import { menu } from "../router";
 
-const pages = ["account", "voucher", "order"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-const ResponsiveAppBar = () => {
+export const Appbar = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -89,13 +89,13 @@ const ResponsiveAppBar = () => {
 								display: { xs: "block", md: "none" },
 							}}
 						>
-							{pages.map((page) => (
+							{menu.map(({ path, name }) => (
 								<MenuItem
-									key={page}
+									key={name}
 									onClick={handleCloseNavMenu}
 								>
 									<Typography textAlign="center">
-										{page}
+										{name}
 									</Typography>
 								</MenuItem>
 							))}
@@ -118,10 +118,10 @@ const ResponsiveAppBar = () => {
 							display: { xs: "none", md: "flex" },
 						}}
 					>
-						{pages.map((page) => (
-							<Link href={page}>
+						{menu.map(({ name, path }) => (
+							<Link to={path}>
 								<Button
-									key={page}
+									key={name}
 									onClick={handleCloseNavMenu}
 									sx={{
 										my: 2,
@@ -129,7 +129,7 @@ const ResponsiveAppBar = () => {
 										display: "block",
 									}}
 								>
-									{page}
+									{name}
 								</Button>
 							</Link>
 						))}
@@ -180,4 +180,3 @@ const ResponsiveAppBar = () => {
 		</AppBar>
 	);
 };
-export default ResponsiveAppBar;

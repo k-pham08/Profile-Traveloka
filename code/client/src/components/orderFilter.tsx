@@ -7,13 +7,9 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 
 export default function OrderFilter() {
-	const [start, setStart] = React.useState<Date | null>(
-		new Date("2022-08-18T21:11:54")
-	);
+	const [start, setStart] = React.useState<Date | null>(new Date());
 
-	const [end, setEnd] = React.useState<Date | null>(
-		new Date("2022-08-18T21:11:54")
-	);
+	const [end, setEnd] = React.useState<Date | null>(new Date());
 
 	const handleStartChange = (newValue: Date | null) => {
 		setStart(newValue);
