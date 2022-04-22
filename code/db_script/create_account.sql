@@ -1,4 +1,4 @@
-Create table [Account] (
+Create table [ACCOUNT] (
 	[account_id] Uniqueidentifier NOT NULL default(newid()),
 	[username] varchar(10) NULL,
 	[password] varchar(10) NULL,
@@ -7,7 +7,7 @@ Primary Key  ([account_id])
 ) 
 go
 
-Create table [Customer] (
+Create table [CUSTOMER] (
 	[customer_id] Uniqueidentifier NOT NULL default(newid()),
 	[name] Nvarchar(255) NULL,
 	[gender] Bit NULL,
@@ -20,7 +20,7 @@ Primary Key  ([customer_id])
 ) 
 go
 
-Create table [Partner] (
+Create table [PARTNER] (
 	[partner_id] Uniqueidentifier NOT NULL default(newid()),
 	[name] Nvarchar(255) NULL,
 	[phone] Numeric(11,0) NULL,
