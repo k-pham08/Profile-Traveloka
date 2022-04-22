@@ -5,6 +5,7 @@ import { CreatePartnerDto } from "./dto/create-partner.dto";
 import { UpdatePartnerDto } from "./dto/update-partner.dto";
 import { Partner } from "../entities/Partner";
 import { Account } from "../entities/Account";
+import { Service } from "../entities/Service";
 @Injectable()
 export class PartnerService {
      constructor(
@@ -12,6 +13,8 @@ export class PartnerService {
           private readonly accRepository: Repository<Account>,
           @InjectRepository(Partner)
           private readonly partnerRepository: Repository<Partner>,
+          @InjectRepository(Service)
+          private readonly serviceRepository: Repository<Service>,
      ) {}
 
      async create(createPartnerDto) {
@@ -20,8 +23,8 @@ export class PartnerService {
                password: createPartnerDto.password,
                type: createPartnerDto.type,
           });
-          await this.accRepository.save(newAcc);
-          await this.partnerRepository.save({
+
+          const newPartner = await this.partnerRepository.create({
                name: createPartnerDto.name,
                phone: createPartnerDto.phone,
                email: createPartnerDto.email,
@@ -30,8 +33,12 @@ export class PartnerService {
                country: createPartnerDto.country,
                officeAddress: createPartnerDto.officeAddress,
                officePhone: createPartnerDto.officePhone,
-               accountId: newAcc.accountId,
+               partnerId: newAcc.accountId,
           });
+
+          const service = await this.serviceRepository.findOneBy({ serviceId: createPartnerDto.serviceId });
+          newPartner.service = service;
+          await this.partnerRepository.save(newPartner);
      }
 
      findByAccountId(accountId) {

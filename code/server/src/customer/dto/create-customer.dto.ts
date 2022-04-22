@@ -20,6 +20,4 @@ export class CreateCustomerDto {
      email: string;
      @ApiProperty()
      phone: number;
-     // customer: Account;
-     accountId: string;
 }

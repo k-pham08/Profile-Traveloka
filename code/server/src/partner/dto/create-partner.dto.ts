@@ -24,4 +24,6 @@ export class CreatePartnerDto {
      @ApiProperty()
      officePhone: number;
      account_id: string;
+     @ApiProperty()
+     serviceId: string;
 }
