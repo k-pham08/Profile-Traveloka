@@ -5,10 +5,10 @@ import { Account } from "./Account";
 export class Partner {
      @Column("uniqueidentifier", {
           primary: true,
-          name: "partner_id",
+          name: "account_id",
           default: () => "newid()",
      })
-     partnerId: string;
+     accountId: string;
 
      @Column("nvarchar", { name: "name", nullable: true, length: 255 })
      name: string | null;
@@ -39,10 +39,7 @@ export class Partner {
      })
      officePhone: number | null;
 
-     @Column("uniqueidentifier", { name: "account_id" })
-     accountId: string;
-
-     @OneToOne(() => Account, account => account.partner)
-     @JoinColumn([{ name: "partner_id", referencedColumnName: "accountId" }])
-     partner: Account;
+     @OneToOne(() => Account)
+     @JoinColumn()
+     account: Account;
 }

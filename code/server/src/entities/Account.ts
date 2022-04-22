@@ -19,10 +19,4 @@ export class Account {
 
      @Column("varchar", { name: "type", nullable: true, length: 10 })
      type: string | null;
-
-     @OneToOne(() => Customer, customer => customer.customer)
-     customer: Customer;
-
-     @OneToOne(() => Partner, partner => partner.partner)
-     partner: Partner;
 }

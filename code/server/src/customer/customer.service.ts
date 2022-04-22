@@ -1,19 +1,34 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { CreateAccountDto } from "../account/dto/create-account.dto";
+import { Account } from "../entities/Account";
+import { Customer } from "../entities/Customer";
 import { CreateCustomerDto } from "./dto/create-customer.dto";
 import { UpdateCustomerDto } from "./dto/update-customer.dto";
-import { Customer } from "../entities/Customer";
 
 @Injectable()
 export class CustomerService {
      constructor(
+          @InjectRepository(Account)
+          private readonly accRepository: Repository<Account>,
           @InjectRepository(Customer)
           private readonly cusRepository: Repository<Customer>,
      ) {}
 
-     create(createCustomerDto) {
-          return this.cusRepository.save(createCustomerDto);
+     async create(createCustomerDto: CreateCustomerDto) {
+          const newAccount = await this.accRepository.create({ username: createCustomerDto.username, password: createCustomerDto.password, type: createCustomerDto.type });
+          console.log(newAccount.accountId);
+          await this.accRepository.save(newAccount);
+          await this.cusRepository.save({
+               accountId: newAccount.accountId,
+               name: createCustomerDto.name,
+               gender: createCustomerDto.gender,
+               birthday: createCustomerDto.birthday,
+               address: createCustomerDto.address,
+               email: createCustomerDto.email,
+               phone: createCustomerDto.phone,
+          });
      }
 
      findAll() {
@@ -33,6 +48,7 @@ export class CustomerService {
      }
 
      remove(id: string) {
-          return this.cusRepository.delete(id);
+          this.cusRepository.delete(id);
+          this.accRepository.delete(id);
      }
 }
