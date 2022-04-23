@@ -89,7 +89,7 @@ export const Appbar = () => {
 								display: { xs: "block", md: "none" },
 							}}
 						>
-							{menu.map(({ path, name }) => (
+							{menu.map(({ name }) => (
 								<MenuItem
 									key={name}
 									onClick={handleCloseNavMenu}

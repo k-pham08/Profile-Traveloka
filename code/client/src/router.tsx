@@ -1,5 +1,8 @@
+<<<<<<< HEAD
+=======
 import { ReactNode } from "react";
 
+>>>>>>> d3dfb8935b892b732fb8d2f258db3122272829ca
 // import page
 import {
 	Login,
@@ -14,23 +17,27 @@ import UserHome from "./user/pages/UserHome";
 import UserProfile from "./user/pages/UserProfile";
 import UserRegister from "./user/pages/UserRegister";
 
-export const routerConfig: Array<{
-	path: string;
-	element: ReactNode;
-	allowAnonymous?: Boolean;
-}> = [
-	{ path: "/", element: <Home />, allowAnonymous: true },
-	{ path: "/login", element: <Login />, allowAnonymous: true },
-	{ path: "/register/customer", element: <UserRegister /> },
-	{ path: "/vouchers", element: <Voucher /> },
-	{ path: "/orders", element: <Order /> },
-	{ path: "*", element: <NotFound />, allowAnonymous: true },
-	{ path: "/accounts", element: <Account /> },
-	{ path: "/accounts/:account", element: <Profile /> },
-	{ path: "/home", element: <UserHome /> },
-	{ path: "/user/account", element: <UserProfile /> },
+// u can add new route in here
+export const routerConfig = [
+	{ path: "/", component: Home, exact: true },
+	{ path: "/login", component: Login },
+	{ path: "/vouchers", component: Voucher, isPrivate: true },
+	{ path: "/orders", component: Order, isPrivate: true },
+	{
+		path: "/accounts",
+		component: Account,
+		isPrivate: true,
+		exact: true,
+	},
+	{
+		path: "/accounts/:account",
+		component: Profile,
+		isPrivate: true,
+	},
+	{ path: "*", component: NotFound, exact: true },
 ];
 
+// u can add new item in menu here
 export const menu = [
 	{ name: "accounts", path: "/accounts" },
 	{ name: "vouchers", path: "/vouchers" },

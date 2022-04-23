@@ -1,11 +1,10 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { FC } from "react";
 import { ErrorOutline, ArrowBack } from "@mui/icons-material";
-import { useParams, useNavigate } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const NotFound: FC = () => {
-	const router = useParams();
-	const navigator = useNavigate();
+	const history = useHistory();
 
 	return (
 		<Grid
@@ -20,13 +19,11 @@ export const NotFound: FC = () => {
 			<Typography variant="h3" align="center">
 				NOT FOUND 404
 			</Typography>
-			<Typography variant="subtitle2" align="center">
-				/{router["*"]}
-			</Typography>
+			<Typography variant="subtitle2" align="center"></Typography>
 			<Button
 				variant="outlined"
 				onClick={() => {
-					navigator("/");
+					history.push("/");
 				}}
 				startIcon={<ArrowBack />}
 			>
