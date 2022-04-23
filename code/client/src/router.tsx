@@ -1,5 +1,4 @@
 import { ReactNode } from "react";
-import type { RouteObject } from "react-router-dom";
 
 // import page
 import {
