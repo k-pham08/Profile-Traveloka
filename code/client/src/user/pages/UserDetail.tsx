@@ -1,79 +1,102 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid";
-import Paper from "@mui/material/Paper";
-import MenuList from "@mui/material/MenuList";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import TextField from "@mui/material/TextField";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import { Select, SelectChangeEvent } from "@mui/material";
+import { MenuItem } from "@mui/material";
+import { Paper } from "@mui/material";
+import { Button } from "@mui/material";
 
-import { Link } from "react-router-dom";
-import UserInfo from "../../components/userInfo";
+export default function UserDetail() {
+	const [date, setDate] = React.useState<Date | null>(
+		new Date("2022-08-18T21:11:54")
+	);
 
-export default function Detail() {
-	const settings = [
-		"Chỉnh sửa hồ sơ",
-		"Điểm thưởng của tôi",
-		"Thẻ của tôi",
-		"Danh sách giao dịch",
-		"Đặt chỗ của tôi",
-		"Thông báo giá vé máy bay",
-		"Khuyến mãi",
-		"Đăng xuất",
-	];
-	const menuIcons = [
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/5/57c03b6d35b76670f2d701310cc18b26.svg",
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/e/e092465666a2dfe398407794a893cbcc.svg",
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/4/468b3a08ab94b440b4e09fb9130eee1e.svg",
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0965a06a63e873adb97d5ed7d7b92dbe.svg",
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/b/b0f87008a7a01d72ffb5eacf06870cba.svg",
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/7/70100d4a2047ac955124953dbc3351db.svg",
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/c/cef9778118bdd85e1062cdd0b6196362.svg",
-		"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6464840154eb190d10525ea67e77648a.svg",
-	];
+	const [values, setValues] = React.useState({
+		amount: "",
+		password: "",
+		weight: "",
+		weightRange: "",
+		showPassword: false,
+	});
+
+	const handleDateChange = (newValue: Date | null) => {
+		setDate(newValue);
+	};
+
+	const [gender, setGender] = React.useState("");
+
+	const handleGenderChange = (event: SelectChangeEvent) => {
+		setGender(event.target.value as string);
+	};
+
 	return (
-		<Grid container spacing={2} mt={2}>
-			<Grid item xs></Grid>
-			<Grid item xs={3}>
-				<Paper sx={{ width: 320 }}>
-					<MenuList dense>
-						{settings.map((setting, index) => (
-							<MenuItem
-								key={setting}
-								sx={{ color: "black" }}
-							>
-								<Link
-									to="/detail"
-									style={{
-										width: "fit-content",
-										display: "flex",
-										justifyContent: "center",
-										textDecoration: "none",
-									}}
-								>
-									<img
-										src={menuIcons[index]}
-										alt="Menu"
-										style={{
-											marginRight: "1rem",
-										}}
-									/>
-									<span
-										style={{
-											color: "black",
-											fontWeight: "600",
-										}}
-									>
-										{setting}
-									</span>
-								</Link>
-							</MenuItem>
-						))}
-					</MenuList>
-				</Paper>
-			</Grid>
-			<Grid item xs={7}>
-				<UserInfo />
-			</Grid>
-			<Grid item xs></Grid>
-		</Grid>
+		<Paper
+			elevation={12}
+			sx={{ display: "flex", flexWrap: "wrap", mb: 2 }}
+		>
+			<h2 style={{ margin: "1rem" }}>Dữ liệu cá nhân</h2>
+			<FormControl sx={{ m: 1, width: 1 }}>
+				<InputLabel htmlFor="outlined-adornment">
+					Tên đầy đủ
+				</InputLabel>
+				<OutlinedInput
+					id="outlined-adornment"
+					value={values.amount}
+					startAdornment={
+						<InputAdornment position="start"></InputAdornment>
+					}
+					label="Tên đầy đủ"
+				/>
+			</FormControl>
+			<FormControl sx={{ m: 1, width: "25ch" }}>
+				<InputLabel id="demo-simple-select-label">
+					Giới tính
+				</InputLabel>
+				<Select
+					labelId="gender-select-label"
+					id="gender-select"
+					label="Giới tính"
+					value={gender}
+					onChange={handleGenderChange}
+				>
+					<MenuItem value={10}>Nam</MenuItem>
+					<MenuItem value={20}>Nữ</MenuItem>
+				</Select>
+			</FormControl>
+			<FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
+				<LocalizationProvider dateAdapter={AdapterDateFns}>
+					<DesktopDatePicker
+						label="Ngày sinh"
+						inputFormat="MM/dd/yyyy"
+						value={date}
+						onChange={handleDateChange}
+						renderInput={(params: any) => (
+							<TextField {...params} />
+						)}
+					/>
+				</LocalizationProvider>
+			</FormControl>
+			<FormControl fullWidth sx={{ m: 1 }}>
+				<InputLabel htmlFor="outlined">Địa chỉ</InputLabel>
+				<OutlinedInput id="outlined" label="Địa chỉ" />
+			</FormControl>
+			<FormControl fullWidth sx={{ m: 1, width: "50ch" }}>
+				<InputLabel htmlFor="outlined">Email</InputLabel>
+				<OutlinedInput id="outlined" label="Email" />
+			</FormControl>
+			<FormControl fullWidth sx={{ m: 1, width: "40ch" }}>
+				<InputLabel htmlFor="outlined">Số điện thoại</InputLabel>
+				<OutlinedInput id="outlined" label="Số điện thoại" />
+			</FormControl>
+			<FormControl fullWidth sx={{ m: 1 }}>
+				<Button variant="contained">Lưu</Button>
+			</FormControl>
+		</Paper>
 	);
 }

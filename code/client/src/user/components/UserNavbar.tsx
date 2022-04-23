@@ -70,7 +70,7 @@ const ResponsiveAppBar = () => {
 	};
 
 	return (
-		<AppBar position="static" color="inherit" sx={{ mb: 2 }}>
+		<AppBar position="static" color="inherit">
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<UserDrawer></UserDrawer>
