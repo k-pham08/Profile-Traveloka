@@ -1,4 +1,5 @@
-import { Column, Entity, Index, JoinColumn, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
+import { ServiceClassify } from "../entities/ServiceClassify";
 import { Partner } from "./Partner";
 
 @Entity("SERVICE", { schema: "dbo" })
@@ -15,4 +16,7 @@ export class Service {
 
      @OneToMany(() => Partner, partner => partner.service)
      partner: Partner[];
+
+     @OneToMany(() => ServiceClassify, serviceClassify => serviceClassify.service)
+     serviceClassify: ServiceClassify[];
 }

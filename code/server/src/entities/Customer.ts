@@ -1,5 +1,6 @@
 import { Column, Entity, Index, JoinColumn, OneToOne } from "typeorm";
 import { Account } from "./Account";
+import { Reward } from "./Reward";
 
 @Entity("CUSTOMER", { schema: "dbo" })
 export class Customer {

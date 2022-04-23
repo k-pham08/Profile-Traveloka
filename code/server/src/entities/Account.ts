@@ -1,4 +1,6 @@
-import { Column, Entity, Index } from "typeorm";
+import { Column, Entity, Index, OneToOne } from "typeorm";
+import { Customer } from "./Customer";
+import { Partner } from "./Partner";
 
 @Entity("ACCOUNT", { schema: "dbo" })
 export class Account {

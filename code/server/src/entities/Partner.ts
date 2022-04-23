@@ -1,4 +1,4 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, OneToOne } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { Account } from "./Account";
 import { Service } from "./Service";
 
@@ -39,6 +39,6 @@ export class Partner {
      @JoinColumn()
      partner: Account;
 
-     @ManyToOne(() => Service, (service) => service.partner)
-     service: Service
+     @ManyToOne(() => Service, service => service.partner)
+     service: Service;
 }
