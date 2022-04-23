@@ -14,28 +14,28 @@ use [Profile]
 go
 
 Create table [ACCOUNT] (
-	[account_id] Uniqueidentifier NOT NULL default(newid()),
+	[id] Uniqueidentifier NOT NULL default(newid()),
 	[username] varchar(255) NOT NULL,
 	[password] varchar(255) NOT NULL,
-	[type] varchar(255) NOT NULL,
-Primary Key  ([account_id])
+	[type] varchar(255) NOT NULL check (type in ('ADMIN', 'CUSTOMER', 'PARTNER')),
+Primary Key  ([id])
 ) 
 go
 
 Create table [CUSTOMER] (
-	[customer_id] Uniqueidentifier NOT NULL default(newid()),
+	[account_id] Uniqueidentifier NOT NULL default(newid()),
 	[name] Nvarchar(255) NOT NULL,
 	[gender] Bit NOT NULL,
 	[birthday] Datetime NOT NULL,
 	[address] Nvarchar(255) NOT NULL,
 	[email] varchar(255) NOT NULL,
 	[phone] Numeric(11,0) NOT NULL,
-Primary Key  ([customer_id])
+Primary Key  ([account_id])
 ) 
 go
 
 Create table [PARTNER] (
-	[partner_id] Uniqueidentifier NOT NULL default(newid()),
+	[account_id] Uniqueidentifier NOT NULL default(newid()),
 	[name] Nvarchar(255) NOT NULL,
 	[phone] Numeric(11,0) NOT NULL,
 	[email] varchar(255) NOT NULL,
@@ -44,7 +44,7 @@ Create table [PARTNER] (
 	[country] Nvarchar(255) NOT NULL,
 	[office_address] Nvarchar(255) NOT NULL,
 	[office_phone] Numeric(11,0) NOT NULL,
-Primary Key  ([partner_id])
+Primary Key  ([account_id])
 ) 
 go
 
@@ -97,3 +97,7 @@ insert into SERVICE
 values (newid(), N'Voucher')
 insert into SERVICE
 values (newid(), N'Combo tiết kiệm')
+
+
+insert into ACCOUNT
+values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'ADMIN')
