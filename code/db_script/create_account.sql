@@ -1,3 +1,18 @@
+use master
+
+go
+
+if exists (select 1 from SYS.DATABASES where name = N'Profile')
+	drop database Profile
+
+create database [Profile]
+
+go
+
+use [Profile]
+
+go
+
 Create table [ACCOUNT] (
 	[account_id] Uniqueidentifier NOT NULL default(newid()),
 	[username] varchar(255) NOT NULL,
