@@ -1,6 +1,3 @@
-import { ReactNode } from "react";
-import type { RouteObject } from "react-router-dom";
-
 // import page
 import {
 	Login,
@@ -12,20 +9,27 @@ import {
 	Order,
 } from "./pages";
 
-export const routerConfig: Array<{
-	path: string;
-	element: ReactNode;
-	allowAnonymous?: Boolean;
-}> = [
-	{ path: "/", element: <Home />, allowAnonymous: true },
-	{ path: "/login", element: <Login />, allowAnonymous: true },
-	{ path: "/vouchers", element: <Voucher /> },
-	{ path: "/orders", element: <Order /> },
-	{ path: "*", element: <NotFound />, allowAnonymous: true },
-	{ path: "/accounts", element: <Account /> },
-	{ path: "/accounts/:account", element: <Profile /> },
+// u can add new route in here
+export const routerConfig = [
+	{ path: "/", component: Home, exact: true },
+	{ path: "/login", component: Login },
+	{ path: "/vouchers", component: Voucher, isPrivate: true },
+	{ path: "/orders", component: Order, isPrivate: true },
+	{
+		path: "/accounts",
+		component: Account,
+		isPrivate: true,
+		exact: true,
+	},
+	{
+		path: "/accounts/:account",
+		component: Profile,
+		isPrivate: true,
+	},
+	{ path: "*", component: NotFound, exact: true },
 ];
 
+// u can add new item in menu here
 export const menu = [
 	{ name: "accounts", path: "/accounts" },
 	{ name: "vouchers", path: "/vouchers" },
