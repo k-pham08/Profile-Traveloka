@@ -1,7 +1,8 @@
 import { Column, Entity, Index, JoinColumn, OneToOne } from "typeorm";
 import { Account } from "./Account";
+import { Reward } from "./Reward";
 
-@Entity("Customer", { schema: "dbo" })
+@Entity("CUSTOMER", { schema: "dbo" })
 export class Customer {
      @Column("uniqueidentifier", {
           primary: true,
@@ -10,28 +11,25 @@ export class Customer {
      })
      customerId: string;
 
-     @Column("nvarchar", { name: "name", nullable: true, length: 255 })
-     name: string | null;
+     @Column("nvarchar", { name: "name", length: 255 })
+     name: string;
 
-     @Column("bit", { name: "gender", nullable: true })
-     gender: boolean | null;
+     @Column("bit", { name: "gender" })
+     gender: boolean;
 
-     @Column("datetime", { name: "birthday", nullable: true })
-     birthday: Date | null;
+     @Column("datetime", { name: "birthday" })
+     birthday: Date;
 
-     @Column("nvarchar", { name: "address", nullable: true, length: 255 })
-     address: string | null;
+     @Column("nvarchar", { name: "address", length: 255 })
+     address: string;
 
-     @Column("varchar", { name: "email", nullable: true, length: 255 })
-     email: string | null;
+     @Column("varchar", { name: "email", length: 255 })
+     email: string;
 
-     @Column("numeric", { name: "phone", nullable: true, precision: 11, scale: 0 })
-     phone: number | null;
+     @Column("numeric", { name: "phone", precision: 11, scale: 0 })
+     phone: number;
 
-     @Column("uniqueidentifier", { name: "account_id" })
-     accountId: string;
-
-     @OneToOne(() => Account, account => account.customer)
-     @JoinColumn([{ name: "customer_id", referencedColumnName: "accountId" }])
+     @OneToOne(() => Account)
+     @JoinColumn()
      customer: Account;
 }

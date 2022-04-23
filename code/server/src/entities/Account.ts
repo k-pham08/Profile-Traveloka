@@ -2,7 +2,7 @@ import { Column, Entity, Index, OneToOne } from "typeorm";
 import { Customer } from "./Customer";
 import { Partner } from "./Partner";
 
-@Entity("Account", { schema: "dbo" })
+@Entity("ACCOUNT", { schema: "dbo" })
 export class Account {
      @Column("uniqueidentifier", {
           primary: true,
@@ -11,18 +11,12 @@ export class Account {
      })
      accountId: string;
 
-     @Column("varchar", { name: "username", nullable: true, length: 10 })
-     username: string | null;
+     @Column("varchar", { name: "username", length: 255 })
+     username: string;
 
-     @Column("varchar", { name: "password", nullable: true, length: 10 })
-     password: string | null;
+     @Column("varchar", { name: "password", length: 255 })
+     password: string;
 
-     @Column("varchar", { name: "type", nullable: true, length: 10 })
-     type: string | null;
-
-     @OneToOne(() => Customer, customer => customer.customer)
-     customer: Customer;
-
-     @OneToOne(() => Partner, partner => partner.partner)
-     partner: Partner;
+     @Column("varchar", { name: "type", length: 255 })
+     type: string;
 }

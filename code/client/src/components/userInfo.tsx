@@ -36,11 +36,14 @@ export default function UserInfo() {
 	};
 
 	return (
-		<Paper sx={{ display: "flex", flexWrap: "wrap", mb: 2 }}>
-			<h2 style={{ margin: "1rem" }}>Personal Detail</h2>
+		<Paper
+			elevation={12}
+			sx={{ display: "flex", flexWrap: "wrap", mb: 2 }}
+		>
+			<h2 style={{ margin: "1rem" }}>Dữ liệu cá nhân</h2>
 			<FormControl sx={{ m: 1, width: 1 }}>
 				<InputLabel htmlFor="outlined-adornment">
-					Full name
+					Tên đầy đủ
 				</InputLabel>
 				<OutlinedInput
 					id="outlined-adornment"
@@ -48,29 +51,28 @@ export default function UserInfo() {
 					startAdornment={
 						<InputAdornment position="start"></InputAdornment>
 					}
-					label="fullname"
+					label="Tên đầy đủ"
 				/>
 			</FormControl>
 			<FormControl sx={{ m: 1, width: "25ch" }}>
 				<InputLabel id="demo-simple-select-label">
-					Gender
+					Giới tính
 				</InputLabel>
 				<Select
 					labelId="gender-select-label"
 					id="gender-select"
-					label="Gender"
+					label="Giới tính"
 					value={gender}
 					onChange={handleGenderChange}
 				>
-					<MenuItem value={10}>Male</MenuItem>
-					<MenuItem value={20}>Female</MenuItem>
-					<MenuItem value={30}>Other</MenuItem>
+					<MenuItem value={10}>Nam</MenuItem>
+					<MenuItem value={20}>Nữ</MenuItem>
 				</Select>
 			</FormControl>
 			<FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
 				<LocalizationProvider dateAdapter={AdapterDateFns}>
 					<DesktopDatePicker
-						label="Date desktop"
+						label="Ngày sinh"
 						inputFormat="MM/dd/yyyy"
 						value={date}
 						onChange={handleDateChange}
@@ -81,19 +83,19 @@ export default function UserInfo() {
 				</LocalizationProvider>
 			</FormControl>
 			<FormControl fullWidth sx={{ m: 1 }}>
-				<InputLabel htmlFor="outlined">Address</InputLabel>
-				<OutlinedInput id="outlined" label="Address" />
+				<InputLabel htmlFor="outlined">Địa chỉ</InputLabel>
+				<OutlinedInput id="outlined" label="Địa chỉ" />
 			</FormControl>
 			<FormControl fullWidth sx={{ m: 1, width: "50ch" }}>
 				<InputLabel htmlFor="outlined">Email</InputLabel>
 				<OutlinedInput id="outlined" label="Email" />
 			</FormControl>
 			<FormControl fullWidth sx={{ m: 1, width: "40ch" }}>
-				<InputLabel htmlFor="outlined">Phone number</InputLabel>
-				<OutlinedInput id="outlined" label="Phone-number" />
+				<InputLabel htmlFor="outlined">Số điện thoại</InputLabel>
+				<OutlinedInput id="outlined" label="Số điện thoại" />
 			</FormControl>
 			<FormControl fullWidth sx={{ m: 1 }}>
-				<Button variant="contained">Save</Button>
+				<Button variant="contained">Lưu</Button>
 			</FormControl>
 		</Paper>
 	);

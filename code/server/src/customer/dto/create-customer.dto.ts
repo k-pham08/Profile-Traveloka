@@ -1,6 +1,13 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Account } from "../../entities/Account";
 
 export class CreateCustomerDto {
+     @ApiProperty()
+     username: string;
+     @ApiProperty()
+     password: string;
+     @ApiProperty()
+     type: string;
      @ApiProperty()
      name: string;
      @ApiProperty()
@@ -13,6 +20,4 @@ export class CreateCustomerDto {
      email: string;
      @ApiProperty()
      phone: number;
-     @ApiProperty()
-     account_id: string;
 }

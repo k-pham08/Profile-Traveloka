@@ -8,7 +8,7 @@ import ListItemText from "@mui/material/ListItemText";
 import { Link } from "@mui/material";
 
 import UserInfo from "../../components/userInfo";
-import UserReward from "../../components/userReward";
+import UserReward from "../../user/components/UserReward";
 import UserOrderHistory from "../../components/userOrderHistory";
 import { BasicLayout } from "../../layouts/BasicLayout";
 

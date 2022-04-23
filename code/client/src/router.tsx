@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import { ReactNode } from "react";
+
+>>>>>>> d3dfb8935b892b732fb8d2f258db3122272829ca
 // import page
 import {
 	Login,
@@ -8,6 +13,9 @@ import {
 	Home,
 	Order,
 } from "./pages";
+import UserHome from "./user/pages/UserHome";
+import UserProfile from "./user/pages/UserProfile";
+import UserRegister from "./user/pages/UserRegister";
 
 // u can add new route in here
 export const routerConfig = [
