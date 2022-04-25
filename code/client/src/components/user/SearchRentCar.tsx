@@ -1,15 +1,14 @@
-import * as React from "react";
+import { useState } from "react";
 import {
 	Box,
 	Button,
-	Checkbox,
 	FormControl,
-	FormControlLabel,
 	InputLabel,
 	MenuItem,
 	Select,
 	TextField,
 } from "@mui/material";
+
 import {
 	DesktopDatePicker,
 	LocalizationProvider,
@@ -17,11 +16,11 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-export default function SearchRentCar() {
-	const [date, setDate] = React.useState<Date | null>(
+export const SearchRentCar = () => {
+	const [date, setDate] = useState<Date | null>(
 		new Date("2022-08-18T21:11:54")
 	);
-	const [value, setValue] = React.useState<Date | null>(null);
+	const [value, setValue] = useState<Date | null>(null);
 	const handleDateChange = (newValue: Date | null) => {
 		setDate(newValue);
 	};
@@ -144,4 +143,4 @@ export default function SearchRentCar() {
 			</Button>
 		</Box>
 	);
-}
+};

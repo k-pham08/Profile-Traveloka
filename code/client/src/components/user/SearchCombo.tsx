@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import {
 	Box,
 	Button,
@@ -12,8 +12,9 @@ import {
 } from "@mui/material";
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-export default function SearchCombo() {
-	const [date, setDate] = React.useState<Date | null>(
+
+export const SearchCombo = () => {
+	const [date, setDate] = useState<Date | null>(
 		new Date("2022-08-18T21:11:54")
 	);
 	const handleDateChange = (newValue: Date | null) => {
@@ -189,4 +190,4 @@ export default function SearchCombo() {
 			</Button>
 		</Box>
 	);
-}
+};

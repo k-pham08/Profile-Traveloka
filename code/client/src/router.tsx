@@ -8,7 +8,7 @@ import {
 	Home,
 	Order,
 } from "./pages";
-import UserHome from "./user/pages/UserHome";
+import UserHome from "./pages/user/UserHome";
 import UserProfile from "./user/pages/UserProfile";
 import UserRegister from "./user/pages/UserRegister";
 
