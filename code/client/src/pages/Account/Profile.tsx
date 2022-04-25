@@ -1,15 +1,16 @@
 import { FC } from "react";
-import Grid from "@mui/material/Grid";
-import Divider from "@mui/material/Divider";
-import MenuList from "@mui/material/MenuList";
-import MenuItem from "@mui/material/MenuItem";
-import ListItemText from "@mui/material/ListItemText";
+import {
+	Grid,
+	Divider,
+	MenuList,
+	MenuItem,
+	ListItemText,
+} from "@mui/material/";
 
-import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
 
-import UserInfo from "../../components/user/UserInfo";
-import UserReward from "../../user/components/UserReward";
-import UserOrderHistory from "../../components/userOrderHistory";
+import { UserInfo, UserReward } from "../../components/user/";
+import { UserOrderHistory } from "../../components/userOrderHistory";
 import { BasicLayout } from "../../layouts/BasicLayout";
 
 export const Profile: FC = () => {
@@ -19,30 +20,21 @@ export const Profile: FC = () => {
 				<Grid item md={3}>
 					<MenuList dense>
 						<MenuItem>
-							<Link
-								href="/detail"
-								underline="none"
-								color="black"
-							>
+							<Link to="/detail" color="black">
 								<ListItemText>
 									Personal Infomation
 								</ListItemText>
 							</Link>
 						</MenuItem>
 						<MenuItem>
-							<Link
-								href="/detail/reward"
-								underline="none"
-								color="black"
-							>
+							<Link to="/detail/reward" color="black">
 								<ListItemText>Reward</ListItemText>
 							</Link>
 						</MenuItem>
 						<Divider />
 						<MenuItem>
 							<Link
-								href="/detail/order-history"
-								underline="none"
+								to="/detail/order-history"
 								color="black"
 							>
 								<ListItemText>
@@ -51,28 +43,19 @@ export const Profile: FC = () => {
 							</Link>
 						</MenuItem>
 						<MenuItem>
-							<Link
-								href="/detail/orders"
-								underline="none"
-								color="black"
-							>
+							<Link to="/detail/orders" color="black">
 								<ListItemText>List Ordrer</ListItemText>
 							</Link>
 						</MenuItem>
 						<MenuItem>
-							<Link
-								href="/detail/voucher"
-								underline="none"
-								color="black"
-							>
+							<Link to="/detail/voucher" color="black">
 								<ListItemText>Voucher</ListItemText>
 							</Link>
 						</MenuItem>
 						<Divider />
 						<MenuItem>
 							<Link
-								href="/detail/notification"
-								underline="none"
+								to="/detail/notification"
 								color="black"
 							>
 								<ListItemText>

@@ -25,10 +25,10 @@ const card = (
 	</Fragment>
 );
 
-export default function UserReward() {
+export const UserReward = () => {
 	return (
 		<Paper>
 			<Card variant="outlined">{card}</Card>
 		</Paper>
 	);
-}
+};

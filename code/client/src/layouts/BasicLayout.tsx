@@ -2,7 +2,7 @@ import { FC, ReactNode } from "react";
 import { Container } from "@mui/material";
 
 import { Appbar } from "../components/appbar";
-import UserNavbar from "../user/components/UserNavbar";
+import { UserNavbar } from "../components/user";
 
 import "./BasicLayout.module.scss";
 
