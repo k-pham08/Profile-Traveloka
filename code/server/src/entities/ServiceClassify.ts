@@ -1,4 +1,5 @@
-import { Column, Entity, Index, ManyToMany, ManyToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { PriceBracket } from "./PriceBracket";
 import { Service } from "./Service";
 
 @Entity("SERVICE_CLASSIFY", { schema: "dbo" })
@@ -13,6 +14,10 @@ export class ServiceClassify {
      @Column("nvarchar", { name: "name", length: 255 })
      name: string;
 
-     @ManyToOne(() => Service, service => service.serviceClassify)
+     @OneToOne(() => PriceBracket, priceBracket => priceBracket.serClassify)
+     priceBracket: PriceBracket;
+
+     @ManyToOne(() => Service, service => service.serviceClassifies)
+     @JoinColumn([{ name: "serviceId", referencedColumnName: "companyId" }])
      service: Service;
 }

@@ -1,8 +1,6 @@
 import { ApiProperty } from "@nestjs/swagger";
 
-export class CreateServiceClassifyDto {
+export class CreateUserTypeDto {
      @ApiProperty()
      name: string;
-     @ApiProperty()
-     serviceName: string;
 }

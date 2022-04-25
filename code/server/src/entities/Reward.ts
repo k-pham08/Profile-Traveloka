@@ -1,14 +1,14 @@
-import { Column, Entity, Index, JoinColumn, OneToOne } from "typeorm";
-import { Customer } from "./Customer";
+import { Column, Entity, Index, OneToOne } from "typeorm";
+import { User } from "./User";
 
 @Entity("REWARD", { schema: "dbo" })
 export class Reward {
      @Column("uniqueidentifier", {
           primary: true,
-          name: "customer_id",
+          name: "user_id",
           default: () => "newid()",
      })
-     customerId: string;
+     userId: string;
 
      @Column("numeric", { name: "reward", precision: 18, scale: 0 })
      reward: number;
@@ -16,7 +16,6 @@ export class Reward {
      @Column("numeric", { name: "value", precision: 18, scale: 0 })
      value: number;
 
-     @OneToOne(() => Customer)
-     @JoinColumn()
-     userReward: Customer;
+     @OneToOne(() => User, user => user.rewardUser)
+     user: User;
 }

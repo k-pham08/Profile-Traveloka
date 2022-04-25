@@ -18,6 +18,10 @@ export class ServiceService {
           return this.serRepository.findOne(id);
      }
 
+     findOneBy(name: string) {
+          return this.serRepository.findOneBy({ serviceName: name.toUpperCase() });
+     }
+
      update(id: string, updateServiceDto) {
           return this.serRepository.update(id, updateServiceDto);
      }

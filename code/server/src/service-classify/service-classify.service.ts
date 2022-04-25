@@ -16,7 +16,7 @@ export class ServiceClassifyService {
      ) {}
      async create(createServiceClassifyDto: CreateServiceClassifyDto) {
           const classify = await this.serClassifyRepository.create(createServiceClassifyDto);
-          const service = await this.serRepository.findOneBy({ serviceId: createServiceClassifyDto.serviceId });
+          const service = await this.serRepository.findOneBy({ serviceName: createServiceClassifyDto.serviceName.toUpperCase() });
           classify.service = service;
           await this.serClassifyRepository.save(classify);
      }
