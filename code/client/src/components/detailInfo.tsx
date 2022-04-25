@@ -1,14 +1,15 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Select } from "@mui/material";
-import { MenuItem } from "@mui/material";
+import { useState, ChangeEvent, MouseEvent } from "react";
+import { VisibilityOff, Visibility } from "@mui/icons-material/";
+import {
+	MenuItem,
+	Select,
+	FormControl,
+	InputAdornment,
+	InputLabel,
+	OutlinedInput,
+	IconButton,
+	Box,
+} from "@mui/material";
 
 interface State {
 	amount: string;
@@ -18,8 +19,8 @@ interface State {
 	showPassword: boolean;
 }
 
-export default function InputAdornments() {
-	const [values, setValues] = React.useState<State>({
+export const DetailInfo = () => {
+	const [values, setValues] = useState<State>({
 		amount: "",
 		password: "",
 		weight: "",
@@ -28,8 +29,7 @@ export default function InputAdornments() {
 	});
 
 	const handleChange =
-		(prop: keyof State) =>
-		(event: React.ChangeEvent<HTMLInputElement>) => {
+		(prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
 			setValues({ ...values, [prop]: event.target.value });
 		};
 
@@ -40,9 +40,7 @@ export default function InputAdornments() {
 		});
 	};
 
-	const handleMouseDownPassword = (
-		event: React.MouseEvent<HTMLButtonElement>
-	) => {
+	const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 	};
 
@@ -117,4 +115,4 @@ export default function InputAdornments() {
 			</div>
 		</Box>
 	);
-}
+};

@@ -1,17 +1,20 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import { Select, SelectChangeEvent } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { InputLabel } from "@mui/material";
-import { FormControl } from "@mui/material";
+import { useState } from "react";
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	Select,
+	SelectChangeEvent,
+	Dialog,
+	DialogActions,
+	DialogContent,
+	DialogTitle,
+	TextField,
+	Button,
+} from "@mui/material";
 
-export default function FormDialog() {
-	const [open, setOpen] = React.useState(false);
+export const FormDialog = () => {
+	const [open, setOpen] = useState(false);
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -21,7 +24,7 @@ export default function FormDialog() {
 		setOpen(false);
 	};
 
-	const [role, setRole] = React.useState("");
+	const [role, setRole] = useState("");
 
 	const handleRoleChange = (event: SelectChangeEvent) => {
 		setRole(event.target.value as string);
@@ -77,4 +80,4 @@ export default function FormDialog() {
 			</Dialog>
 		</div>
 	);
-}
+};

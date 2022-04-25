@@ -10,3 +10,4 @@ export * from "./SearchShuttle";
 export * from "./UserChangePassword";
 export * from "./UserDrawer";
 export * from "./UserReward";
+export * from "./UserInfo";

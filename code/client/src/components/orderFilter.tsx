@@ -1,15 +1,13 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
+import { useState } from "react";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { Container, FormControl } from "@mui/material";
-import { TextField } from "@mui/material";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { Container, FormControl, Button, TextField } from "@mui/material";
 
-export default function OrderFilter() {
-	const [start, setStart] = React.useState<Date | null>(new Date());
+export const OrderFilter = () => {
+	const [start, setStart] = useState<Date | null>(new Date());
 
-	const [end, setEnd] = React.useState<Date | null>(new Date());
+	const [end, setEnd] = useState<Date | null>(new Date());
 
 	const handleStartChange = (newValue: Date | null) => {
 		setStart(newValue);
@@ -54,4 +52,4 @@ export default function OrderFilter() {
 			</Button>
 		</Container>
 	);
-}
+};

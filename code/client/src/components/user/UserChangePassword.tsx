@@ -1,14 +1,16 @@
-import * as React from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import { IconButton } from "@mui/material";
-import { Paper } from "@mui/material";
-import { Button } from "@mui/material";
+import { useState, MouseEvent, ChangeEvent } from "react";
+import {
+	IconButton,
+	Paper,
+	Button,
+	OutlinedInput,
+	InputLabel,
+	InputAdornment,
+	FormControl,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-export default function UserChangePassword() {
+export const UserChangePassword = () => {
 	interface State {
 		amount: string;
 		password: string;
@@ -16,7 +18,7 @@ export default function UserChangePassword() {
 		weightRange: string;
 		showPassword: boolean;
 	}
-	const [values, setValues] = React.useState({
+	const [values, setValues] = useState({
 		amount: "",
 		password: "",
 		weight: "",
@@ -31,15 +33,12 @@ export default function UserChangePassword() {
 		});
 	};
 
-	const handleMouseDownPassword = (
-		event: React.MouseEvent<HTMLButtonElement>
-	) => {
+	const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 	};
 
 	const handleChange =
-		(prop: keyof State) =>
-		(event: React.ChangeEvent<HTMLInputElement>) => {
+		(prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
 			setValues({ ...values, [prop]: event.target.value });
 		};
 
@@ -143,4 +142,4 @@ export default function UserChangePassword() {
 			</FormControl>
 		</Paper>
 	);
-}
+};

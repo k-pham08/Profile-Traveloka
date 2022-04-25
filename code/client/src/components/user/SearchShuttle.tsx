@@ -2,9 +2,7 @@ import * as React from "react";
 import {
 	Box,
 	Button,
-	Checkbox,
 	FormControl,
-	FormControlLabel,
 	InputLabel,
 	MenuItem,
 	Select,
@@ -17,7 +15,7 @@ import {
 } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-export default function SearchShuttle() {
+export const SearchShuttle = () => {
 	const [date, setDate] = React.useState<Date | null>(
 		new Date("2022-08-18T21:11:54")
 	);
@@ -100,4 +98,4 @@ export default function SearchShuttle() {
 			</Button>
 		</Box>
 	);
-}
+};

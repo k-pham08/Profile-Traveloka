@@ -1,23 +1,26 @@
-import * as React from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
+import { useState } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { Select, SelectChangeEvent } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { Paper } from "@mui/material";
-import { Button } from "@mui/material";
+import {
+	Paper,
+	Button,
+	MenuItem,
+	Select,
+	SelectChangeEvent,
+	OutlinedInput,
+	InputLabel,
+	InputAdornment,
+	FormControl,
+	TextField,
+} from "@mui/material";
 
-export default function UserDetail() {
-	const [date, setDate] = React.useState<Date | null>(
+export const UserDetail = () => {
+	const [date, setDate] = useState<Date | null>(
 		new Date("2022-08-18T21:11:54")
 	);
 
-	const [values, setValues] = React.useState({
+	const [values, setValues] = useState({
 		amount: "",
 		password: "",
 		weight: "",
@@ -29,7 +32,7 @@ export default function UserDetail() {
 		setDate(newValue);
 	};
 
-	const [gender, setGender] = React.useState("");
+	const [gender, setGender] = useState("");
 
 	const handleGenderChange = (event: SelectChangeEvent) => {
 		setGender(event.target.value as string);
@@ -99,4 +102,4 @@ export default function UserDetail() {
 			</FormControl>
 		</Paper>
 	);
-}
+};

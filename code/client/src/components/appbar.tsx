@@ -1,33 +1,31 @@
-import * as React from "react";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
+import { useState, MouseEvent } from "react";
+import {
+	AppBar,
+	Box,
+	Toolbar,
+	IconButton,
+	Typography,
+	Menu,
+	Container,
+	Avatar,
+	Button,
+	Tooltip,
+	MenuItem,
+} from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
 import { Link } from "react-router-dom";
 import { menu } from "../router";
 
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export const Appbar = () => {
-	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-		null
-	);
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-		null
-	);
+	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+	const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget);
 	};
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+	const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorElUser(event.currentTarget);
 	};
 

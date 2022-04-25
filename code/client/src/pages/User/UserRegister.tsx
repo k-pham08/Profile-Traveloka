@@ -1,25 +1,28 @@
-import * as React from "react";
-import OutlinedInput from "@mui/material/OutlinedInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-import FormControl from "@mui/material/FormControl";
-import TextField from "@mui/material/TextField";
+import { useState, MouseEvent } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
-import { IconButton, Select, SelectChangeEvent } from "@mui/material";
-import { MenuItem } from "@mui/material";
-import { Paper } from "@mui/material";
-import { Button } from "@mui/material";
+import { LocalizationProvider, DesktopDatePicker } from "@mui/x-date-pickers/";
+import {
+	IconButton,
+	Select,
+	SelectChangeEvent,
+	OutlinedInput,
+	InputLabel,
+	InputAdornment,
+	FormControl,
+	TextField,
+	MenuItem,
+	Paper,
+	Button,
+} from "@mui/material";
 import { UserNavbar } from "../../components/user";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
-export default function UserRegister() {
-	const [date, setDate] = React.useState<Date | null>(
+export const UserRegister = () => {
+	const [date, setDate] = useState<Date | null>(
 		new Date("2022-08-18T21:11:54")
 	);
 
-	const [values, setValues] = React.useState({
+	const [values, setValues] = useState({
 		amount: "",
 		password: "",
 		weight: "",
@@ -31,7 +34,7 @@ export default function UserRegister() {
 		setDate(newValue);
 	};
 
-	const [gender, setGender] = React.useState("");
+	const [gender, setGender] = useState("");
 
 	const handleGenderChange = (event: SelectChangeEvent) => {
 		setGender(event.target.value as string);
@@ -44,9 +47,7 @@ export default function UserRegister() {
 		});
 	};
 
-	const handleMouseDownPassword = (
-		event: React.MouseEvent<HTMLButtonElement>
-	) => {
+	const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
 	};
 
@@ -195,4 +196,4 @@ export default function UserRegister() {
 			</Paper>
 		</div>
 	);
-}
+};

@@ -1,13 +1,15 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import { Paper } from "@mui/material";
+import { Fragment } from "react";
+import {
+	Paper,
+	Typography,
+	Button,
+	CardContent,
+	CardActions,
+	Card,
+} from "@mui/material";
 
 const card = (
-	<React.Fragment>
+	<Fragment>
 		<CardContent>
 			<h2>Avialable Reward</h2>
 			<Typography variant="h2" component="div">
@@ -20,7 +22,7 @@ const card = (
 		<CardActions>
 			<Button size="small">Detail</Button>
 		</CardActions>
-	</React.Fragment>
+	</Fragment>
 );
 
 export default function UserReward() {

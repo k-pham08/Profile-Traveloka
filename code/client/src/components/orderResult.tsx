@@ -1,13 +1,15 @@
-import * as React from "react";
-import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
+import {
+	Button,
+	Paper,
+	TableRow,
+	TableContainer,
+	TableCell,
+	tableCellClasses,
+	TableBody,
+	Table,
+	TableHead,
+	styled,
+} from "@mui/material";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
 	[`&.${tableCellClasses.head}`]: {
@@ -46,7 +48,7 @@ const rows = [
 	createData("12/12/2020", 356, 100000000, "Unpaid"),
 ];
 
-export default function CustomizedTables() {
+export const OrderResult = () => {
 	return (
 		<TableContainer component={Paper} sx={{ m: 2 }}>
 			<Table sx={{ minWidth: 700 }} aria-label="customized table">
@@ -91,4 +93,4 @@ export default function CustomizedTables() {
 			</Table>
 		</TableContainer>
 	);
-}
+};

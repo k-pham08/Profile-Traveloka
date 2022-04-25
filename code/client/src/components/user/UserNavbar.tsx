@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, MouseEvent } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -13,51 +13,26 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import UserDrawer from "../components/UserDrawer";
+import { UserDrawer } from "../../components/user";
+import {
+	USER_SETTINGS,
+	MENU_ICONS,
+	LOGO_TRAVELOKA,
+	DRAWER_ITEMS,
+	DRAWER_ICONS,
+} from "../../utils/constraint";
 
-const pages = ["Hợp tác với chúng tôi", "Đã Lưu", "Đặt chỗ của tôi"];
-
-const settings = [
-	"Chỉnh sửa hồ sơ",
-	"Điểm thưởng của tôi",
-	"Thẻ của tôi",
-	"Danh sách giao dịch",
-	"Đặt chỗ của tôi",
-	"Thông báo giá vé máy bay",
-	"Khuyến mãi",
-	"Đăng xuất",
-];
-const navIcons = [
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/b/bdab924c2bd3a5fb492022beb158a6ef.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/c/c80a2b136969e32f4db682792d1110f6.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/b/b0f87008a7a01d72ffb5eacf06870cba.svg",
-];
-
-const menuIcons = [
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/5/57c03b6d35b76670f2d701310cc18b26.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/e/e092465666a2dfe398407794a893cbcc.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/4/468b3a08ab94b440b4e09fb9130eee1e.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0965a06a63e873adb97d5ed7d7b92dbe.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/b/b0f87008a7a01d72ffb5eacf06870cba.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/7/70100d4a2047ac955124953dbc3351db.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/c/cef9778118bdd85e1062cdd0b6196362.svg",
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6464840154eb190d10525ea67e77648a.svg",
-];
-const logo =
-	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg";
+const pages = DRAWER_ITEMS.slice(1);
+const icons = DRAWER_ICONS.slice(1);
 
 export const UserNavbar = () => {
-	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-		null
-	);
-	const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-		null
-	);
+	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
+	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
-	const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+	const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorElNav(event.currentTarget);
 	};
-	const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+	const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorElUser(event.currentTarget);
 	};
 
@@ -84,7 +59,7 @@ export const UserNavbar = () => {
 							display: { xs: "none", md: "flex" },
 						}}
 					>
-						<img src={logo} alt="Logo" />
+						<img src={LOGO_TRAVELOKA} alt="Logo" />
 					</Typography>
 
 					<Box
@@ -167,7 +142,7 @@ export const UserNavbar = () => {
 							>
 								<ListItemIcon sx={{ minWidth: "2rem" }}>
 									<img
-										src={navIcons[index]}
+										src={icons[index]}
 										alt="Menu Icon"
 									></img>
 								</ListItemIcon>
@@ -204,7 +179,7 @@ export const UserNavbar = () => {
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
 						>
-							{settings.map((setting, index) => (
+							{USER_SETTINGS.map((setting, index) => (
 								<MenuItem
 									key={setting}
 									onClick={handleCloseUserMenu}
@@ -218,7 +193,7 @@ export const UserNavbar = () => {
 										}}
 									>
 										<img
-											src={menuIcons[index]}
+											src={MENU_ICONS[index]}
 											alt="Menu"
 											style={{
 												marginRight: "1rem",

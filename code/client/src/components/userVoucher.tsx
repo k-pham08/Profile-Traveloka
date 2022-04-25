@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function userVoucher() {
+export const userVoucher = () => {
 	return <div>userVoucher</div>;
-}
+};
