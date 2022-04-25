@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-import { ReactNode } from "react";
-
->>>>>>> d3dfb8935b892b732fb8d2f258db3122272829ca
 // import page
 import {
 	Login,
