@@ -46,7 +46,7 @@ const menuIcons = [
 const logo =
 	"https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg";
 
-const ResponsiveAppBar = () => {
+export const UserNavbar = () => {
 	const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
 		null
 	);
@@ -235,4 +235,3 @@ const ResponsiveAppBar = () => {
 		</AppBar>
 	);
 };
-export default ResponsiveAppBar;

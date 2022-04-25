@@ -1,10 +1,8 @@
-import * as React from "react";
+import { useState } from "react";
 import {
 	Box,
 	Button,
-	Checkbox,
 	FormControl,
-	FormControlLabel,
 	InputLabel,
 	MenuItem,
 	Select,
@@ -13,8 +11,8 @@ import {
 import { DesktopDatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
-export default function SearchHotel() {
-	const [date, setDate] = React.useState<Date | null>(
+export const SearchHotel = () => {
+	const [date, setDate] = useState<Date | null>(
 		new Date("2022-08-18T21:11:54")
 	);
 	const handleDateChange = (newValue: Date | null) => {
@@ -104,4 +102,4 @@ export default function SearchHotel() {
 			</Button>
 		</Box>
 	);
-}
+};
