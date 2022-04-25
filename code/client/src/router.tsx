@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-=======
-import { ReactNode } from "react";
-
->>>>>>> d3dfb8935b892b732fb8d2f258db3122272829ca
 // import page
 import {
 	Login,
@@ -13,7 +8,7 @@ import {
 	Home,
 	Order,
 } from "./pages";
-import UserHome from "./user/pages/UserHome";
+import UserHome from "./pages/user/UserHome";
 import UserProfile from "./user/pages/UserProfile";
 import UserRegister from "./user/pages/UserRegister";
 

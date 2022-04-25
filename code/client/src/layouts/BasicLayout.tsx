@@ -9,7 +9,10 @@ import "./BasicLayout.module.scss";
 export const BasicLayout: FC<{ children: ReactNode }> = ({ children }) => {
 	return (
 		<>
-			<div className="App"></div>
+			<div className="App">
+				<Appbar />
+				<UserNavbar />
+			</div>
 			<Container component="main" maxWidth="lg">
 				{children}
 			</Container>
