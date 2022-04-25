@@ -49,33 +49,33 @@ go
 -- go
 
 Create table [COMPANY] (
-	[company_id] Uniqueidentifier NOT NULL,
-	[name] Nvarchar(255) NULL,
-	[location] Nvarchar(255) NULL,
-	[phone] Numeric(11,0) NULL,
-	[country] Nvarchar(255) NULL,
+	[company_id] Uniqueidentifier NOT NULL default(newid()),
+	[name] Nvarchar(255) NOT NULL,
+	[location] Nvarchar(255) NOT NULL,
+	[phone] Numeric(11,0) NOT NULL,
+	[country] Nvarchar(255) NOT NULL,
 Primary Key  ([company_id])
 ) 
 go
 
 Create table [USER] (
-	[user_id] Uniqueidentifier NOT NULL,
-	[username] Varchar(255) NULL,
-	[password] Varchar(255) NULL,
-	[name] Nvarchar(255) NULL,
-	[email] Nvarchar(255) NULL,
-	[gender] Bit NULL,
-	[dob] Datetime NULL,
-	[address] Nvarchar(255) NULL,
-	[job] Nvarchar(255) NULL,
+	[user_id] Uniqueidentifier NOT NULL default(newid()),
+	[username] Varchar(255) NOT NULL,
+	[password] Varchar(255) NOT NULL,
+	[name] Nvarchar(255) NOT NULL,
+	[email] Nvarchar(255) NOT NULL,
+	[gender] Bit NOT NULL,
+	[dob] Datetime NOT NULL,
+	[address] Nvarchar(255) NOT NULL,
+	[job] Nvarchar(255) NOT NULL,
 	[icompany_id] Uniqueidentifier NOT NULL,
 Primary Key  ([user_id])
 ) 
 go
 
 Create table [USER_TYPE] (
-	[type_id] Uniqueidentifier NOT NULL,
-	[name] Nvarchar(255) NULL,
+	[type_id] Uniqueidentifier NOT NULL default(newid()),
+	[name] Nvarchar(255) NOT NULL,
 Primary Key  ([type_id])
 ) 
 go
@@ -91,7 +91,7 @@ go
 Create table [SERVICE] (
 	[company_id] Uniqueidentifier NOT NULL default(newid()),
 	[service_name] Nvarchar(255) NOT NULL,
-Primary Key  ([company_id])
+Primary Key  ([service_id])
 ) 
 go
 
@@ -110,6 +110,12 @@ Primary Key  ([bracket_id])
 ) 
 go
 
+insert into USER_TYPE
+values (newid(), 'ADMIN')
+insert into USER_TYPE
+values (newid(), 'PARTNER')
+insert into USER_TYPE
+values (newid(), 'CUSTOMER')
 
 insert into SERVICE
 values (newid(), 'FLIGHT')
