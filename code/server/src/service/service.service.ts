@@ -1,32 +1,26 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Service } from "../entities/Service";
+import { Injectable } from '@nestjs/common';
+import { CreateServiceDto } from './dto/create-service.dto';
+import { UpdateServiceDto } from './dto/update-service.dto';
 
 @Injectable()
 export class ServiceService {
-     constructor(
-          @InjectRepository(Service)
-          private readonly serRepository: Repository<Service>,
-     ) {}
+  create(createServiceDto: CreateServiceDto) {
+    return 'This action adds a new service';
+  }
 
-     findAll() {
-          return this.serRepository.find();
-     }
+  findAll() {
+    return `This action returns all service`;
+  }
 
-     findOne(id) {
-          return this.serRepository.findOne(id);
-     }
+  findOne(id: number) {
+    return `This action returns a #${id} service`;
+  }
 
-     findOneBy(name: string) {
-          return this.serRepository.findOneBy({ serviceName: name.toUpperCase() });
-     }
+  update(id: number, updateServiceDto: UpdateServiceDto) {
+    return `This action updates a #${id} service`;
+  }
 
-     update(id: string, updateServiceDto) {
-          return this.serRepository.update(id, updateServiceDto);
-     }
-
-     remove(id: string) {
-          return this.serRepository.delete(id);
-     }
+  remove(id: number) {
+    return `This action removes a #${id} service`;
+  }
 }

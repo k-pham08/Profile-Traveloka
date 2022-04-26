@@ -1,11 +1,13 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Company } from "./Company";
-import { UserType } from "./UserType";
-import { Reward } from "./Reward";
 
 @Entity("USER", { schema: "dbo" })
 export class User {
-     @Column("uniqueidentifier", { primary: true, name: "user_id", default: () => "newId()" })
+     @Column("uniqueidentifier", {
+          primary: true,
+          name: "user_id",
+          default: () => "newid()",
+     })
      userId: string;
 
      @Column("varchar", { name: "username", length: 255 })
@@ -32,15 +34,16 @@ export class User {
      @Column("nvarchar", { name: "job", length: 255 })
      job: string;
 
+     @Column("nvarchar", { name: "type", length: 255 })
+     type: string;
+
+     @Column("numeric", { name: "reward", precision: 18, scale: 0 })
+     reward: number;
+
+     @Column("numeric", { name: "value", precision: 18, scale: 0 })
+     value: number;
+
      @ManyToOne(() => Company, company => company.users)
      @JoinColumn([{ name: "companyId", referencedColumnName: "companyId" }])
-     companyCompany: Company;
-
-     @OneToOne(() => UserType, userType => userType.user)
-     @JoinColumn([{ name: "typeId", referencedColumnName: "typeId" }])
-     typeType: UserType;
-
-     @OneToOne(() => Reward, reward => reward.user)
-     @JoinColumn([{ name: "rewardUserId", referencedColumnName: "userId" }])
-     rewardUser: Reward;
+     company: Company;
 }

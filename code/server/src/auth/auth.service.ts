@@ -7,9 +7,9 @@ import { ApiTags } from "@nestjs/swagger";
 export class AuthService {
      constructor(private userService: UserService) {}
      async validationAccount(user: string, pass: string): Promise<User> {
-          const account: User = await this.userService.findByUsername(user);
+          const account: User = await this.userService.findByUserName(user);
           if (account.password == md5(pass)) {
-               if (account.typeType.name == "CUSTOMER") {
+               if (account.type == "CUSTOMER") {
                     return this.userService.findOne(account.userId);
                }
           }

@@ -9,12 +9,12 @@ export class Service {
           name: "service_id",
           default: () => "newid()",
      })
-     companyId: string;
+     serviceId: string;
 
      @Column("nvarchar", { name: "service_name", length: 255 })
      serviceName: string;
 
-     @OneToMany(() => Company, company => company.serviceCompany)
+     @OneToMany(() => Company, company => company.service)
      companies: Company[];
 
      @OneToMany(() => ServiceClassify, serviceClassify => serviceClassify.service)

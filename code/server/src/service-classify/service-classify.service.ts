@@ -1,39 +1,26 @@
-import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
-import { Service } from "../entities/Service";
-import { ServiceClassify } from "../entities/ServiceClassify";
-import { CreateServiceClassifyDto } from "./dto/create-service-classify.dto";
-import { UpdateServiceClassifyDto } from "./dto/update-service-classify.dto";
+import { Injectable } from '@nestjs/common';
+import { CreateServiceClassifyDto } from './dto/create-service-classify.dto';
+import { UpdateServiceClassifyDto } from './dto/update-service-classify.dto';
 
 @Injectable()
 export class ServiceClassifyService {
-     constructor(
-          @InjectRepository(ServiceClassify)
-          private readonly serClassifyRepository: Repository<ServiceClassify>,
-          @InjectRepository(Service)
-          private readonly serRepository: Repository<Service>,
-     ) {}
-     async create(createServiceClassifyDto: CreateServiceClassifyDto) {
-          const classify = await this.serClassifyRepository.create(createServiceClassifyDto);
-          const service = await this.serRepository.findOneBy({ serviceName: createServiceClassifyDto.serviceName.toUpperCase() });
-          classify.service = service;
-          await this.serClassifyRepository.save(classify);
-     }
+  create(createServiceClassifyDto: CreateServiceClassifyDto) {
+    return 'This action adds a new serviceClassify';
+  }
 
-     findAll() {
-          return this.serClassifyRepository.find();
-     }
+  findAll() {
+    return `This action returns all serviceClassify`;
+  }
 
-     findOne(id) {
-          return this.serClassifyRepository.findOne(id);
-     }
+  findOne(id: number) {
+    return `This action returns a #${id} serviceClassify`;
+  }
 
-     update(id: string, updateServiceClassifyDto: UpdateServiceClassifyDto) {
-          return this.serClassifyRepository.update(id, updateServiceClassifyDto);
-     }
+  update(id: number, updateServiceClassifyDto: UpdateServiceClassifyDto) {
+    return `This action updates a #${id} serviceClassify`;
+  }
 
-     remove(id: string) {
-          return this.serClassifyRepository.delete(id);
-     }
+  remove(id: number) {
+    return `This action removes a #${id} serviceClassify`;
+  }
 }
