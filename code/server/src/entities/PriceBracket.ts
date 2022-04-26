@@ -17,6 +17,6 @@ export class PriceBracket {
      minPrice: number;
 
      @OneToOne(() => ServiceClassify, serviceClassify => serviceClassify.priceBracket)
-     @JoinColumn([{ name: "serClassifyId", referencedColumnName: "id" }])
+     @JoinColumn([{ name: "serClassifyId", referencedColumnName: "classifyId" }])
      serClassify: ServiceClassify;
 }

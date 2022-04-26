@@ -6,10 +6,10 @@ import { Service } from "./Service";
 export class ServiceClassify {
      @Column("uniqueidentifier", {
           primary: true,
-          name: "id",
+          name: "classify_id",
           default: () => "newid()",
      })
-     id: string;
+     classifyId: string;
 
      @Column("nvarchar", { name: "name", length: 255 })
      name: string;
@@ -18,6 +18,6 @@ export class ServiceClassify {
      priceBracket: PriceBracket;
 
      @ManyToOne(() => Service, service => service.serviceClassifies)
-     @JoinColumn([{ name: "serviceId", referencedColumnName: "companyId" }])
+     @JoinColumn([{ name: "serviceId", referencedColumnName: "serviceId" }])
      service: Service;
 }

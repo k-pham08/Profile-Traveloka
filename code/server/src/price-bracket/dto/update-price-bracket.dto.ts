@@ -1,8 +1,4 @@
-import { ApiProperty, PartialType } from "@nestjs/swagger";
+import { PartialType } from '@nestjs/swagger';
+import { CreatePriceBracketDto } from './create-price-bracket.dto';
 
-export class UpdatePriceBracketDto {
-     @ApiProperty()
-     maxPrice: number;
-     @ApiProperty()
-     minPrice: number;
-}
+export class UpdatePriceBracketDto extends PartialType(CreatePriceBracketDto) {}

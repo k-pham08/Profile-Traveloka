@@ -4,7 +4,11 @@ import { User } from "./User";
 
 @Entity("COMPANY", { schema: "dbo" })
 export class Company {
-     @Column("uniqueidentifier", { primary: true, name: "company_id", default: () => "newId()" })
+     @Column("uniqueidentifier", {
+          primary: true,
+          name: "company_id",
+          default: () => "newid()",
+     })
      companyId: string;
 
      @Column("nvarchar", { name: "name", length: 255 })
@@ -19,10 +23,10 @@ export class Company {
      @Column("nvarchar", { name: "country", length: 255 })
      country: string;
 
-     @ManyToOne(() => Service, service => service.companies)
-     @JoinColumn([{ name: "serviceCompanyId", referencedColumnName: "companyId" }])
-     serviceCompany: Service;
-
-     @OneToMany(() => User, user => user.companyCompany)
+     @OneToMany(() => User, user => user.company)
      users: User[];
+
+     @ManyToOne(() => Service, service => service.companies)
+     @JoinColumn([{ name: "serviceId", referencedColumnName: "serviceId" }])
+     service: Service;
 }
