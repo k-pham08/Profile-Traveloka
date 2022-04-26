@@ -68,28 +68,16 @@ Create table [USER] (
 	[dob] Datetime NOT NULL,
 	[address] Nvarchar(255) NOT NULL,
 	[job] Nvarchar(255) NOT NULL,
-	[icompany_id] Uniqueidentifier NOT NULL,
-Primary Key  ([user_id])
-) 
-go
-
-Create table [USER_TYPE] (
-	[type_id] Uniqueidentifier NOT NULL default(newid()),
-	[name] Nvarchar(255) NOT NULL,
-Primary Key  ([type_id])
-) 
-go
-
-Create table [REWARD] (
-	[user_id] Uniqueidentifier NOT NULL default(newid()),
+	[type] Nvarchar(255) NOT NULL,
 	[reward] Numeric(18,0) NOT NULL,
 	[value] Numeric(18,0) NOT NULL,
 Primary Key  ([user_id])
 ) 
 go
 
+
 Create table [SERVICE] (
-	[company_id] Uniqueidentifier NOT NULL default(newid()),
+	[service_id] Uniqueidentifier NOT NULL default(newid()),
 	[service_name] Nvarchar(255) NOT NULL,
 Primary Key  ([service_id])
 ) 
@@ -110,12 +98,6 @@ Primary Key  ([bracket_id])
 ) 
 go
 
-insert into USER_TYPE
-values (newid(), 'ADMIN')
-insert into USER_TYPE
-values (newid(), 'PARTNER')
-insert into USER_TYPE
-values (newid(), 'CUSTOMER')
 
 insert into SERVICE
 values (newid(), 'FLIGHT')
