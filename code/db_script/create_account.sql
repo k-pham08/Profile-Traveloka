@@ -119,5 +119,6 @@ insert into SERVICE
 values (newid(), 'SAVING COMBO')
 
 
-insert into ACCOUNT
-values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'ADMIN')
+
+insert into [USER](user_id, username, [password], [name], email, gender,dob, [address], job, type, reward, value)
+values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060','824 su van hanh', 'system admin', 'ADMIN', 99999, 0);
