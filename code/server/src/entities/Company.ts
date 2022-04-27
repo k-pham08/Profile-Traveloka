@@ -1,7 +1,6 @@
 import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Service } from "./Service";
 import { User } from "./User";
-
 @Entity("COMPANY", { schema: "dbo" })
 export class Company {
      @Column("uniqueidentifier", {

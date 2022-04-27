@@ -28,6 +28,9 @@ export class User {
      @Column("datetime", { name: "dob" })
      dob: Date;
 
+     @Column("numeric", { name: "phone", precision: 11, scale: 0 })
+     phone: number;
+
      @Column("nvarchar", { name: "address", length: 255 })
      address: string;
 
@@ -39,9 +42,6 @@ export class User {
 
      @Column("numeric", { name: "reward", precision: 18, scale: 0 })
      reward: number;
-
-     @Column("numeric", { name: "value", precision: 18, scale: 0 })
-     value: number;
 
      @ManyToOne(() => Company, company => company.users)
      @JoinColumn([{ name: "companyId", referencedColumnName: "companyId" }])

@@ -1,26 +1,42 @@
-import { Injectable } from '@nestjs/common';
-import { CreatePriceBracketDto } from './dto/create-price-bracket.dto';
-import { UpdatePriceBracketDto } from './dto/update-price-bracket.dto';
+import { Injectable } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { PriceBracket } from "../entities/PriceBracket";
+import { ServiceClassify } from "../entities/ServiceClassify";
+import { CreatePriceBracketDto } from "./dto/create-price-bracket.dto";
+import { UpdatePriceBracketDto } from "./dto/update-price-bracket.dto";
 
 @Injectable()
 export class PriceBracketService {
-  create(createPriceBracketDto: CreatePriceBracketDto) {
-    return 'This action adds a new priceBracket';
-  }
+     constructor(
+          @InjectRepository(PriceBracket)
+          private readonly priceRepository: Repository<PriceBracket>,
+          @InjectRepository(ServiceClassify)
+          private readonly classifyRepository: Repository<ServiceClassify>,
+     ) {}
+     async create(createPriceBracketDto: CreatePriceBracketDto) {
+          const classify = await this.classifyRepository.findOneBy({ classifyCode: createPriceBracketDto.classifyCode.toUpperCase() });
+          const price = await this.priceRepository.create({
+               maxPrice: createPriceBracketDto.maxPrice,
+               minPrice: createPriceBracketDto.minPrice,
+          });
+          price.serClassify = classify;
+          await this.priceRepository.save(price);
+     }
 
-  findAll() {
-    return `This action returns all priceBracket`;
-  }
+     findAll() {
+          return this.priceRepository.find();
+     }
 
-  findOne(id: number) {
-    return `This action returns a #${id} priceBracket`;
-  }
+     findOne(id) {
+          return this.priceRepository.findOne(id);
+     }
 
-  update(id: number, updatePriceBracketDto: UpdatePriceBracketDto) {
-    return `This action updates a #${id} priceBracket`;
-  }
+     update(id: string, updatePriceBracketDto: UpdatePriceBracketDto) {
+          return this.priceRepository.update(id, updatePriceBracketDto);
+     }
 
-  remove(id: number) {
-    return `This action removes a #${id} priceBracket`;
-  }
+     remove(id: string) {
+          return this.priceRepository.delete(id);
+     }
 }

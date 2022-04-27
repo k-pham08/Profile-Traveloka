@@ -11,8 +11,8 @@ export class ServiceClassify {
      })
      classifyId: string;
 
-     @Column("nvarchar", { name: "name", length: 255 })
-     name: string;
+     @Column("nvarchar", { name: "classify_code", length: 255 })
+     classifyCode: string;
 
      @OneToOne(() => PriceBracket, priceBracket => priceBracket.serClassify)
      priceBracket: PriceBracket;

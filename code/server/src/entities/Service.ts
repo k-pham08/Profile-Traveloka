@@ -11,8 +11,8 @@ export class Service {
      })
      serviceId: string;
 
-     @Column("nvarchar", { name: "service_name", length: 255 })
-     serviceName: string;
+     @Column("nvarchar", { name: "service_code", length: 255 })
+     serviceCode: string;
 
      @OneToMany(() => Company, company => company.service)
      companies: Company[];

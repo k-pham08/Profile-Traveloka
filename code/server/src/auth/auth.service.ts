@@ -2,7 +2,6 @@ import { md5 } from "md5";
 import { Injectable } from "@nestjs/common";
 import { User } from "../entities/User";
 import { UserService } from "../user/user.service";
-import { ApiTags } from "@nestjs/swagger";
 @Injectable()
 export class AuthService {
      constructor(private userService: UserService) {}
