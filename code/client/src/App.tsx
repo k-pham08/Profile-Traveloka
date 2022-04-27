@@ -4,20 +4,20 @@ import { ThemeProvider } from "@mui/material";
 import { theme } from "./utils/theme";
 import { isLoggedIn } from "./utils/constraint";
 
-import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
 	function isAuth(isPrivate: Boolean, element: any) {
 		if (isLoggedIn || !isPrivate) return element;
 
-		return <Redirect to="/login" />;
+		return <Navigate to="/login" />;
 	}
 
 	return (
 		<ThemeProvider theme={theme}>
 			<SnackbarProvider maxSnack={3}>
 				<BrowserRouter>
-					<Switch>
+					<Routes>
 						{routerConfig.map(
 							({
 								path,
@@ -26,16 +26,16 @@ function App() {
 								exact = undefined,
 							}) => (
 								<Route
+									key={path}
 									path={path}
-									component={isAuth(
+									element={isAuth(
 										isPrivate,
 										component
 									)}
-									exact={exact}
 								/>
 							)
 						)}
-					</Switch>
+					</Routes>
 				</BrowserRouter>
 			</SnackbarProvider>
 		</ThemeProvider>

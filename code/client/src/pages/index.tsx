@@ -1,7 +1,7 @@
 import { Account, CreateAccount, Profile } from "./Account";
 import { Login } from "./Login";
 import { NotFound } from "./NotFound";
-import { Voucher } from "./Voucher";
+import { Voucher } from "./voucher";
 import { Home } from "./Home";
 import { Order } from "./Order";
 

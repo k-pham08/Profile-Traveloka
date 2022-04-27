@@ -117,7 +117,7 @@ export const Appbar = () => {
 						}}
 					>
 						{menu.map(({ name, path }) => (
-							<Link to={path}>
+							<Link to={path} key={name}>
 								<Button
 									key={name}
 									onClick={handleCloseNavMenu}
