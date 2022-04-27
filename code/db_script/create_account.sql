@@ -147,3 +147,6 @@ INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [serviceId]) VA
 INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [serviceId]) VALUES (N'af13c289-8b4c-420f-b1a3-e3fcf7822aa1', N'GENERAL-NORMAL', N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
 INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [serviceId]) VALUES (N'150f5702-17dc-4850-a424-e7ae6b8238c7', N'FAMILY', N'953b504b-86b1-4018-9e95-bde29518364d')
 GO
+
+insert into [USER](user_id, username, [password], [name], email, gender,dob, [address], job, type, reward, value)
+values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060','824 su van hanh', 'system admin', 'ADMIN', 99999, 0);
