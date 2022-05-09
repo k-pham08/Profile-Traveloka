@@ -59,7 +59,7 @@ Primary Key  ([company_id])
 go
 
 Create table [USER] (
-	[user_id] Uniqueidentifier NOT NULL default(newid()),
+	[id] Uniqueidentifier NOT NULL default(newid()),
 	[username] Varchar(255) NOT NULL,
 	[password] Varchar(255) NOT NULL,
 	[name] Nvarchar(255) NOT NULL,
@@ -71,7 +71,7 @@ Create table [USER] (
 	[job] Nvarchar(255) NOT NULL,
 	[type] Nvarchar(255) NOT NULL,
 	[reward] Numeric(18,0) NOT NULL,
-Primary Key  ([user_id])
+Primary Key  ([id])
 ) 
 go
 
@@ -99,7 +99,7 @@ Primary Key  ([bracket_id])
 go
 
 
-insert into SERVICE
+insert into [SERVICE]
 values (newid(), 'FLIGHT')
 insert into SERVICE
 values (newid(), 'HOTEL')
@@ -117,11 +117,6 @@ insert into SERVICE
 values (newid(), 'VOUCHER')
 insert into SERVICE
 values (newid(), 'SAVING COMBO')
-
-
-insert into ACCOUNT
-values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'ADMIN')
-
 
 INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09', N'VILLA-APARTMENT')
 INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc', N'FLIGHT')
@@ -148,5 +143,5 @@ INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [serviceId]) VA
 INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [serviceId]) VALUES (N'150f5702-17dc-4850-a424-e7ae6b8238c7', N'FAMILY', N'953b504b-86b1-4018-9e95-bde29518364d')
 GO
 
-insert into [USER](user_id, username, [password], [name], email, gender,dob, [address], job, type, reward, value)
-values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060','824 su van hanh', 'system admin', 'ADMIN', 99999, 0);
+insert into [USER]([id], username, [password], [name], email, gender,dob, phone, [address], job, type, reward)
+values('3A8C5CC5-A5F9-46CA-B657-2C033252CA60', 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060', '0335499633','824 su van hanh', 'system admin', 'ADMIN', 99999);
