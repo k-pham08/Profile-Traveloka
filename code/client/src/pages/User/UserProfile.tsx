@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 import { USER_SETTINGS, MENU_ICONS } from "../../utils/constraint";
 
-export default function UserProfile() {
+export const UserProfile = () => {
 	return (
 		<div>
 			<UserNavbar></UserNavbar>
@@ -60,4 +60,4 @@ export default function UserProfile() {
 			</Grid>
 		</div>
 	);
-}
+};

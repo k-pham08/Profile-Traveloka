@@ -6,8 +6,6 @@ import {
 	Select,
 	SelectChangeEvent,
 	MenuItem,
-	Paper,
-	Button,
 	OutlinedInput,
 	InputLabel,
 	InputAdornment,
@@ -16,45 +14,34 @@ import {
 } from "@mui/material";
 
 export const UserInfo = () => {
-	const [date, setDate] = useState<Date | null>(
-		new Date("2022-08-18T21:11:54")
-	);
+	const [date, setDate] = useState<Date | null>(new Date());
 
-	const [values, setValues] = useState({
-		amount: "",
-		password: "",
-		weight: "",
-		weightRange: "",
-		showPassword: false,
-	});
+	const [gender, setGender] = useState("");
 
 	const handleDateChange = (newValue: Date | null) => {
 		setDate(newValue);
 	};
-
-	const [gender, setGender] = useState("");
 
 	const handleGenderChange = (event: SelectChangeEvent) => {
 		setGender(event.target.value as string);
 	};
 
 	return (
-		<Paper
-			elevation={12}
-			sx={{ display: "flex", flexWrap: "wrap", mb: 2 }}
-		>
-			<h2 style={{ margin: "1rem" }}>Dữ liệu cá nhân</h2>
+		<div style={{ marginRight: "1rem" }}>
+			<h2 style={{ margin: "1rem" }}>Thông tin cá nhân</h2>
 			<FormControl sx={{ m: 1, width: 1 }}>
 				<InputLabel htmlFor="outlined-adornment">
 					Tên đầy đủ
 				</InputLabel>
 				<OutlinedInput
 					id="outlined-adornment"
-					value={values.amount}
+					//value={name}
 					startAdornment={
 						<InputAdornment position="start"></InputAdornment>
 					}
 					label="Tên đầy đủ"
+					name="name"
+					required
 				/>
 			</FormControl>
 			<FormControl sx={{ m: 1, width: "25ch" }}>
@@ -65,11 +52,13 @@ export const UserInfo = () => {
 					labelId="gender-select-label"
 					id="gender-select"
 					label="Giới tính"
+					name="gender"
 					value={gender}
 					onChange={handleGenderChange}
+					required
 				>
-					<MenuItem value={10}>Nam</MenuItem>
-					<MenuItem value={20}>Nữ</MenuItem>
+					<MenuItem value={0}>Nam</MenuItem>
+					<MenuItem value={1}>Nữ</MenuItem>
 				</Select>
 			</FormControl>
 			<FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
@@ -80,26 +69,41 @@ export const UserInfo = () => {
 						value={date}
 						onChange={handleDateChange}
 						renderInput={(params: any) => (
-							<TextField {...params} />
+							<TextField name="dob" {...params} />
 						)}
 					/>
 				</LocalizationProvider>
 			</FormControl>
 			<FormControl fullWidth sx={{ m: 1 }}>
 				<InputLabel htmlFor="outlined">Địa chỉ</InputLabel>
-				<OutlinedInput id="outlined" label="Địa chỉ" />
+				<OutlinedInput
+					id="outlined"
+					label="Địa chỉ"
+					name="address"
+					required
+				/>
 			</FormControl>
-			<FormControl fullWidth sx={{ m: 1, width: "50ch" }}>
+			<FormControl fullWidth sx={{ m: 1, width: "40ch" }}>
 				<InputLabel htmlFor="outlined">Email</InputLabel>
-				<OutlinedInput id="outlined" label="Email" />
+				<OutlinedInput
+					id="outlined"
+					label="Email"
+					name="email"
+					type="email"
+					//value={values.email}
+					required
+				/>
 			</FormControl>
 			<FormControl fullWidth sx={{ m: 1, width: "40ch" }}>
 				<InputLabel htmlFor="outlined">Số điện thoại</InputLabel>
-				<OutlinedInput id="outlined" label="Số điện thoại" />
+				<OutlinedInput
+					id="outlined"
+					label="Số điện thoại"
+					name="phone"
+					//value={values.phone}
+					required
+				/>
 			</FormControl>
-			<FormControl fullWidth sx={{ m: 1 }}>
-				<Button variant="contained">Lưu</Button>
-			</FormControl>
-		</Paper>
+		</div>
 	);
 };

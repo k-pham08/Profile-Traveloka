@@ -1,54 +1,47 @@
-import { useState, MouseEvent } from "react";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { LocalizationProvider, DesktopDatePicker } from "@mui/x-date-pickers/";
-import {
-	IconButton,
-	Select,
-	SelectChangeEvent,
-	OutlinedInput,
-	InputLabel,
-	InputAdornment,
-	FormControl,
-	TextField,
-	MenuItem,
-	Paper,
-	Button,
-} from "@mui/material";
+import { SyntheticEvent } from "react";
+import { FormControl, Button, Alert, Paper } from "@mui/material";
 import { UserNavbar } from "../../components/user";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { CreateAccount } from "../Account";
+import { UserInfo } from "../../components/user";
+import axios from "axios";
 
 export const UserRegister = () => {
-	const [date, setDate] = useState<Date | null>(
-		new Date("2022-08-18T21:11:54")
-	);
-
-	const [values, setValues] = useState({
-		amount: "",
-		password: "",
-		weight: "",
-		weightRange: "",
-		showPassword: false,
-	});
-
-	const handleDateChange = (newValue: Date | null) => {
-		setDate(newValue);
-	};
-
-	const [gender, setGender] = useState("");
-
-	const handleGenderChange = (event: SelectChangeEvent) => {
-		setGender(event.target.value as string);
-	};
-
-	const handleClickShowPassword = () => {
-		setValues({
-			...values,
-			showPassword: !values.showPassword,
-		});
-	};
-
-	const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
+	const submitHandler = (event: SyntheticEvent) => {
 		event.preventDefault();
+		const target = event.target as typeof event.target & {
+			name: { value: string };
+			gender: { value: boolean };
+			dob: { value: string };
+			address: { value: string };
+			email: { value: string };
+			phone: { value: string };
+			username: { value: string };
+			password: { value: string };
+			confirmPassword: { value: string };
+		};
+		const body = {
+			username: target.username.value,
+			password: target.password.value,
+			name: target.name.value,
+			email: target.email.value,
+			gender: target.gender.value,
+			dob: new Date(target.dob.value),
+			phone: parseInt(target.dob.value),
+			address: target.address.value,
+			job: "",
+			companyId: "",
+		};
+		if (target.password.value === target.confirmPassword.value) {
+			axios.post("http://localhost:5000/user", body)
+				.then((res) => {
+					console.log(res);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+		} else {
+			return <Alert severity="error">Password not match</Alert>;
+		}
 	};
 
 	return (
@@ -59,140 +52,23 @@ export const UserRegister = () => {
 				sx={{
 					display: "flex",
 					flexWrap: "wrap",
-					margin: "auto",
-					marginTop: "2rem",
+					margin: "1rem auto",
 					width: "50%",
 				}}
 			>
-				<h2 style={{ margin: "1rem" }}>Đăng ký tài khoản</h2>
-				<FormControl sx={{ m: 1, width: 1 }}>
-					<InputLabel htmlFor="outlined-adornment">
-						Tên đầy đủ
-					</InputLabel>
-					<OutlinedInput
-						id="outlined-adornment"
-						value={values.amount}
-						startAdornment={
-							<InputAdornment position="start"></InputAdornment>
-						}
-						label="Tên đầy đủ"
-					/>
-				</FormControl>
-				<FormControl sx={{ m: 1, width: "25ch" }}>
-					<InputLabel id="demo-simple-select-label">
-						Giới tính
-					</InputLabel>
-					<Select
-						labelId="gender-select-label"
-						id="gender-select"
-						label="Giới tính"
-						value={gender}
-						onChange={handleGenderChange}
-					>
-						<MenuItem value={10}>Nam</MenuItem>
-						<MenuItem value={20}>Nữ</MenuItem>
-					</Select>
-				</FormControl>
-				<FormControl
-					sx={{ m: 1, width: "25ch" }}
-					variant="outlined"
-				>
-					<LocalizationProvider dateAdapter={AdapterDateFns}>
-						<DesktopDatePicker
-							label="Ngày sinh"
-							inputFormat="MM/dd/yyyy"
-							value={date}
-							onChange={handleDateChange}
-							renderInput={(params: any) => (
-								<TextField {...params} />
-							)}
-						/>
-					</LocalizationProvider>
-				</FormControl>
-				<FormControl fullWidth sx={{ m: 1 }}>
-					<InputLabel htmlFor="outlined">Địa chỉ</InputLabel>
-					<OutlinedInput id="outlined" label="Địa chỉ" />
-				</FormControl>
-				<FormControl fullWidth sx={{ m: 1, width: "40ch" }}>
-					<InputLabel htmlFor="outlined">Email</InputLabel>
-					<OutlinedInput id="outlined" label="Email" />
-				</FormControl>
-				<FormControl fullWidth sx={{ m: 1, width: "40ch" }}>
-					<InputLabel htmlFor="outlined">
-						Số điện thoại
-					</InputLabel>
-					<OutlinedInput id="outlined" label="Số điện thoại" />
-				</FormControl>
-				<h2 style={{ width: "100%", margin: "1rem" }}>
-					Tạo tài khoản
-				</h2>
-				<FormControl fullWidth sx={{ m: 1, width: 1 }}>
-					<InputLabel htmlFor="outlined">
-						Tên đăng nhập
-					</InputLabel>
-					<OutlinedInput id="outlined" label="Tên đăng nhập" />
-				</FormControl>
-				<FormControl sx={{ m: 1, width: 1 }}>
-					<InputLabel htmlFor="outlined-adornment-password">
-						Mật khẩu
-					</InputLabel>
-					<OutlinedInput
-						id="outlined-adornment-password"
-						type={values.showPassword ? "text" : "password"}
-						value={values.password}
-						endAdornment={
-							<InputAdornment position="end">
-								<IconButton
-									aria-label="toggle password visibility"
-									onClick={handleClickShowPassword}
-									onMouseDown={
-										handleMouseDownPassword
-									}
-									edge="end"
-								>
-									{values.showPassword ? (
-										<VisibilityOff />
-									) : (
-										<Visibility />
-									)}
-								</IconButton>
-							</InputAdornment>
-						}
-						label="Mật khẩu"
-					/>
-				</FormControl>
-				<FormControl sx={{ m: 1, width: 1 }}>
-					<InputLabel htmlFor="outlined-adornment-password">
-						Xác nhận mật khẩu
-					</InputLabel>
-					<OutlinedInput
-						id="outlined-adornment-password"
-						type={values.showPassword ? "text" : "password"}
-						value={values.password}
-						endAdornment={
-							<InputAdornment position="end">
-								<IconButton
-									aria-label="toggle password visibility"
-									onClick={handleClickShowPassword}
-									onMouseDown={
-										handleMouseDownPassword
-									}
-									edge="end"
-								>
-									{values.showPassword ? (
-										<VisibilityOff />
-									) : (
-										<Visibility />
-									)}
-								</IconButton>
-							</InputAdornment>
-						}
-						label="Xác nhận mật khẩu"
-					/>
-				</FormControl>
-				<FormControl fullWidth sx={{ m: 1 }}>
-					<Button variant="contained">Đăng ký</Button>
-				</FormControl>
+				<form onSubmit={submitHandler} style={{ margin: "auto" }}>
+					<FormControl fullWidth>
+						<UserInfo></UserInfo>
+						<CreateAccount></CreateAccount>
+						<Button
+							variant="contained"
+							type="submit"
+							sx={{ m: 1 }}
+						>
+							Đăng ký
+						</Button>
+					</FormControl>
+				</form>
 			</Paper>
 		</div>
 	);
