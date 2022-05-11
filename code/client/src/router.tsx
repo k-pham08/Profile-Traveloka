@@ -8,6 +8,9 @@ import {
 	Home,
 	Order,
 } from "./pages";
+import { UserHome } from "./pages/User/UserHome";
+import { UserProfile } from "./pages/User/UserProfile";
+import { UserRegister } from "./pages/User/UserRegister";
 
 // u can add new route in here
 export const routerConfig = [
@@ -26,7 +29,10 @@ export const routerConfig = [
 		component: <Profile />,
 		isPrivate: true,
 	},
-	{ path: "*", component: <NotFound /> },
+	{ path: "/home", component: <UserHome /> },
+	{ path: "/user-profile", component: <UserProfile /> },
+	{ path: "/register/customer", component: <UserRegister /> },
+	{ path: "*", component: <NotFound />, exact: true },
 ];
 
 // u can add new item in menu here

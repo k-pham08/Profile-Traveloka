@@ -1,6 +1,4 @@
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import { Container } from "@mui/material";
 import { ADVERTISEMENTS } from "../../utils/constraint";
 
 export const AdsSlider = () => {
@@ -11,19 +9,7 @@ export const AdsSlider = () => {
 				padding: "2rem",
 				marginBottom: "1rem",
 			}}
-		>
-			<Slider
-				className="center"
-				centerMode={true}
-				centerPadding="0"
-				slidesToShow={3}
-				speed={500}
-			>
-				{ADVERTISEMENTS.map((path) => (
-					<AdvertisementItem src={path} />
-				))}
-			</Slider>
-		</div>
+		></div>
 	);
 };
 
