@@ -7,6 +7,8 @@ import {
 	Profile,
 	Home,
 	Order,
+	CreateAccount,
+	CreateCompany,
 } from "./pages";
 import { UserHome } from "./pages/User/UserHome";
 import { UserProfile } from "./pages/User/UserProfile";
@@ -19,6 +21,7 @@ export const routerConfig = [
 
 	{ path: "/vouchers", component: Voucher, isPrivate: true },
 	{ path: "/orders", component: Order, isPrivate: true },
+	{ path: "/company", component: CreateCompany },
 	{
 		path: "/accounts",
 		component: Account,
@@ -30,9 +33,14 @@ export const routerConfig = [
 		component: Profile,
 		isPrivate: true,
 	},
+	{
+		path: "/accounts/create",
+		component: <CreateAccount />,
+		isPrivate: true,
+	},
 	{ path: "/home", component: UserHome },
 	{ path: "/user-profile", component: UserProfile },
-	{ path: "/register/customer", component: UserRegister },
+	{ path: "/register", component: UserRegister },
 	{ path: "*", component: NotFound, exact: true },
 ];
 
