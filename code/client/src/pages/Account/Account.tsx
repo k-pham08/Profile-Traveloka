@@ -16,6 +16,7 @@ import { Delete, Edit, Info } from "@mui/icons-material";
 
 import { FormDialog } from "../../components/formDialog";
 import { BasicLayout } from "../../layouts/BasicLayout";
+import {observer} from "mobx-react-lite";
 
 function createData(username: string, password: string, role: string) {
 	return { username, password, role };
@@ -26,7 +27,7 @@ const rows = [
 	createData("khoapham", "khoapham", "USER"),
 ];
 
-export const Account: FC = () => {
+export const Account: FC = observer(() => {
 	return (
 		<BasicLayout>
 			<TableContainer
@@ -99,4 +100,4 @@ export const Account: FC = () => {
 			</TableContainer>
 		</BasicLayout>
 	);
-};
+});

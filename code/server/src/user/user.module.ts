@@ -11,4 +11,5 @@ import { Company } from "../entities/Company";
      providers: [UserService],
      exports: [UserService],
 })
+
 export class UserModule {}

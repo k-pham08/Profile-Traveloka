@@ -16,7 +16,7 @@ export class Company {
      @Column("nvarchar", { name: "location", length: 255 })
      location: string;
 
-     @Column("numeric", { name: "phone", precision: 11, scale: 0 })
+     @Column("varchar", { name: "phone", length: 255 })
      phone: number;
 
      @Column("nvarchar", { name: "country", length: 255 })

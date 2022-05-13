@@ -1,6 +1,10 @@
+import {store} from "../stores";
+
 export const srcIcon = "./favicon.ico";
 
-export const isLoggedIn = true;
+export const PRIMARY_COLOR = "#1976d2"
+
+export const APP_NAME = "Traveloka";
 
 export const ADVERTISEMENTS = [
 	"https://ik.imagekit.io/tvlk/image/imageResource/2022/04/05/1649154913787-703cafe0bf9fed04d9937ba931cf5866.jpeg?tr=h-230,q-75,w-472",
@@ -27,15 +31,17 @@ export const SERVICES = [
 	"Cho thuê xe",
 ];
 
-export const USER_SETTINGS = [
-	"Chỉnh sửa hồ sơ",
-	"Điểm thưởng của tôi",
-	"Thẻ của tôi",
-	"Danh sách giao dịch",
-	"Đặt chỗ của tôi",
-	"Thông báo giá vé máy bay",
-	"Khuyến mãi",
-	"Đăng xuất",
+export const ADMIN_SETTINGS = ["Profile", "Account", "Dashboard", "Logout"];
+
+export const USER_SETTINGS: {title: string, handle?: Function}[] = [
+	{title: "Chỉnh sửa hồ sơ"},
+	{title: "Điểm thưởng của tôi"},
+	{title: "Thẻ của tôi"},
+	{title: "Danh sách giao dịch"},
+	{title: "Đặt chỗ của tôi"},
+	{title: "Thông báo giá vé máy bay"},
+	{title: "Khuyến mãi"},
+	{title: "Đăng xuất", handle: () => {store.Logout()}},
 ];
 
 export const MENU_ICONS = [

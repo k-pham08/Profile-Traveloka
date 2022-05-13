@@ -7,57 +7,27 @@ import { Grid, Paper, MenuList, MenuItem } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import { USER_SETTINGS, MENU_ICONS } from "../../utils/constraint";
+import {BasicLayout} from "../../layouts/BasicLayout";
+import {UserSetting} from "../../components/Settings/UserSetting";
 
 export const UserProfile = () => {
 	return (
-		<div>
-			<UserNavbar></UserNavbar>
-			<Grid container spacing={2} mt={2}>
-				<Grid item xs></Grid>
-				<Grid item xs={3}>
-					<Paper sx={{ width: 320 }} elevation={8}>
+		<BasicLayout>
+			<Grid container spacing={1}>
+				<Grid item xs lg={4} >
+					<Paper elevation={3}>
 						<MenuList dense>
-							{USER_SETTINGS.map((setting, index) => (
-								<MenuItem
-									key={setting}
-									sx={{ color: "black" }}
-								>
-									<Link
-										to="/user/account"
-										style={{
-											width: "fit-content",
-											display: "flex",
-											justifyContent: "center",
-											textDecoration: "none",
-										}}
-									>
-										<img
-											src={MENU_ICONS[index]}
-											alt="Menu"
-											style={{
-												marginRight: "1rem",
-											}}
-										/>
-										<span
-											style={{
-												color: "black",
-												fontWeight: "600",
-											}}
-										>
-											{setting}
-										</span>
-									</Link>
-								</MenuItem>
-							))}
+							<UserSetting closeHandle={() => {}} />
 						</MenuList>
 					</Paper>
 				</Grid>
-				<Grid item xs={7}>
-					<UserInfo></UserInfo>
-					<UserChangePassword></UserChangePassword>
+				<Grid item md={8} lg={8}>
+					<Paper elevation={3} sx={{padding: "1rem"}}>
+						<UserInfo />
+						<UserChangePassword />
+					</Paper>
 				</Grid>
-				<Grid item xs></Grid>
 			</Grid>
-		</div>
+		</BasicLayout>
 	);
 };

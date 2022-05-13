@@ -52,7 +52,7 @@ Create table [COMPANY] (
 	[company_id] Uniqueidentifier NOT NULL default(newid()),
 	[name] Nvarchar(255) NOT NULL,
 	[location] Nvarchar(255) NOT NULL,
-	[phone] Numeric(11,0) NOT NULL,
+	[phone] char(10) NOT NULL,
 	[country] Nvarchar(255) NOT NULL,
 Primary Key  ([company_id])
 ) 
@@ -66,11 +66,12 @@ Create table [USER] (
 	[email] Nvarchar(255) NOT NULL,
 	[gender] Bit NOT NULL,
 	[dob] Datetime NOT NULL,
-	[phone] Numeric(11,0) NOT NULL,
+	[phone] char(10) NOT NULL,
 	[address] Nvarchar(255) NOT NULL,
-	[job] Nvarchar(255) NOT NULL,
+	[job] Nvarchar(255),
 	[type] Nvarchar(255) NOT NULL,
 	[reward] Numeric(18,0) NOT NULL,
+	[company_id] Uniqueidentifier,
 Primary Key  ([user_id])
 ) 
 go
@@ -86,6 +87,7 @@ go
 Create table [SERVICE_CLASSIFY] (
 	[classify_id] Uniqueidentifier NOT NULL default(newid()),
 	[classify_code] Nvarchar(255) NOT NULL,
+	[serviceId] Uniqueidentifier NOT NULL
 Primary Key  ([classify_id])
 ) 
 go
@@ -99,29 +101,24 @@ Primary Key  ([bracket_id])
 go
 
 
-insert into SERVICE
-values (newid(), 'FLIGHT')
-insert into SERVICE
-values (newid(), 'HOTEL')
-insert into SERVICE
-values (newid(), 'AIRPORT PICKLES')
-insert into SERVICE
-values (newid(), 'VILLA APARTMENT')
-insert into SERVICE
-values (newid(), 'TOUR')
-insert into SERVICE
-values (newid(), 'CAR RENTAL')
-insert into SERVICE
-values (newid(), 'RESTAURANT')
-insert into SERVICE
-values (newid(), 'VOUCHER')
-insert into SERVICE
-values (newid(), 'SAVING COMBO')
-
-
-insert into ACCOUNT
-values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'ADMIN')
-
+-- insert into [SERVICE]
+-- values (newid(), 'FLIGHT')
+-- insert into SERVICE
+-- values (newid(), 'HOTEL')
+-- insert into SERVICE
+-- values (newid(), 'AIRPORT PICKLES')
+-- insert into SERVICE
+-- values (newid(), 'VILLA APARTMENT')
+-- insert into SERVICE
+-- values (newid(), 'TOUR')
+-- insert into SERVICE
+-- values (newid(), 'CAR RENTAL')
+-- insert into SERVICE
+-- values (newid(), 'RESTAURANT')
+-- insert into SERVICE
+-- values (newid(), 'VOUCHER')
+-- insert into SERVICE
+-- values (newid(), 'SAVING COMBO')
 
 INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09', N'VILLA-APARTMENT')
 INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc', N'FLIGHT')
@@ -148,5 +145,12 @@ INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [serviceId]) VA
 INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [serviceId]) VALUES (N'150f5702-17dc-4850-a424-e7ae6b8238c7', N'FAMILY', N'953b504b-86b1-4018-9e95-bde29518364d')
 GO
 
-insert into [USER](user_id, username, [password], [name], email, gender,dob, [address], job, type, reward, value)
-values(newid(), 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060','824 su van hanh', 'system admin', 'ADMIN', 99999, 0);
+insert into [dbo].[USER]([user_id], username, [password], [name], email, gender,dob, phone, [address], job, type, reward)
+values('3A8C5CC5-A5F9-46CA-B657-2C033252CA60', 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060', '0942458283','824 su van hanh', 'system admin', 'ADMIN', 99999);
+
+insert into [dbo].[USER]([user_id], username, [password], [name], email, gender,dob, phone, [address], job, type, reward)
+values('F5FAF674-B980-4798-83AE-D25121A838FE', 'vinhphan812', '25d55ad283aa400af464c76d713c07ad', 'Vinh Phan', 'vinhphan812@gmail.com', 1, '2001-04-27 01:48:31.060', '0975947316','824 su van hanh', null, 'USER', 0);
+
+select newid()
+
+select * from [USER]

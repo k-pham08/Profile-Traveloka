@@ -1,10 +1,10 @@
 import { Button, Grid, Typography } from "@mui/material";
 import { FC } from "react";
 import { ErrorOutline, ArrowBack } from "@mui/icons-material";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const NotFound: FC = () => {
-	const history = useHistory();
+	const navigator = useNavigate();
 
 	return (
 		<Grid
@@ -23,7 +23,7 @@ export const NotFound: FC = () => {
 			<Button
 				variant="outlined"
 				onClick={() => {
-					history.push("/");
+					navigator("/");
 				}}
 				startIcon={<ArrowBack />}
 			>

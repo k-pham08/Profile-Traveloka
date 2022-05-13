@@ -1,9 +1,9 @@
-import { UserNavbar, AdsSlider, Search } from "../../components/user";
+import { AdsSlider, Search } from "../../components/user";
 
 export const UserHome = () => {
 	return (
 		<div>
-			<UserNavbar></UserNavbar>
+			{/*<UserNavbar></UserNavbar>*/}
 			<AdsSlider></AdsSlider>
 			<Search></Search>
 		</div>

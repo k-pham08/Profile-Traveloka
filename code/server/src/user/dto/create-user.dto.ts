@@ -1,4 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import {md5} from "../../utils/md5";
+import {UserRoles} from "../../enums/roles";
+
 
 export class CreateUserDto {
      @ApiProperty()
@@ -20,13 +23,25 @@ export class CreateUserDto {
      @ApiProperty()
      job: string;
      @ApiProperty()
-     type: string;
+     type: string = UserRoles.USER;
      @ApiProperty()
-     companyName: string;
+     companyId: String;
      @ApiProperty()
      location: string;
      @ApiProperty()
-     companyPhone: number;
-     @ApiProperty()
      country: string;
+
+     constructor(data?: any) {
+          const {username, password, name, email, gender, dob, phone, address, country, companyId} = data;
+          this.username = username;
+          this.password = md5(password);
+          this.name = name;
+          this.email = email;
+          this.gender = gender;
+          this.dob = new Date(dob);
+          this.phone = phone;
+          this.address = address;
+          this.country = country;
+          this.companyId = companyId;
+     }
 }
