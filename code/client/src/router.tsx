@@ -32,8 +32,8 @@ export const routerConfig = [
 		isPrivate: true,
 	},
 	{ path: "/home", component: <UserHome /> },
-	{ path: "/user-profile", component: <UserProfile /> },
-	{ path: "/register/customer", component: <UserRegister /> },
+	{ path: "/user-profile", component: <UserProfile />, isPrivate: true },
+	{ path: "/register", component: <UserRegister /> },
 	{ path: "*", component: <NotFound />, exact: true },
 ];
 

@@ -1,45 +1,54 @@
-import { routerConfig } from "./router";
-import { SnackbarProvider } from "notistack";
-import { ThemeProvider } from "@mui/material";
-import { theme } from "./utils/theme";
-import { isLoggedIn } from "./utils/constraint";
+import {routerConfig} from "./router";
+import {SnackbarProvider} from "notistack";
+import {ThemeProvider} from "@mui/material";
+import {theme} from "./utils/theme";
 
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {observer, Provider} from "mobx-react";
 
-function App() {
-	function isAuth(isPrivate: Boolean, element: any) {
-		if (isLoggedIn || !isPrivate) return element;
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import {store, StoreContext} from "./stores";
+import {useEffect, useState, Component, FC} from "react";
+import {Protected} from "./components/Protected";
 
-		return <Navigate to="/login" />;
-	}
+export const App: FC<{}> = observer(() => {
+    function isAuth(isPrivate: Boolean, element: any) {
+        if (isPrivate && !store.isLoggedIn) {
+            return <Navigate to="/login"/>
+        }
 
-	return (
-		<ThemeProvider theme={theme}>
-			<SnackbarProvider maxSnack={3}>
-				<BrowserRouter>
-					<Routes>
-						{routerConfig.map(
-							({
-								path,
-								component,
-								isPrivate = false,
-								exact = undefined,
-							}) => (
-								<Route
-									key={path}
-									path={path}
-									element={isAuth(
-										isPrivate,
-										component
-									)}
-								/>
-							)
-						)}
-					</Routes>
-				</BrowserRouter>
-			</SnackbarProvider>
-		</ThemeProvider>
-	);
-}
+        return element
+    }
 
-export default App;
+
+    return (
+        <ThemeProvider theme={theme}>
+            <StoreContext.Provider value={store}>
+                <Provider store={store}>
+                    <SnackbarProvider maxSnack={3}>
+                        <BrowserRouter>
+                            <Routes>
+                                {routerConfig.map(
+                                    ({
+                                         path,
+                                         component,
+                                         isPrivate = false,
+                                         exact = undefined,
+                                     }) => (
+                                        <Route
+                                            key={path}
+                                            path={path}
+                                            element={isAuth(
+                                                isPrivate,
+                                                component
+                                            )}
+                                        />
+                                    )
+                                )}
+                            </Routes>
+                        </BrowserRouter>
+                    </SnackbarProvider>
+                </Provider>
+            </StoreContext.Provider>
+        </ThemeProvider>
+    );
+})
