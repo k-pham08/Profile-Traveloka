@@ -29,7 +29,7 @@ export class User {
      dob: Date;
 
      @Column("char", { name: "phone", length: 10 })
-     phone: number;
+     phone: string;
 
      @Column("nvarchar", { name: "address", length: 255 })
      address: string;
