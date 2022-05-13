@@ -7,6 +7,8 @@ import {
 	Profile,
 	Home,
 	Order,
+	CreateAccount,
+	CreateCompany,
 } from "./pages";
 import { UserHome } from "./pages/User/UserHome";
 import { UserProfile } from "./pages/User/UserProfile";
