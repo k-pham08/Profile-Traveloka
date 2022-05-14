@@ -1,7 +1,12 @@
 import { createContext, useContext, Context } from "react";
 import { Store } from "./Store";
 
-export const store = new Store();
+import {makeObservable} from "mobx";
+
+export const store = makeObservable(new Store());
+
+
+
 export const StoreContext = createContext(store);
 
 // import { setBaseStoreContext } from "./useBaseStore";

@@ -16,6 +16,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { menu } from "../router";
 import {ADMIN_SETTINGS} from "../utils/constraint";
+import {AdminSetting} from "./Settings/AdminSetting";
 
 export const Appbar = () => {
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -160,19 +161,7 @@ export const Appbar = () => {
 							open={Boolean(anchorElUser)}
 							onClose={handleCloseUserMenu}
 						>
-							{ADMIN_SETTINGS.map((setting) => (
-								<MenuItem
-									key={setting}
-									onClick={() => {
-
-										// handleCloseUserMenu();
-									}}
-								>
-									<Typography textAlign="center">
-										{setting}
-									</Typography>
-								</MenuItem>
-							))}
+							{<AdminSetting handleClose={handleCloseNavMenu}/>}
 						</Menu>
 					</Box>
 				</Toolbar>

@@ -3,6 +3,7 @@ import {User} from "../models/User";
 import {clearAll, clearJwtToken, getJwtToken, getRole, setRole} from "../utils/LoginUtils";
 import {FetchAPI, Method, setAuthorizationToken} from "../service/fetchAPI";
 import {UserRole} from "../models/types";
+import {BaseStore} from "./BaseStore";
 
 export class AuthorizedStore {
     @observable.ref currentUser?: User;
@@ -12,7 +13,7 @@ export class AuthorizedStore {
     @observable isDone = true;
 
     checkLogin() {
-        if (this.currentUser != null) return true;
+        if (this.currentUser) return true;
 
         const authToken = getJwtToken();
 
@@ -45,7 +46,7 @@ export class AuthorizedStore {
         if (err) {
             setAuthorizationToken("");
             clearJwtToken();
-            this.isDone = true;
+            this.set_isDone(true);
             return [err, data] as const;
         }
 

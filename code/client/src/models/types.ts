@@ -3,3 +3,8 @@ export enum UserRole {
     ADMIN = "ADMIN",
     PARTNER = "PARTNER"
 }
+
+export interface MenuItem{
+    title: string,
+    handle?: Function
+}

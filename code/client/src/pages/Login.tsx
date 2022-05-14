@@ -65,7 +65,6 @@ export const Login: FC<{}> = observer(() => {
     }, []);
 
     const handleLogin = () => {
-
         if (!sSignIn.username || !sSignIn.password) {
             enqueueSnackbar(ERROR.LOGIN_INVALID, {variant: "error"});
             return;

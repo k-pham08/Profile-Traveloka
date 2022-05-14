@@ -1,10 +1,6 @@
 import {action, observable} from "mobx";
-import {Store} from "./Store";
 
 export class SignUpStore {
-    constructor(private store: Store) {
-
-    }
 
     @observable fullName: string = "";
 
