@@ -25,8 +25,8 @@ export class User {
      @Column("bit", { name: "gender" })
      gender: boolean;
 
-     @Column("datetime", { name: "dob"})
-     dob: Date;
+     @Column("datetime", { name: "bod"})
+     bod: Date;
 
      @Column("char", { name: "phone", length: 10 })
      phone: number;

@@ -9,7 +9,7 @@ import {
     Delete,
     UseGuards,
     UseInterceptors,
-    NotFoundException
+    NotFoundException, BadRequestException
 } from "@nestjs/common";
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user.dto";
@@ -50,8 +50,17 @@ export class UserController {
 
     @Roles(UserRoles.ADMIN)
     @Get()
-    findAll() {
-        return this.userService.findAll();
+    async cfindAll() {
+        try {
+            const users: User[] = await this.userService.findAll();
+
+            if (users) {
+                return {success: true, data: users};
+            }
+            return {success: false, message: "USERS_NULL"};
+        } catch (err) {
+            throw new BadRequestException({success: false, ...err})
+        }
     }
 
     @Get(":id")
