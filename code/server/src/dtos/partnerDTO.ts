@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { UserRoles } from "../../enums/roles";
+import { UserRoles } from "../enums/roles";
 
-export class CreateCompanyDto {
+export class partnerDTO {
      @ApiProperty()
      name: string;
      @ApiProperty()
@@ -15,7 +15,6 @@ export class CreateCompanyDto {
      @ApiProperty()
      address: string;
      job: string = "ADMIN";
-     type: string = UserRoles.PARTNER;
      @ApiProperty()
      companyName: string;
      @ApiProperty()
@@ -41,5 +40,22 @@ export class CreateCompanyDto {
           this.companyPhone = companyPhone;
           this.country = country;
           this.serviceCode = serviceCode;
+     }
+
+     public isValid() {
+          return (
+               this.name &&
+               this.gender &&
+               this.email &&
+               this.dob &&
+               this.phone &&
+               this.address &&
+               this.job &&
+               this.companyName &&
+               this.location &&
+               this.companyPhone &&
+               this.country &&
+               this.serviceCode
+          );
      }
 }

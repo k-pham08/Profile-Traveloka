@@ -31,7 +31,7 @@ export class UserController {
      constructor(private readonly userService: UserService) {}
 
      @Post()
-     @Roles(UserRoles.USER && UserRoles.ADMIN)
+     @Roles(UserRoles.USER, UserRoles.ADMIN)
      create(@Body() createUserDto: CreateUserDto) {
           return this.userService.create(createUserDto);
      }
@@ -67,6 +67,7 @@ export class UserController {
      }
 
      @Get("types")
+     @Roles(UserRoles.ADMIN)
      async getTypesList(@Request() req) {
           const { user } = req;
 
@@ -86,16 +87,19 @@ export class UserController {
      }
 
      @Get(":id")
+     @Roles(UserRoles.ADMIN)
      findOne(@Param("id") id: string) {
           return this.userService.findOne(id);
      }
 
      @Patch(":id")
+     @Roles(UserRoles.ADMIN)
      update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
           return this.userService.update(id, updateUserDto);
      }
 
      @Delete(":id")
+     @Roles(UserRoles.ADMIN)
      remove(@Param("id") id: string) {
           return this.userService.remove(id);
      }

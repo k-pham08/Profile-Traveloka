@@ -44,6 +44,7 @@ export class CompanyService {
           user.company = company;
           await this.companyRepository.save(company);
           await this.userRepository.save(user);
+          return user;
      }
 
      findAll() {
