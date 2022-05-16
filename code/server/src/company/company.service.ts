@@ -5,7 +5,7 @@ import { Repository } from "typeorm";
 import { Company } from "../entities/Company";
 import { Service } from "../entities/Service";
 import { User } from "../entities/User";
-import { UserRoles } from "../enums/roles";
+import { PartnerJob } from "../enums/roles";
 import { md5 } from "../utils/md5";
 import { CreateCompanyDto } from "./dto/create-company.dto";
 import { UpdateCompanyDto } from "./dto/update-company.dto";
@@ -21,25 +21,23 @@ export class CompanyService {
           private readonly userRepository: Repository<User>,
      ) {}
      async create(createCompanyDto) {
+          const service = await this.serviceRepository.findOneBy({ serviceCode: createCompanyDto.serviceCode });
           const company = await this.companyRepository.create({
                name: createCompanyDto.name,
                location: createCompanyDto.location,
                phone: createCompanyDto.phone,
                country: createCompanyDto.country,
           });
-          const service = await this.serviceRepository.findOneBy({ serviceCode: createCompanyDto.serviceCode });
           const user = await this.userRepository.create({
-               username: "admin",
+               username: `admin-${service.serviceCode.toLowerCase()}`,
                password: md5("admin"),
-               name: "admin",
-               email: "admin@gmail.com",
-               gender: true,
-               dob: new Date(),
-               phone: "0123456",
-               address: "admin",
-               job: "admin",
-               type: UserRoles.PARTNER,
-               reward: 0,
+               name: createCompanyDto.name,
+               email: createCompanyDto.email,
+               gender: createCompanyDto.gender,
+               dob: createCompanyDto.dob,
+               phone: createCompanyDto.phone,
+               type: PartnerJob.ADMIN,
+               address: createCompanyDto.address,
           });
           company.service = service;
           user.company = company;

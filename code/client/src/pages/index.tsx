@@ -4,7 +4,7 @@ import { NotFound } from "./NotFound";
 import { Voucher } from "./voucher";
 import { Home } from "./Home";
 import { Order } from "./Order";
-import { CreateCompany } from "./CreateCompany";
+import { PartnerRegister } from "./PartnerRegister";
 
 export {
 	Account,
@@ -15,5 +15,5 @@ export {
 	Order,
 	CreateAccount,
 	Profile,
-	CreateCompany,
+	PartnerRegister,
 };
