@@ -5,7 +5,7 @@ import {Company} from "../entities/Company";
 import {User} from "../entities/User";
 import {CreateUserDto} from "./dto/create-user.dto";
 import {UpdateUserDto} from "./dto/update-user.dto";
-import {md5} from "../utils/md5";
+import {makeSelected} from "../utils/selected"
 
 @Injectable()
 export class UserService {
@@ -23,13 +23,13 @@ export class UserService {
     //      await this.userRepository.save(user);
     // }
 
-    async create(createUserDto: CreateUserDto): Promise<User>{
+    async create(createUserDto: CreateUserDto): Promise<User> {
         const user = await this.userRepository.save(createUserDto);
         return user;
     }
 
     findAll() {
-        return this.userRepository.find();
+        return this.userRepository.find({select: makeSelected("user"),});
     }
 
     findOne(user): Promise<User> {

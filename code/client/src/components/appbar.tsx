@@ -15,8 +15,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import { menu } from "../router";
-import {ADMIN_SETTINGS} from "../utils/constraint";
 import {AdminSetting} from "./Settings/AdminSetting";
+import {APP_NAME} from "../utils/constraint";
 
 export const Appbar = () => {
 	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -50,7 +50,7 @@ export const Appbar = () => {
 							display: { xs: "none", md: "flex" },
 						}}
 					>
-						Traveloka
+						{APP_NAME}
 					</Typography>
 
 					<Box

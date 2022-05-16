@@ -30,9 +30,6 @@ const pages = DRAWER_ITEMS.slice(1);
 const icons = DRAWER_ICONS.slice(1);
 
 export const UserNavbar: FC<{}> = observer(() => {
-    const [isLoggedIn, setIsLoggedIn] = useState(store.isLoggedIn);
-
-
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -55,7 +52,7 @@ export const UserNavbar: FC<{}> = observer(() => {
         <AppBar position="static" color="inherit">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    {isLoggedIn && <UserDrawer></UserDrawer>}
+                    {store.isLoggedIn && <UserDrawer></UserDrawer>}
 
                     <Typography
                         variant="h6"
@@ -157,7 +154,7 @@ export const UserNavbar: FC<{}> = observer(() => {
                             </ListItem>
                         ))}
                     </Box>
-                    {isLoggedIn ? <Box sx={{flexGrow: 0}}>
+                    {store.isLoggedIn ? <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Open settings">
                             <IconButton
                                 onClick={handleOpenUserMenu}

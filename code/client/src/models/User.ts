@@ -1,8 +1,10 @@
-import {observable, action, toJS, computed} from "mobx";
+import {observable} from "mobx";
 import {Company} from "./Company";
+import {FetchAPI, Method} from "../service/fetchAPI";
+
 
 export class User {
-    @observable id: string;
+    @observable userId: string;
     @observable email: string;
     @observable username: string;
     @observable password: string;
@@ -16,9 +18,8 @@ export class User {
     @observable reward: number;
     @observable company: Company;
 
-
     constructor(data?: any) {
-        this.id = "";
+        this.userId = "";
         this.email = "";
         this.username = "";
         this.password = "";
@@ -31,5 +32,23 @@ export class User {
         this.type = "";
         this.reward = 0;
         this.company = new Company();
+    }
+
+    static async getAllUser(id?: string) {
+        const [err, data] = await FetchAPI<User[]>(Method.GET, "/users");
+
+        return [err, data] as const;
+    }
+
+    static async getUserById(id: string) {
+        const [err, data] = await FetchAPI<User>(Method.GET, "/users/" + id);
+
+        return [err, data] as const;
+    }
+
+    static async getTypes() {
+     const [err, data] = await FetchAPI<string[]>(Method.GET, "/users/types");
+
+     return [err, data] as const;
     }
 }

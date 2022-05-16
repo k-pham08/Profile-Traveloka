@@ -4,7 +4,13 @@ export enum UserRole {
     PARTNER = "PARTNER"
 }
 
-export interface MenuItem{
+export interface MenuItem {
     title: string,
     handle?: Function
+}
+
+export interface IErrorData<T> extends Error {
+    status: number;
+    message: string;
+    errorObject?: T
 }

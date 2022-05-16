@@ -3,9 +3,9 @@ import {SnackbarProvider} from "notistack";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./utils/theme";
 
-import {observer, Provider} from "mobx-react";
+import {Provider} from "mobx-react";
 
-import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {store, StoreContext} from "./stores";
 import {FC, useEffect} from "react";
 import {Protected} from "./components/Protected";
@@ -36,7 +36,6 @@ export const App: FC<{}> = () => {
                                          path,
                                          component,
                                          isPrivate = false,
-                                         exact = undefined,
                                      }) => (
                                         <Route
                                             key={path}

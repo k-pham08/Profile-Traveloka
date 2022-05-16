@@ -13,7 +13,8 @@ import {
     TextField,
 } from "@mui/material";
 import {observer} from "mobx-react-lite"
-import {useStore} from "../../stores";
+import {store, useStore} from "../../stores";
+import {UserRole} from "../../models/types";
 
 export const UserInfo: FC<{}> = observer(({ }) => {
     const {sSignUp} = useStore();
@@ -25,8 +26,8 @@ export const UserInfo: FC<{}> = observer(({ }) => {
         if(newValue instanceof Date){
             setDate(newValue);
             sSignUp.set_DOB(newValue);
+            return newValue;
         }
-
     };
 
     const handleGenderChange = (event: SelectChangeEvent) => {

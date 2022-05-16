@@ -4,9 +4,7 @@ import {
 	UserInfo,
 } from "../../components/user";
 import { Grid, Paper, MenuList, MenuItem } from "@mui/material";
-import { Link } from "react-router-dom";
 
-import { USER_SETTINGS, MENU_ICONS } from "../../utils/constraint";
 import {BasicLayout} from "../../layouts/BasicLayout";
 import {UserSetting} from "../../components/Settings/UserSetting";
 

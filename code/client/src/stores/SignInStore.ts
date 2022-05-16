@@ -1,8 +1,6 @@
-import {action, makeObservable, observable} from "mobx";
+import {action, observable} from "mobx";
 import {FetchAPI, Method} from "../service/fetchAPI";
 import {clearCurrentURL, getCurrentURL, setJwtToken} from "../utils/LoginUtils";
-import {Store} from "./Store";
-import {BaseStore} from "./BaseStore";
 
 export class SignInStore  {
     private signInRedirect: string = "/";

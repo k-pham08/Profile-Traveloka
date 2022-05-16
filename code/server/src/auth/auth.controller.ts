@@ -25,6 +25,12 @@ export class AuthController {
         return {success: true, data: await this.authService.login(req.user)};
     }
 
+    @UseGuards(AuthGuard("local"))
+    @Post("login-admin")
+    async loginAdmin(){
+        
+    }
+
     @Post("secret")
     async getSecret(@Request() req) {
         return secret;
