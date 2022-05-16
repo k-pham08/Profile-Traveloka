@@ -10,9 +10,10 @@ export class AuthorizedStore {
     @observable role = UserRole.USER.toString();
     @observable isLoggedIn = false;
     @observable isDone = true;
+    @observable isLoading = false;
 
     checkLogin() {
-        if (this.currentUser != null) return true;
+        if (this.currentUser) return true;
 
         const authToken = getJwtToken();
 
@@ -23,20 +24,21 @@ export class AuthorizedStore {
         if (role)
             this.set_role(role);
 
+        this.set_isDone(false);
         this.setToken(authToken).then((res) => {
-            if (res[0]) {
+            if (!res[0]) {
+                this.currentUser = res[1];
+            } else {
                 clearJwtToken();
                 // eslint-disable-next-line no-restricted-globals
                 location.reload();
-            } else {
-                this.currentUser = res[1];
             }
+            this.set_isDone(true);
         });
         return true;
     }
 
     async setToken(token: string): Promise<any> {
-        this.set_isDone(false);
         setAuthorizationToken(token);
         const [err, data] = await FetchAPI<User>(Method.GET, "/users/me");
 
@@ -45,7 +47,7 @@ export class AuthorizedStore {
         if (err) {
             setAuthorizationToken("");
             clearJwtToken();
-            this.isDone = true;
+            this.set_isDone(true);
             return [err, data] as const;
         }
 
@@ -56,7 +58,6 @@ export class AuthorizedStore {
         setRole(data.type);
 
         this.currentUser = data;
-        this.set_isDone(true);
         return [err, data] as const;
     }
 
@@ -74,6 +75,10 @@ export class AuthorizedStore {
 
     @action set_isLoggedIn(v: boolean) {
         this.isLoggedIn = v;
+    }
+
+    @action set_isLoading(v: boolean){
+        this.isLoading = v;
     }
 
     @action Logout() {

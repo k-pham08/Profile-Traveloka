@@ -1,3 +1,5 @@
 export class BaseStore {
-	constructor() {}
+	constructor() {
+
+	}
 }

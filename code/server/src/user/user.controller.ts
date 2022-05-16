@@ -9,7 +9,7 @@ import {
     Delete,
     UseGuards,
     UseInterceptors,
-    NotFoundException
+    NotFoundException, BadRequestException, UnauthorizedException
 } from "@nestjs/common";
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user.dto";
@@ -17,9 +17,10 @@ import {UpdateUserDto} from "./dto/update-user.dto";
 import {ApiTags} from "@nestjs/swagger";
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import {Roles} from "../decorators/role.decorator";
-import {UserRoles} from "../enums/roles";
+import {PartnerJob, UserRoles} from "../enums/roles";
 import {RolesGuard} from "../auth/roles.guard";
 import {User} from "../entities/User";
+import {ObjectUnsubscribedError} from "rxjs";
 
 @ApiTags("Users")
 @Controller("users")
@@ -39,7 +40,7 @@ export class UserController {
     // }
 
     @Get("/me")
-    @Roles(UserRoles.USER)
+    @Roles(UserRoles.ALL)
     async getMe(@Request() req) {
         const user: User = await this.userService.findOne({userId: req.user.userId})
         if (user) {
@@ -50,8 +51,36 @@ export class UserController {
 
     @Roles(UserRoles.ADMIN)
     @Get()
-    findAll() {
-        return this.userService.findAll();
+    async findAll() {
+        try {
+            const users: User[] = await this.userService.findAll();
+
+            if (users) {
+                return {success: true, data: users};
+            }
+            return {success: false, message: "USERS_NULL"};
+        } catch (err) {
+            throw new BadRequestException({success: false, ...err})
+        }
+    }
+
+    @Get("types")
+    async getTypesList(@Request() req) {
+        const {user} = req;
+
+        let type: string[] = [];
+
+        switch (user.type) {
+            case UserRoles.ADMIN:
+                type = Object.keys(UserRoles).splice(1);
+                break;
+            case UserRoles.PARTNER:
+                type = Object.keys(PartnerJob);
+                break;
+            default:
+                throw new UnauthorizedException({success: false, message: "NOT_PERMISSION"})
+        }
+        return {success: true, data: type};
     }
 
     @Get(":id")

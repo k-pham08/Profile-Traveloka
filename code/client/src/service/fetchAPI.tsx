@@ -1,3 +1,5 @@
+import {IErrorData} from "../models/types";
+
 const headers: { [key: string]: string } = {
     "Content-Type": "application/json",
     'Access-Control-Allow-Origin':'*',
@@ -7,11 +9,7 @@ const headers: { [key: string]: string } = {
 
 const HOST = process.env?.REACT_APP_API;
 
-interface IErrorData<T> extends Error {
-    status: number;
-    message: string;
-    errorObject?: T
-}
+
 
 export function setAuthorizationToken(token: string) {
     if (!token) delete headers.Authorization;
