@@ -5,7 +5,7 @@ import { Repository } from "typeorm";
 import { Company } from "../entities/Company";
 import { Service } from "../entities/Service";
 import { User } from "../entities/User";
-import { PartnerJob } from "../enums/roles";
+import { PartnerJob, UserRoles } from "../enums/roles";
 import { md5 } from "../utils/md5";
 import { CreateCompanyDto } from "./dto/create-company.dto";
 import { UpdateCompanyDto } from "./dto/update-company.dto";
@@ -36,7 +36,8 @@ export class CompanyService {
                gender: createCompanyDto.gender,
                dob: createCompanyDto.dob,
                phone: createCompanyDto.phone,
-               type: PartnerJob.ADMIN,
+               type: UserRoles.PARTNER,
+               job: PartnerJob.ADMIN,
                address: createCompanyDto.address,
           });
           company.service = service;
