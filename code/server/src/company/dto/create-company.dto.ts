@@ -6,7 +6,9 @@ export class CreateCompanyDto {
      @ApiProperty()
      location: string;
      @ApiProperty()
-     phone: number;
+     phone: string;
      @ApiProperty()
      country: string;
+     @ApiProperty()
+     serviceCode: string;
 }
