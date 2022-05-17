@@ -26,8 +26,8 @@ export const CompanyInfo: FC<{}> = observer(() => {
 
 	return (
 		<div>
-			<h2 style={{ marginLeft: "2rem" }}>Thông tin công ty</h2>
 			<Grid container spacing={2} style={{ padding: "2rem" }}>
+				<h2 style={{ marginLeft: "2rem" }}>Thông tin công ty</h2>
 				<Grid item xs={12}>
 					<TextField
 						fullWidth

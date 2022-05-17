@@ -35,7 +35,13 @@ export const PartnerRegister: FC = () => {
 
 	return (
 		<BasicLayout>
-			<Paper elevation={12}>
+			<Paper
+				elevation={12}
+				style={{
+					width: "80%",
+					margin: "auto",
+				}}
+			>
 				<UserInfo></UserInfo>
 				<CompanyInfo></CompanyInfo>
 				<Button

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-	Box,
+	Grid,
 	Button,
 	FormControl,
 	InputLabel,
@@ -19,87 +19,93 @@ export const SearchHotel = () => {
 		setDate(newValue);
 	};
 	return (
-		<Box
-			sx={{
-				width: "70%",
-				bgcolor: "background.paper",
-				padding: "1rem",
-				display: "flex",
-				flexWrap: "wrap",
-			}}
-		>
-			<FormControl style={{ marginRight: "1rem" }} fullWidth>
-				<InputLabel id="simple-select-label">
-					Thành phố, địa điểm hoặc tên khách sạn
-				</InputLabel>
-				<Select
-					labelId="simple-select-label"
-					id="simple-select"
-					label="Thành phố, địa điểm hoặc tên khách sạn"
-				>
-					<MenuItem value={10}>Hà Nội</MenuItem>
-					<MenuItem value={20}>TP HCM</MenuItem>
-				</Select>
-			</FormControl>
-			<FormControl sx={{ width: "25ch", mr: 2 }} variant="outlined">
-				<LocalizationProvider dateAdapter={AdapterDateFns}>
-					<DesktopDatePicker
-						label="Nhận phòng"
-						inputFormat="MM/dd/yyyy"
-						value={date}
-						onChange={handleDateChange}
-						renderInput={(params: any) => (
-							<TextField {...params} />
-						)}
-					/>
-				</LocalizationProvider>
-			</FormControl>
-			<FormControl style={{ width: "25ch", marginRight: "2rem" }}>
-				<InputLabel id="demo-simple-select-label">
-					Số đêm
-				</InputLabel>
-				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
-					label="Số đêm"
-				>
-					<MenuItem value={10}>1 đêm</MenuItem>
-					<MenuItem value={20}>2 đêm</MenuItem>
-				</Select>
-			</FormControl>
-			<FormControl style={{ width: "25ch", marginRight: "1rem" }}>
-				<InputLabel id="simple-select-label">Số phòng</InputLabel>
-				<Select
-					labelId="simple-select-label"
-					id="simple-select"
-					label="Số phòng"
-				>
-					<MenuItem value={10}>HCM</MenuItem>
-					<MenuItem value={20}>Hà Nội</MenuItem>
-					<MenuItem value={30}>Thirty</MenuItem>
-				</Select>
-			</FormControl>
+		<Grid container spacing={2} padding={"1rem"}>
+			<Grid item xs={12}>
+				<FormControl fullWidth>
+					<InputLabel id="simple-select-label">
+						Thành phố, địa điểm hoặc tên khách sạn
+					</InputLabel>
+					<Select
+						labelId="simple-select-label"
+						id="simple-select"
+						label="Thành phố, địa điểm hoặc tên khách sạn"
+					>
+						<MenuItem value={10}>Hà Nội</MenuItem>
+						<MenuItem value={20}>TP HCM</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid item xs={5}>
+				<FormControl variant="outlined" fullWidth>
+					<LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DesktopDatePicker
+							label="Nhận phòng"
+							inputFormat="MM/dd/yyyy"
+							value={date}
+							onChange={handleDateChange}
+							renderInput={(params: any) => (
+								<TextField {...params} />
+							)}
+						/>
+					</LocalizationProvider>
+				</FormControl>
+			</Grid>
+			<Grid item xs={7}>
+				<FormControl fullWidth>
+					<InputLabel id="demo-simple-select-label">
+						Số đêm
+					</InputLabel>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						label="Số đêm"
+					>
+						<MenuItem value={10}>1 đêm</MenuItem>
+						<MenuItem value={20}>2 đêm</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid item xs={6}>
+				<FormControl fullWidth>
+					<InputLabel id="simple-select-label">
+						Số phòng
+					</InputLabel>
+					<Select
+						labelId="simple-select-label"
+						id="simple-select"
+						label="Số phòng"
+					>
+						<MenuItem value={10}>HCM</MenuItem>
+						<MenuItem value={20}>Hà Nội</MenuItem>
+						<MenuItem value={30}>Thirty</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
 
-			<FormControl style={{ marginRight: "1rem", width: "30%" }}>
-				<InputLabel id="simple-select-label">
-					Số hành khách
-				</InputLabel>
-				<Select
-					labelId="simple-select-label"
-					id="simple-select"
-					label="Số hành khách"
+			<Grid item xs={6}>
+				<FormControl fullWidth>
+					<InputLabel id="simple-select-label">
+						Số hành khách
+					</InputLabel>
+					<Select
+						labelId="simple-select-label"
+						id="simple-select"
+						label="Số hành khách"
+					>
+						<MenuItem value={10}>HCM</MenuItem>
+						<MenuItem value={20}>Hà Nội</MenuItem>
+						<MenuItem value={30}>Thirty</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid item xs={12}>
+				<Button
+					variant="contained"
+					style={{ height: "fit-content", margin: "auto" }}
 				>
-					<MenuItem value={10}>HCM</MenuItem>
-					<MenuItem value={20}>Hà Nội</MenuItem>
-					<MenuItem value={30}>Thirty</MenuItem>
-				</Select>
-			</FormControl>
-			<Button
-				variant="contained"
-				style={{ height: "fit-content", margin: "auto" }}
-			>
-				Tìm combo tiết kiệm
-			</Button>
-		</Box>
+					Tìm khách sạn
+				</Button>{" "}
+			</Grid>
+		</Grid>
 	);
 };

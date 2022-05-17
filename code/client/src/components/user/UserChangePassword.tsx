@@ -6,7 +6,8 @@ import {
 	OutlinedInput,
 	InputLabel,
 	InputAdornment,
-	FormControl, Grid,
+	FormControl,
+	Grid,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -43,7 +44,7 @@ export const UserChangePassword = () => {
 		};
 
 	return (
-		<Grid container>
+		<Grid container style={{ padding: "2rem" }}>
 			<h2 style={{ margin: "1rem" }}>Đổi mật khẩu</h2>
 			<FormControl sx={{ m: 1, width: 1 }}>
 				<InputLabel htmlFor="outlined-adornment-password">

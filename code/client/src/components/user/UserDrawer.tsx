@@ -9,6 +9,7 @@ import {
 	Drawer,
 	Box,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 
 import {
 	SERVICES,
@@ -46,28 +47,30 @@ export const UserDrawer = () => {
 		>
 			<List>
 				{DRAWER_ITEMS.map((item, index) => (
-					<ListItem button key={item}>
-						<ListItemIcon>
-							<img
-								src={DRAWER_ICONS[index]}
-								alt="Menu Icon"
-							></img>
-						</ListItemIcon>
-						<ListItemText primary={item} />
-					</ListItem>
+					<Link to={item.link} style={{ color: "black" }}>
+						<ListItem button key={item.name}>
+							<ListItemIcon>
+								<img
+									src={DRAWER_ICONS[index]}
+									alt="Menu Icon"
+								></img>
+							</ListItemIcon>
+							<ListItemText primary={item.name} />
+						</ListItem>
+					</Link>
 				))}
 			</List>
 			<Divider />
 			<List>
 				{SERVICES.map((service, index) => (
-					<ListItem button key={service}>
+					<ListItem button key={service.code}>
 						<ListItemIcon>
 							<img
 								src={SERVICE_ICON[index]}
 								alt="Menu Icon"
 							></img>
 						</ListItemIcon>
-						<ListItemText primary={service} />
+						<ListItemText primary={service.name} />
 					</ListItem>
 				))}
 			</List>

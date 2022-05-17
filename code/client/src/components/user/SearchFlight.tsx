@@ -1,6 +1,6 @@
 import { useState } from "react";
 import {
-	Box,
+	Grid,
 	Button,
 	Checkbox,
 	FormControl,
@@ -21,86 +21,97 @@ export const SearchFlight = () => {
 		setDate(newValue);
 	};
 	return (
-		<Box
-			sx={{
-				width: "70%",
-				bgcolor: "background.paper",
-				padding: "1rem",
-				display: "flex",
-				flexWrap: "wrap",
-			}}
-		>
-			<FormControl style={{ width: "10rem", marginRight: "2rem" }}>
-				<InputLabel id="demo-simple-select-label">Từ</InputLabel>
-				<Select
-					labelId="demo-simple-select-label"
-					id="demo-simple-select"
-					label="Tu"
+		<Grid container spacing={2} padding={"1rem"}>
+			<Grid item xs={6}>
+				<FormControl fullWidth>
+					<InputLabel id="demo-simple-select-label">
+						Từ
+					</InputLabel>
+					<Select
+						labelId="demo-simple-select-label"
+						id="demo-simple-select"
+						label="Tu"
+					>
+						<MenuItem value={10}>HCM</MenuItem>
+						<MenuItem value={20}>Hà Nội</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid item xs={6}>
+				<FormControl fullWidth>
+					<InputLabel id="simple-select-label">Đến</InputLabel>
+					<Select
+						labelId="simple-select-label"
+						id="simple-select"
+						label="Đến"
+					>
+						<MenuItem value={10}>HCM</MenuItem>
+						<MenuItem value={20}>Hà Nội</MenuItem>
+						<MenuItem value={30}>Thirty</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid item xs={9}>
+				<FormControl fullWidth>
+					<InputLabel id="simple-select-label">
+						Hạng ghế
+					</InputLabel>
+					<Select
+						labelId="simple-select-label"
+						id="simple-select"
+						label="Hạng ghế"
+					>
+						<MenuItem value={10}>Phổ thông</MenuItem>
+						<MenuItem value={20}>Thương gia</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid item xs={3}>
+				<FormControlLabel
+					control={<Checkbox defaultChecked />}
+					label="Khứ hồi"
+				/>
+			</Grid>
+
+			<Grid item xs={6}>
+				<FormControl fullWidth>
+					<InputLabel id="simple-select-label">
+						Số hành khách
+					</InputLabel>
+					<Select
+						labelId="simple-select-label"
+						id="simple-select"
+						label="Số hành khách"
+					>
+						<MenuItem value={10}>HCM</MenuItem>
+						<MenuItem value={20}>Hà Nội</MenuItem>
+						<MenuItem value={30}>Thirty</MenuItem>
+					</Select>
+				</FormControl>
+			</Grid>
+			<Grid item xs={6}>
+				<FormControl variant="outlined">
+					<LocalizationProvider dateAdapter={AdapterDateFns}>
+						<DesktopDatePicker
+							label="Ngày đi"
+							inputFormat="MM/dd/yyyy"
+							value={date}
+							onChange={handleDateChange}
+							renderInput={(params: any) => (
+								<TextField {...params} />
+							)}
+						/>
+					</LocalizationProvider>
+				</FormControl>
+			</Grid>
+			<Grid item xs={12}>
+				<Button
+					variant="contained"
+					style={{ height: "fit-content", margin: "auto" }}
 				>
-					<MenuItem value={10}>HCM</MenuItem>
-					<MenuItem value={20}>Hà Nội</MenuItem>
-				</Select>
-			</FormControl>
-			<FormControl style={{ width: "10rem", marginRight: "1rem" }}>
-				<InputLabel id="simple-select-label">Đến</InputLabel>
-				<Select
-					labelId="simple-select-label"
-					id="simple-select"
-					label="Đến"
-				>
-					<MenuItem value={10}>HCM</MenuItem>
-					<MenuItem value={20}>Hà Nội</MenuItem>
-					<MenuItem value={30}>Thirty</MenuItem>
-				</Select>
-			</FormControl>
-			<FormControlLabel
-				control={<Checkbox defaultChecked />}
-				label="Khứ hồi"
-			/>
-			<FormControl style={{ marginRight: "1rem" }} fullWidth>
-				<InputLabel id="simple-select-label">Hạng ghế</InputLabel>
-				<Select
-					labelId="simple-select-label"
-					id="simple-select"
-					label="Hạng ghế"
-				>
-					<MenuItem value={10}>Phổ thông</MenuItem>
-					<MenuItem value={20}>Thương gia</MenuItem>
-				</Select>
-			</FormControl>
-			<FormControl style={{ marginRight: "1rem", width: "30%" }}>
-				<InputLabel id="simple-select-label">
-					Số hành khách
-				</InputLabel>
-				<Select
-					labelId="simple-select-label"
-					id="simple-select"
-					label="Số hành khách"
-				>
-					<MenuItem value={10}>HCM</MenuItem>
-					<MenuItem value={20}>Hà Nội</MenuItem>
-					<MenuItem value={30}>Thirty</MenuItem>
-				</Select>
-			</FormControl>
-			<FormControl sx={{ width: "25ch" }} variant="outlined">
-				<LocalizationProvider dateAdapter={AdapterDateFns}>
-					<DesktopDatePicker
-						label="Ngày đi"
-						inputFormat="MM/dd/yyyy"
-						value={date}
-						onChange={handleDateChange}
-						renderInput={(params: any) => (
-							<TextField {...params} />
-						)}
-					/>
-				</LocalizationProvider>
-			</FormControl>
-			<Button
-				variant="contained"
-				style={{ height: "fit-content", margin: "auto" }}
-			>
-				Tìm chuyến bay
-			</Button>
-		</Box>
+					Tìm chuyến bay
+				</Button>
+			</Grid>
+		</Grid>
 	);
 };

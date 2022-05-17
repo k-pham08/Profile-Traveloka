@@ -11,3 +11,8 @@ export * from "./UserChangePassword";
 export * from "./UserDrawer";
 export * from "./UserReward";
 export * from "./UserInfo";
+export * from "./SearchCombo";
+export * from "./SearchFlight";
+export * from "./SearchHotel";
+export * from "./SearchRentCar";
+export * from "./SearchShuttle";
