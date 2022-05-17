@@ -20,26 +20,27 @@ export class CompanyService {
           private readonly userRepository: Repository<User>,
      ) {}
      async create(createCompanyDto: CreateCompanyDto) {
-          const service = await this.serviceRepository.findOneBy({ serviceCode: createCompanyDto.serviceCode });
           const company = await this.companyRepository.create({
                name: createCompanyDto.name,
                location: createCompanyDto.location,
                phone: createCompanyDto.phone,
                country: createCompanyDto.country,
           });
+
           const service = await this.serviceRepository.findOneBy({ serviceCode: createCompanyDto.serviceCode });
-          const user = await this.userRepository.create({
+          const userObj = {
                username: `admin-${service.serviceCode.toLowerCase()}-${company.phone.substr(1, 3) + company.phone.substr(7)}`,
                password: md5("admin"),
                name: createCompanyDto.name,
                email: createCompanyDto.email,
-               gender: createCompanyDto.gender,
-               dob: createCompanyDto.dob,
+               gender: true,
+               dob: new Date(),
                phone: createCompanyDto.phone,
                type: UserRoles.PARTNER,
                job: PartnerJob.ADMIN,
-               address: createCompanyDto.address,
-          });
+               address: createCompanyDto.location,
+          }
+          const user = await this.userRepository.create(userObj);
           company.service = service;
           user.company = company;
           await this.companyRepository.save(company);

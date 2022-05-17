@@ -11,20 +11,18 @@ export class CreateCompanyDto {
      country: string;
      @ApiProperty()
      serviceCode: string;
+     @ApiProperty()
+     email: string;
+     @ApiProperty()
+     address: string;
 
      constructor(data?: any) {
-          const { name, gender, dob, phone, email, address, job, companyName, location, companyPhone, country, serviceCode } = data;
+          const { name, email, phone, location, country, serviceCode } = data;
           this.name = name;
-          this.email = email;
-          this.gender = gender;
-          this.dob = dob;
           this.phone = phone;
-          this.address = address;
-          this.job = job;
-          this.companyName = companyName;
           this.location = location;
-          this.companyPhone = companyPhone;
           this.country = country;
           this.serviceCode = serviceCode;
+          this.email = email;
      }
 }
