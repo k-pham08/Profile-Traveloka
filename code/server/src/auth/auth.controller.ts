@@ -9,7 +9,9 @@ import { CompanyService } from "../company/company.service";
 import { CreateUserDto } from "../user/dto/create-user.dto";
 import { UserRoles } from "../enums/roles";
 import { CreateCompanyDto } from "../company/dto/create-company.dto";
+import { ApiProperty, ApiTags } from "@nestjs/swagger";
 
+@ApiTags("Authentication")
 @Controller("auth")
 export class AuthController {
      constructor(private authService: AuthService, private userService: UserService, private partnerService: CompanyService) {}
