@@ -20,18 +20,10 @@ export class CreateUserDto {
      @ApiProperty()
      address: string;
      @ApiProperty()
-     job: string;
-     @ApiProperty()
      type: string = UserRoles.USER;
-     @ApiProperty()
-     companyId: String;
-     @ApiProperty()
-     location: string;
-     @ApiProperty()
-     country: string;
 
      constructor(data?: any) {
-          const { username, password, name, email, gender, dob, phone, address, country, companyId } = data;
+          const { username, password, name, email, gender, dob, phone, address } = data;
           this.username = username;
           this.password = md5(password);
           this.name = name;
@@ -40,7 +32,5 @@ export class CreateUserDto {
           this.dob = new Date(dob);
           this.phone = phone;
           this.address = address;
-          this.country = country;
-          this.companyId = companyId;
      }
 }

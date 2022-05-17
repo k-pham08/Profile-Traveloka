@@ -1,11 +1,10 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { use } from "passport";
 import { Repository } from "typeorm";
 import { Company } from "../entities/Company";
 import { Service } from "../entities/Service";
 import { User } from "../entities/User";
-import { UserRoles } from "../enums/roles";
+import { PartnerJob, UserRoles } from "../enums/roles";
 import { md5 } from "../utils/md5";
 import { CreateCompanyDto } from "./dto/create-company.dto";
 import { UpdateCompanyDto } from "./dto/update-company.dto";
@@ -20,7 +19,8 @@ export class CompanyService {
           @InjectRepository(User)
           private readonly userRepository: Repository<User>,
      ) {}
-     async create(createCompanyDto) {
+     async create(createCompanyDto: CreateCompanyDto) {
+          const service = await this.serviceRepository.findOneBy({ serviceCode: createCompanyDto.serviceCode });
           const company = await this.companyRepository.create({
                name: createCompanyDto.name,
                location: createCompanyDto.location,
@@ -29,22 +29,22 @@ export class CompanyService {
           });
           const service = await this.serviceRepository.findOneBy({ serviceCode: createCompanyDto.serviceCode });
           const user = await this.userRepository.create({
-               username: "admin",
+               username: `admin-${service.serviceCode.toLowerCase()}-${company.phone.substr(1, 3) + company.phone.substr(7)}`,
                password: md5("admin"),
-               name: "admin",
-               email: "admin@gmail.com",
-               gender: true,
-               dob: new Date(),
-               phone: "0123456",
-               address: "admin",
-               job: "admin",
+               name: createCompanyDto.name,
+               email: createCompanyDto.email,
+               gender: createCompanyDto.gender,
+               dob: createCompanyDto.dob,
+               phone: createCompanyDto.phone,
                type: UserRoles.PARTNER,
-               reward: 0,
+               job: PartnerJob.ADMIN,
+               address: createCompanyDto.address,
           });
           company.service = service;
           user.company = company;
           await this.companyRepository.save(company);
           await this.userRepository.save(user);
+          return user;
      }
 
      findAll() {
