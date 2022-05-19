@@ -5,6 +5,6 @@ export class AppService {
      constructor() {}
 
      getHello(): string {
-          return "Hello! this is the server Profile Traveloka Fake";
+          return "Hello! this is the server Profile Traveloka Fake (chê nha)";
      }
 }

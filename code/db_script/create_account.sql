@@ -48,56 +48,54 @@ go
 -- ) 
 -- go
 
-Create table [COMPANY] (
-	[company_id] Uniqueidentifier NOT NULL default(newid()),
-	[name] Nvarchar(255) NOT NULL,
-	[location] Nvarchar(255) NOT NULL,
-	[phone] char(10) NOT NULL,
-	[country] Nvarchar(255) NOT NULL,
-Primary Key  ([company_id])
-) 
-go
-
 Create table [USER] (
-	[user_id] Uniqueidentifier NOT NULL default(newid()),
+	[user_id] Uniqueidentifier NOT NULL,
 	[username] Varchar(255) NOT NULL,
 	[password] Varchar(255) NOT NULL,
 	[name] Nvarchar(255) NOT NULL,
 	[email] Nvarchar(255) NOT NULL,
 	[gender] Bit NOT NULL,
 	[dob] Datetime NOT NULL,
-	[phone] char(10) NOT NULL,
+	[phone] Char(11) NOT NULL,
 	[address] Nvarchar(255) NOT NULL,
-	[job] Nvarchar(255),
 	[type] Nvarchar(255) NOT NULL,
-	[reward] Numeric(18,0) NOT NULL,
-	[company_id] Uniqueidentifier,
+	[reward] Integer NOT NULL,
+	[company_name] Nvarchar(255) NULL,
 Primary Key  ([user_id])
 ) 
 go
 
-
 Create table [SERVICE] (
-	[service_id] Uniqueidentifier NOT NULL default(newid()),
-	[service_code] Nvarchar(255) NOT NULL,
+	[service_id] Uniqueidentifier NOT NULL,
+	[service_code] Varchar(255) NOT NULL,
 Primary Key  ([service_id])
 ) 
 go
 
+Create table [UserSer] (
+	[user_id] Uniqueidentifier NOT NULL,
+	[service_id] Uniqueidentifier NOT NULL,
+	[id] Uniqueidentifier NOT NULL,
+Primary Key  ([user_id],[service_id],[id])
+) 
+go
+
 Create table [SERVICE_CLASSIFY] (
-	[classify_id] Uniqueidentifier NOT NULL default(newid()),
+	[classify_id] Uniqueidentifier NOT NULL,
 	[classify_code] Nvarchar(255) NOT NULL,
-	[serviceId] Uniqueidentifier NOT NULL
+	[max_price] Integer NOT NULL,
+	[min_price] Integer NOT NULL,
+	[service_id] Uniqueidentifier NOT NULL,
 Primary Key  ([classify_id])
 ) 
 go
 
-Create table [PRICE_BRACKET] (
-	[bracket_id] Uniqueidentifier NOT NULL default(newid()),
-	[max_price] Numeric(20,0) NOT NULL,
-	[min_price] Numeric(20,0) NOT NULL
-Primary Key  ([bracket_id])
-) 
+
+Alter table [UserSer] add  foreign key([user_id]) references [USER] ([user_id]) 
+go
+Alter table [UserSer] add  foreign key([service_id]) references [SERVICE] ([service_id]) 
+go
+Alter table [SERVICE_CLASSIFY] add  foreign key([service_id]) references [SERVICE] ([service_id]) 
 go
 
 

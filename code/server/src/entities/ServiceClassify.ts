@@ -1,23 +1,21 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne, OneToOne } from "typeorm";
-import { PriceBracket } from "./PriceBracket";
+import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
 import { Service } from "./Service";
 
 @Entity("SERVICE_CLASSIFY", { schema: "dbo" })
 export class ServiceClassify {
-     @Column("uniqueidentifier", {
-          primary: true,
-          name: "classify_id",
-          default: () => "newid()",
-     })
+     @Column("uniqueidentifier", { primary: true, name: "classify_id" })
      classifyId: string;
 
      @Column("nvarchar", { name: "classify_code", length: 255 })
      classifyCode: string;
 
-     @OneToOne(() => PriceBracket, priceBracket => priceBracket.serClassify)
-     priceBracket: PriceBracket;
+     @Column("int", { name: "max_price" })
+     maxPrice: number;
+
+     @Column("int", { name: "min_price" })
+     minPrice: number;
 
      @ManyToOne(() => Service, service => service.serviceClassifies)
-     @JoinColumn([{ name: "serviceId", referencedColumnName: "serviceId" }])
+     @JoinColumn([{ name: "service_id", referencedColumnName: "serviceId" }])
      service: Service;
 }
