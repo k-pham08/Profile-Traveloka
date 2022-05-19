@@ -1,13 +1,9 @@
-import {Column, Entity, Index, JoinColumn, ManyToOne, PrimaryColumn} from "typeorm";
-import { Company } from "./Company";
+import { Column, Entity, Index, OneToMany } from "typeorm";
+import { UserSer } from "./UserSer";
 
 @Entity("USER", { schema: "dbo" })
 export class User {
-     @PrimaryColumn("uniqueidentifier", {
-          primary: true,
-          name: "user_id",
-          default: () => "newid()",
-     })
+     @Column("uniqueidentifier", { primary: true, name: "user_id", default: () => "newId()" })
      userId: string;
 
      @Column("varchar", { name: "username", length: 255 })
@@ -25,25 +21,24 @@ export class User {
      @Column("bit", { name: "gender" })
      gender: boolean;
 
-     @Column("datetime", { name: "bod"})
+     @Column("datetime", { name: "bod" })
      bod: Date;
 
-     @Column("char", { name: "phone", length: 10 })
+     @Column("char", { name: "phone", length: 11 })
      phone: string;
 
      @Column("nvarchar", { name: "address", length: 255 })
      address: string;
 
-     @Column("nvarchar", { name: "job", length: 255, nullable: true })
-     job: string;
-
      @Column("nvarchar", { name: "type", length: 255 })
      type: string;
 
-     @Column("numeric", { name: "reward", precision: 18, scale: 0, default: 0})
+     @Column("int", { name: "reward" })
      reward: number;
 
-     @ManyToOne(() => Company, company => company.users)
-     @JoinColumn([{ name: "companyId", referencedColumnName: "companyId" }])
-     company: Company;
+     @Column("nvarchar", { name: "company_name", nullable: true, length: 255 })
+     companyName: string | null;
+
+     @OneToMany(() => UserSer, userSer => userSer.user)
+     userSers: UserSer[];
 }

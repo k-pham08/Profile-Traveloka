@@ -20,10 +20,12 @@ export class CreateUserDto {
      @ApiProperty()
      address: string;
      @ApiProperty()
-     type: string = UserRoles.USER;
+     companyName: string;
+     type: string;
+     reward: number;
 
      constructor(data?: any) {
-          const { username, password, name, email, gender, dob, phone, address } = data;
+          const { username, password, name, email, gender, dob, phone, address, companyName } = data;
           this.username = username;
           this.password = md5(password);
           this.name = name;
@@ -32,5 +34,7 @@ export class CreateUserDto {
           this.dob = new Date(dob);
           this.phone = phone;
           this.address = address;
+          this.reward = 0;
+          this.companyName = companyName;
      }
 }
