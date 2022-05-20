@@ -7,7 +7,7 @@ export const Search = () => {
 			elevation={12}
 			sx={{
 				display: "flex",
-				maxWidth: "60%",
+				maxWidth: "70%",
 				margin: "auto",
 				marginBottom: "2rem",
 				maxHeight: "50%",
