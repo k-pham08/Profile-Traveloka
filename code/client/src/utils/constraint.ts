@@ -1,5 +1,5 @@
 import {store} from "../stores";
-import {MenuItem} from "../models/types";
+import {MenuItem, MenuLink} from "../models/types";
 
 export const srcIcon = "./favicon.ico";
 
@@ -59,9 +59,9 @@ export const MENU_ICONS = [
     "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6464840154eb190d10525ea67e77648a.svg",
 ];
 
-export const DRAWER_ITEMS: MenuItem[] = [
-    {title: "Trang chủ"},
-    {title: "Hợp tác với chúng tôi"},
+export const DRAWER_ITEMS: MenuLink[] = [
+    {title: "Trang chủ", link: "/"},
+    {title: "Hợp tác với chúng tôi", link: "/partnership"},
     {title: "Đã Lưu"},
     {title: "Đặt chỗ của tôi"},
 ];

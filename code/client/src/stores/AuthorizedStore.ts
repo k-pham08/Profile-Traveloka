@@ -40,7 +40,7 @@ export class AuthorizedStore {
 
     async setToken(token: string): Promise<any> {
         setAuthorizationToken(token);
-        const [err, data] = await FetchAPI<User>(Method.GET, "/users/me");
+        const [err, data] = await FetchAPI<User>(Method.GET, "/api/users/me");
 
         // console.log(err, data)
 
