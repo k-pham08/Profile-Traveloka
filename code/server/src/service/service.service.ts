@@ -12,7 +12,7 @@ export class ServiceService {
           private readonly serviceRepository: Repository<Service>,
      ) {}
      create(createServiceDto: CreateServiceDto) {
-          return "This action adds a new service";
+          this.serviceRepository.create(createServiceDto);
      }
 
      findAll() {
@@ -21,6 +21,10 @@ export class ServiceService {
 
      findOne(id) {
           return this.serviceRepository.create(id);
+     }
+
+     findSerByCode(code) {
+          return this.serviceRepository.findOneBy({ serviceCode: code });
      }
 
      update(id: string, updateServiceDto: UpdateServiceDto) {

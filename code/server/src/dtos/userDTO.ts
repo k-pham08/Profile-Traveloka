@@ -1,5 +1,4 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { md5 } from "../utils/md5";
 
 export class userDTO {
      @ApiProperty()
@@ -20,13 +19,14 @@ export class userDTO {
      address: string;
      @ApiProperty()
      companyName: string;
+     services: string[];
      type: string;
      reward: number;
 
      constructor(data?: any) {
-          const { username, password, name, email, gender, dob, phone, address, companyName } = data;
+          const { username, password, name, email, gender, dob, phone, address, companyName, services } = data;
           this.username = username;
-          this.password = md5(password);
+          this.password = password;
           this.name = name;
           this.email = email;
           this.gender = gender;
@@ -35,9 +35,10 @@ export class userDTO {
           this.address = address;
           this.reward = 0;
           this.companyName = companyName;
+          this.services = services;
      }
 
      public isValid() {
-          return this.username && this.password && this.name && this.gender && this.email && this.dob && this.phone && this.address;
+          return this.username && this.password && this.name && this.gender != undefined && this.email && this.dob && this.phone && this.address;
      }
 }

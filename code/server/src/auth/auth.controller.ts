@@ -1,18 +1,19 @@
-import { Controller, UseGuards, Post, Body, Request, Response, ConflictException } from "@nestjs/common";
+import { Controller, UseGuards, Post, Request, Response, ConflictException } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from "./auth.service";
 import { secret } from "../utils/constants";
 import { userDTO } from "../dtos/userDTO";
-import { partnerDTO } from "../dtos/partnerDTO";
 import { UserService } from "../user/user.service";
+import { ServiceService } from "../service/service.service";
 import { CreateUserDto } from "../user/dto/create-user.dto";
-import { ApiProperty, ApiTags } from "@nestjs/swagger";
+import { ApiTags } from "@nestjs/swagger";
 import { UserRoles } from "../enums/roles";
+import { Service } from "../entities/Service";
 
 @ApiTags("Authentication")
 @Controller("auth")
 export class AuthController {
-     constructor(private authService: AuthService, private userService: UserService) {}
+     constructor(private authService: AuthService, private userService: UserService, private serService: ServiceService) {}
 
      @UseGuards(AuthGuard("local"))
      @Post("login")
@@ -40,7 +41,15 @@ export class AuthController {
           }
 
           const createDto: CreateUserDto = new CreateUserDto(user);
-          createDto.companyName == null ? (createDto.type = UserRoles.USER) : (createDto.type = UserRoles.PARTNER);
+          if (createDto.companyName == null) {
+               createDto.type = UserRoles.USER;
+          } else {
+               for (let ser of user.services) {
+                    const service: Service = await this.serService.findSerByCode(ser);
+                    if (service) createDto.services.push(service);
+               }
+               createDto.type = UserRoles.PARTNER;
+          }
           await this.userService.create(createDto);
           res.json({ success: true, message: "REGISTER_SUCCESS", data: createDto });
      }

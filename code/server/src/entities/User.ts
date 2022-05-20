@@ -1,5 +1,5 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
-import { UserSer } from "./UserSer";
+import { Column, Entity, Index, JoinTable, ManyToMany, OneToMany } from "typeorm";
+import { Service } from "./Service";
 
 @Entity("USER", { schema: "dbo" })
 export class User {
@@ -39,6 +39,7 @@ export class User {
      @Column("nvarchar", { name: "company_name", nullable: true, length: 255 })
      companyName: string | null;
 
-     @OneToMany(() => UserSer, userSer => userSer.user)
-     userSers: UserSer[];
+     @ManyToMany(() => Service)
+     @JoinTable()
+     services: Service[];
 }
