@@ -24,7 +24,7 @@ export class User {
      @Column("datetime", { name: "bod" })
      bod: Date;
 
-     @Column("char", { name: "phone", length: 11 })
+     @Column("char", { name: "phone", length: 10 })
      phone: string;
 
      @Column("nvarchar", { name: "address", length: 255 })
