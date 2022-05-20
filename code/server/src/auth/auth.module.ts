@@ -8,9 +8,10 @@ import { jwtConfig } from "../utils/constants";
 import { AuthController } from "./auth.controller";
 import { JwtStrategy } from "./jwt.strategy";
 import { SignupMiddleware } from "./middlewares/signup.middleware";
+import { ServiceModule } from "../service/service.module";
 
 @Module({
-     imports: [UserModule, PassportModule, JwtModule.register(jwtConfig as JwtModuleOptions)],
+     imports: [UserModule, ServiceModule, PassportModule, JwtModule.register(jwtConfig as JwtModuleOptions)],
      providers: [AuthService, LocalStrategy, JwtStrategy],
      exports: [AuthService],
      controllers: [AuthController],
