@@ -59,11 +59,11 @@ export const MENU_ICONS = [
     "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6464840154eb190d10525ea67e77648a.svg",
 ];
 
-export const DRAWER_ITEMS = [
-    "Trang chủ",
-    "Hợp tác với chúng tôi",
-    "Đã Lưu",
-    "Đặt chỗ của tôi",
+export const DRAWER_ITEMS: MenuItem[] = [
+    {title: "Trang chủ"},
+    {title: "Hợp tác với chúng tôi"},
+    {title: "Đã Lưu"},
+    {title: "Đặt chỗ của tôi"},
 ];
 
 export const DRAWER_ICONS = [

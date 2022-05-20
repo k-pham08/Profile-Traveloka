@@ -103,11 +103,11 @@ export const UserNavbar: FC<{}> = observer(() => {
 						>
 							{pages.map((page) => (
 								<MenuItem
-									key={page.name}
+									key={page.title}
 									onClick={handleCloseNavMenu}
 								>
 									<Typography textAlign="center">
-										{page.name}
+										{page.title}
 									</Typography>
 								</MenuItem>
 							))}
@@ -137,7 +137,7 @@ export const UserNavbar: FC<{}> = observer(() => {
 						{pages.map((page, index) => (
 							<ListItem
 								button
-								key={page.name}
+								key={page.title}
 								sx={{
 									width: "fit-content",
 								}}
@@ -155,7 +155,7 @@ export const UserNavbar: FC<{}> = observer(() => {
 										></img>
 									</ListItemIcon>
 									<ListItemText
-										primary={page.name}
+										primary={page.title}
 									/>
 								</Link>
 							</ListItem>

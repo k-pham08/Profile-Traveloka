@@ -46,14 +46,14 @@ export const UserDrawer = () => {
 		>
 			<List>
 				{DRAWER_ITEMS.map((item, index) => (
-					<ListItem button key={item}>
+					<ListItem button key={item.title}>
 						<ListItemIcon>
 							<img
 								src={DRAWER_ICONS[index]}
 								alt="Menu Icon"
 							></img>
 						</ListItemIcon>
-						<ListItemText primary={item} />
+						<ListItemText primary={item.title} />
 					</ListItem>
 				))}
 			</List>
