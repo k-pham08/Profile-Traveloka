@@ -34,6 +34,7 @@ go
 Create table [SERVICE] (
 	[service_id] Uniqueidentifier NOT NULL,
 	[service_code] Varchar(255) NOT NULL,
+	[service_name] Nvarchar(255) NOT NULL
 Primary Key  ([service_id])
 ) 
 
@@ -73,15 +74,15 @@ go
 -- insert into SERVICE
 -- values (newid(), 'SAVING COMBO')
 
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09', N'VILLA-APARTMENT')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc', N'FLIGHT')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'e2d5a703-128b-48df-8473-43b9b8629f14', N'CAR-RENTAL')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'1142ab4a-9323-4c12-b673-7c829ef0d9ea', N'AIRPORT-PICKLES')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'a044fb78-dbc2-423e-b520-818729501398', N'HOTEL')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'63726423-b591-4f1c-8837-aa65c0579fc7', N'TOUR')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'953b504b-86b1-4018-9e95-bde29518364d', N'RESTAURANT')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'e91bf9c5-4dc9-4f0f-b8ec-d059582e3655', N'VOUCHER')
-INSERT [dbo].[SERVICE] ([service_id], [service_code]) VALUES (N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f', N'SAVING-COMBO')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09', N'VILLA-APARTMENT', N'Biệt thự - Căn hộ')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc', N'FLIGHT', N'Chuyến ba')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'e2d5a703-128b-48df-8473-43b9b8629f14', N'CAR-RENTAL', N'Cho thuê xe')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'1142ab4a-9323-4c12-b673-7c829ef0d9ea', N'AIRPORT-PICKLES', N'Dưa đón sân bay')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'a044fb78-dbc2-423e-b520-818729501398', N'HOTEL', N'Khách sạn')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'63726423-b591-4f1c-8837-aa65c0579fc7', N'TOUR', N'Tour du lịch')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'953b504b-86b1-4018-9e95-bde29518364d', N'RESTAURANT', N'Nhà hàng')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'e91bf9c5-4dc9-4f0f-b8ec-d059582e3655', N'VOUCHER', N'Voucher')
+INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f', N'SAVING-COMBO', N'Combo tiết kiệm')
 GO
 
 --INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'ef84df2b-23c0-42f2-8287-0b71c3cf8bf1', N'APARTMENT', N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09')
@@ -100,13 +101,28 @@ GO
 --GO
 
 insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
-values('3A8C5CC5-A5F9-46CA-B657-2C033252CA60', 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060', '0942458283','824 su van hanh', 'ADMIN', 99999);
+values('3A8C5CC5-A5F9-46CA-B657-2C033252CA60', 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 0, '2001-04-27 01:48:31.060', '0942458283','824 su van hanh', 'ADMIN', 99999);
 
 insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
-values('F5FAF674-B980-4798-83AE-D25121A838FE', 'vinhphan812', '25d55ad283aa400af464c76d713c07ad', 'Vinh Phan', 'vinhphan812@gmail.com', 1, '2001-04-27 01:48:31.060', '0975947316','824 su van hanh', 'USER', 0);
+values('F5FAF674-B980-4798-83AE-D25121A838FE', 'vinhphan812', '25d55ad283aa400af464c76d713c07ad', 'Vinh Phan', 'vinhphan812@gmail.com', 0, '2001-04-27 01:48:31.060', '0975947316','824 su van hanh', 'USER', 0);
 
 insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
-values('0E011163-C8BA-4DA3-AFE2-81CAF4D1966B', 'phanvinh637', '25d55ad283aa400af464c76d713c07ad', 'Phan Thanh Vinh', 'phanvinh637@gmail.com', 1, '2001-04-27 01:48:31.060', '0975947317','824 su van hanh', 'PARTNER', 0);
+values('0E011163-C8BA-4DA3-AFE2-81CAF4D1966B', 'phanvinh637', '25d55ad283aa400af464c76d713c07ad', 'Phan Thanh Vinh', 'phanvinh637@gmail.com', 0, '2001-04-27 01:48:31.060', '0975947317','824 su van hanh', 'PARTNER', 0);
+
+insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
+values('21F245C1-913B-47D8-9683-160DFA670898', 'partner', '25d55ad283aa400af464c76d713c07ad', 'Partner Test', 'partner.test@gmail.com', 0, '2001-04-27 01:48:31.060', '0942532812','824 su van hanh', 'PARTNER', 0);
+
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'e2d5a703-128b-48df-8473-43b9b8629f14', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'1142ab4a-9323-4c12-b673-7c829ef0d9ea', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'a044fb78-dbc2-423e-b520-818729501398', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'63726423-b591-4f1c-8837-aa65c0579fc7', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'953b504b-86b1-4018-9e95-bde29518364d', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'e91bf9c5-4dc9-4f0f-b8ec-d059582e3655', '21F245C1-913B-47D8-9683-160DFA670898')
+INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f', '21F245C1-913B-47D8-9683-160DFA670898')
+GO
+
 
 select newid()
 

@@ -9,6 +9,9 @@ export class Service {
      @Column("varchar", { name: "service_code", length: 255 })
      serviceCode: string;
 
+     @Column("nvarchar", {name: "service_name", length: 255})
+     serviceName: string;
+
      @OneToMany(() => ServiceClassify, serviceClassify => serviceClassify.service)
      serviceClassifies: ServiceClassify[];
 }
