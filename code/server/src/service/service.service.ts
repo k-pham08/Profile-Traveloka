@@ -12,7 +12,7 @@ export class ServiceService {
           private readonly serviceRepository: Repository<Service>,
      ) {}
      create(createServiceDto: CreateServiceDto) {
-          this.serviceRepository.create(createServiceDto);
+          return this.serviceRepository.create(createServiceDto);
      }
 
      findAll() {

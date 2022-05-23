@@ -1,5 +1,5 @@
 import {routerConfig} from "./router";
-import {SnackbarProvider} from "notistack";
+import {SnackbarProvider, useSnackbar} from "notistack";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./utils/theme";
 
@@ -9,6 +9,7 @@ import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {store, StoreContext} from "./stores";
 import {FC, useEffect} from "react";
 import {Protected} from "./components/Protected";
+import {Service} from "./models/Service";
 
 export const App: FC<{}> = () => {
     function isAuth(isPrivate: Boolean, element: any) {
@@ -21,6 +22,13 @@ export const App: FC<{}> = () => {
 
     useEffect(() => {
         store.checkLogin();
+        Service.getAll().then(([err, data]) => {
+            if (!err) {
+                store.set_services(data);
+            }
+
+
+        });
     })
 
 

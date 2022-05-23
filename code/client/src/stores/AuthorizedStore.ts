@@ -3,8 +3,9 @@ import {User} from "../models/User";
 import {clearAll, clearJwtToken, getJwtToken, getRole, setRole} from "../utils/LoginUtils";
 import {FetchAPI, Method, setAuthorizationToken} from "../service/fetchAPI";
 import {UserRole} from "../models/types";
+import {BaseStore} from "./BaseStore";
 
-export class AuthorizedStore {
+export class AuthorizedStore extends BaseStore{
     @observable.ref currentUser?: User;
     @observable token = "";
     @observable role = UserRole.USER.toString();
