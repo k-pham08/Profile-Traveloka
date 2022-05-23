@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Request, Response, ConflictException } from "@nestjs/common";
+import { Controller, UseGuards, Post, Request, Response, ConflictException, InternalServerErrorException } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { AuthService } from "./auth.service";
 import { secret } from "../utils/constants";
@@ -50,7 +50,12 @@ export class AuthController {
                }
                createDto.type = UserRoles.PARTNER;
           }
-          await this.userService.create(createDto);
-          res.json({ success: true, message: "REGISTER_SUCCESS", data: createDto });
+          try{
+               await this.userService.create(createDto);
+               res.json({ success: true, message: "REGISTER_SUCCESS", data: createDto });
+          }catch (e) {
+               console.log(e);
+               throw new InternalServerErrorException({success: false, message: e.message})
+          }
      }
 }
