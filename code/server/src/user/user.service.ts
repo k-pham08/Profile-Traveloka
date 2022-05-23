@@ -30,18 +30,32 @@ export class UserService {
     }
 
     findOne(user): Promise<User> {
-        return this.userRepository.findOne({where: user});
+        return this.userRepository.findOne({where: user, relations: {services: true}});
     }
 
-    findByUsername(username: string) {
-        return this.userRepository.findOneBy({username});
-    }
+        findByUsername(username
+    :
+        string
+    )
+        {
+            return this.userRepository.findOneBy({username});
+        }
 
-    update(id: string, updateUserDto: UpdateUserDto) {
-        return this.userRepository.update(id, updateUserDto);
-    }
+        update(id
+    :
+        string, updateUserDto
+    :
+        UpdateUserDto
+    )
+        {
+            return this.userRepository.update(id, updateUserDto);
+        }
 
-    remove(id: string) {
-        return this.userRepository.delete(id);
+        remove(id
+    :
+        string
+    )
+        {
+            return this.userRepository.delete(id);
+        }
     }
-}
