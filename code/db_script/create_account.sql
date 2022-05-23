@@ -4,6 +4,8 @@ go
 if exists (select 1 from SYS.DATABASES where name = N'Profile')
 	drop database Profile
 
+go
+
 create database [Profile]
 
 go
@@ -19,7 +21,7 @@ Create table [USER] (
 	[name] Nvarchar(255) NOT NULL,
 	[email] Nvarchar(255) NOT NULL,
 	[gender] Bit NOT NULL,
-	[dob] Datetime,
+	[dob] datetime,
 	[phone] char(10) NOT NULL,
 	[address] Nvarchar(255) NOT NULL,
 	[type] Nvarchar(255) NOT NULL,
@@ -97,13 +99,13 @@ GO
 --INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'150f5702-17dc-4850-a424-e7ae6b8238c7', N'FAMILY', N'953b504b-86b1-4018-9e95-bde29518364d')
 --GO
 
-insert into [dbo].[USER]([user_id], username, [password], [name], email, gender,dob, phone, [address], type, reward)
+insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
 values('3A8C5CC5-A5F9-46CA-B657-2C033252CA60', 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 1, '2001-04-27 01:48:31.060', '0942458283','824 su van hanh', 'ADMIN', 99999);
 
-insert into [dbo].[USER]([user_id], username, [password], [name], email, gender,dob, phone, [address], type, reward)
+insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
 values('F5FAF674-B980-4798-83AE-D25121A838FE', 'vinhphan812', '25d55ad283aa400af464c76d713c07ad', 'Vinh Phan', 'vinhphan812@gmail.com', 1, '2001-04-27 01:48:31.060', '0975947316','824 su van hanh', 'USER', 0);
 
-insert into [dbo].[USER]([user_id], username, [password], [name], email, gender,dob, phone, [address], type, reward)
+insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
 values('0E011163-C8BA-4DA3-AFE2-81CAF4D1966B', 'phanvinh637', '25d55ad283aa400af464c76d713c07ad', 'Phan Thanh Vinh', 'phanvinh637@gmail.com', 1, '2001-04-27 01:48:31.060', '0975947317','824 su van hanh', 'PARTNER', 0);
 
 select newid()

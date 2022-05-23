@@ -1,9 +1,8 @@
 import {
-	UserNavbar,
 	UserChangePassword,
 	UserInfo,
 } from "../../components/user";
-import { Grid, Paper, MenuList, MenuItem } from "@mui/material";
+import { Grid, Paper, MenuList} from "@mui/material";
 
 import {BasicLayout} from "../../layouts/BasicLayout";
 import {UserSetting} from "../../components/Settings/UserSetting";

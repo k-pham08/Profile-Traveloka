@@ -1,6 +1,6 @@
 
 const select = {
-    user: ["userId", "username", "name", "email", "gender", "bod", "phone", "address", "job", "type", "reward", "company"]
+    user: ["userId", "username", "name", "email", "gender", "dob", "phone", "address", "type", "reward", "services"]
 }
 
 export const makeSelected = (entity: string) => {

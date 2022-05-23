@@ -21,20 +21,9 @@ export class RolesGuard implements CanActivate {
 
         if (user.type == UserRoles.ADMIN) return true;
 
-        if (user.type == UserRoles.PARTNER) {
-            const requiredJob = this.reflector.getAllAndOverride<PartnerJob[]>(JOB_KEY, [context.getHandler(), context.getClass()]);
-            if (user.job === PartnerJob.ADMIN) return true;
-
-            if (!requiredJob.includes(user.job)) throw new ForbiddenException({
-                success: false,
-                message: "USER_ROLE_DENIED"
-            })
-            return true;
-        }
-
         if (!requiredRoles.includes(user.type)) throw new ForbiddenException({
             success: false,
-            message: "USER_ROLE_ERROR"
+            message: "USER_ROLE_DENIED"
         })
 
         return true;

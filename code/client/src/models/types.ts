@@ -4,6 +4,11 @@ export enum UserRole {
     PARTNER = "PARTNER"
 }
 
+export interface MenuLink{
+    title: string,
+    link?: string
+}
+
 export interface MenuItem {
     title: string,
     handle?: Function

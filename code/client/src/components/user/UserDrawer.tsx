@@ -16,6 +16,7 @@ import {
 	DRAWER_ITEMS,
 	DRAWER_ICONS,
 } from "../../utils/constraint";
+import {Link} from "react-router-dom";
 
 type Anchor = "left";
 
@@ -45,16 +46,15 @@ export const UserDrawer = () => {
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
 			<List>
-				{DRAWER_ITEMS.map((item, index) => (
-					<ListItem button key={item}>
-						<ListItemIcon>
-							<img
-								src={DRAWER_ICONS[index]}
-								alt="Menu Icon"
-							></img>
-						</ListItemIcon>
-						<ListItemText primary={item} />
-					</ListItem>
+				{DRAWER_ITEMS.map(({title, link}, index) => (
+					<Link to={link ? link : "/"}>
+						<ListItem button key={title}>
+							<ListItemIcon>
+								<img src={DRAWER_ICONS[index]} />
+							</ListItemIcon>
+							<ListItemText primary={title} />
+						</ListItem>
+					</Link>
 				))}
 			</List>
 			<Divider />

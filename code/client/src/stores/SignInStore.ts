@@ -17,7 +17,7 @@ export class SignInStore  {
     }
 
     @action
-    async doLogin() {
+    async doLogin(urlCallback: string) {
         const [err, data] = await FetchAPI<{ access_token: string }>(Method.POST, "/auth/login", {
             username: this.username,
             password: this.password
@@ -25,12 +25,13 @@ export class SignInStore  {
 
         if(!err) {
             setJwtToken(data.access_token);
+
             const currentUrl = getCurrentURL();
             this.signInRedirect = currentUrl || "/";
 
             clearCurrentURL();
 
-            window.location.href = this.signInRedirect;
+            window.location.href = urlCallback ? `${urlCallback}?token=${data.access_token}`: this.signInRedirect;
             return;
         }
         return err.message;

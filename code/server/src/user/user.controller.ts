@@ -1,4 +1,18 @@
-import { Controller, Request, Get, Post, Body, Patch, Param, Delete, UseGuards, NotFoundException, BadRequestException, UnauthorizedException } from "@nestjs/common";
+import {
+     Controller,
+     Request,
+     Get,
+     Post,
+     Body,
+     Param,
+     Delete,
+     UseGuards,
+     NotFoundException,
+     BadRequestException,
+     UnauthorizedException,
+     Put,
+     ConflictException,
+} from "@nestjs/common";
 import { UserService } from "./user.service";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
@@ -47,7 +61,7 @@ export class UserController {
                }
                return { success: false, message: "USERS_NULL" };
           } catch (err) {
-               throw new BadRequestException({ success: false, ...err });
+               throw new BadRequestException({ success: false, message: err.message });
           }
      }
 
@@ -73,14 +87,15 @@ export class UserController {
 
      @Get(":id")
      @Roles(UserRoles.ADMIN)
-     findOne(@Param("id") id: string) {
-          return this.userService.findOne(id);
+     async findOne(@Param("id") id: string) {
+          return { success: true, data: await this.userService.findOne({ userId: id }) };
      }
 
-     @Patch(":id")
+     @Put(":id")
      @Roles(UserRoles.ADMIN)
      update(@Param("id") id: string, @Body() updateUserDto: UpdateUserDto) {
-          return this.userService.update(id, updateUserDto);
+          // return this.userService.update(id, updateUserDto);
+          return true;
      }
 
      @Delete(":id")

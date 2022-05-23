@@ -5,125 +5,63 @@ import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
-import Container from "@mui/material/Container";
 import Avatar from "@mui/material/Avatar";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
-import { UserDrawer } from "../../components/user";
+import { UserDrawer } from "../user";
 import {
 	LOGO_TRAVELOKA,
 	DRAWER_ITEMS,
 	DRAWER_ICONS,
 } from "../../utils/constraint";
 import { store } from "../../stores";
-import { Link } from "react-router-dom";
 import { observer } from "mobx-react-lite";
 import { UserSetting } from "../Settings/UserSetting";
+import {Grid} from "@mui/material";
+import { makeStyles } from "@material-ui/core/styles";
+import { theme } from "../../utils/theme";
+import {Link} from "react-router-dom";
 
 const pages = DRAWER_ITEMS.slice(1);
 const icons = DRAWER_ICONS.slice(1);
 
-export const UserNavbar: FC<{}> = observer(() => {
-	const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
-	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+const useStyle = makeStyles({
+	toolbar: {
+		display: "flex",
+		justifyContent: "space-between",
+		alignItems: "center",
+		width: "100%",
+		padding: theme.spacing(1),
+	},
+});
 
-	const handleOpenNavMenu = (event: MouseEvent<HTMLElement>) => {
-		setAnchorElNav(event.currentTarget);
-	};
+export const UserNavbar: FC<{}> = observer(() => {
+	const classes = useStyle();
+
+	const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 	const handleOpenUserMenu = (event: MouseEvent<HTMLElement>) => {
 		setAnchorElUser(event.currentTarget);
 	};
-
-	const handleCloseNavMenu = () => {
-		setAnchorElNav(null);
-	};
-
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
 
 	return (
 		<AppBar position="static" color="inherit">
-			<Container maxWidth="xl">
-				<Toolbar disableGutters>
+			<Grid
+				container
+				direction={"row"}
+				justifyContent={"space-between"}
+				alignItems={"center"}
+			>
+				<Toolbar disableGutters className={classes.toolbar}>
 					{store.isLoggedIn && <UserDrawer></UserDrawer>}
 
-					<Typography
-						variant="h6"
-						noWrap
-						component="div"
-						sx={{
-							mr: 2,
-							display: { xs: "none", md: "flex" },
-						}}
-					>
+					<Grid style={{ display: "flex", flexGrow: 1 }}>
 						<img src={LOGO_TRAVELOKA} alt="Logo" />
-					</Typography>
-
-					<Box
-						sx={{
-							flexGrow: 1,
-							display: { xs: "flex", md: "none" },
-						}}
-					>
-						<IconButton
-							size="large"
-							aria-label="account of current user"
-							aria-controls="menu-appbar"
-							aria-haspopup="true"
-							onClick={handleOpenNavMenu}
-							color="inherit"
-						>
-							<MenuIcon />
-						</IconButton>
-						<Menu
-							id="menu-appbar"
-							anchorEl={anchorElNav}
-							anchorOrigin={{
-								vertical: "bottom",
-								horizontal: "left",
-							}}
-							keepMounted
-							transformOrigin={{
-								vertical: "top",
-								horizontal: "left",
-							}}
-							open={Boolean(anchorElNav)}
-							onClose={handleCloseNavMenu}
-							sx={{
-								display: {
-									xs: "block",
-									md: "none",
-								},
-							}}
-						>
-							{pages.map((page) => (
-								<MenuItem
-									key={page.name}
-									onClick={handleCloseNavMenu}
-								>
-									<Typography textAlign="center">
-										{page.name}
-									</Typography>
-								</MenuItem>
-							))}
-						</Menu>
-					</Box>
-					<Typography
-						variant="h6"
-						noWrap
-						component="div"
-						sx={{
-							flexGrow: 1,
-							display: { xs: "flex", md: "none" },
-						}}
-					>
-						LOGO
-					</Typography>
+					</Grid>
 					<Box
 						sx={{
 							flexGrow: 1,
@@ -134,31 +72,23 @@ export const UserNavbar: FC<{}> = observer(() => {
 							justifyContent: "end",
 						}}
 					>
-						{pages.map((page, index) => (
-							<ListItem
-								button
-								key={page.name}
-								sx={{
-									width: "fit-content",
-								}}
-							>
-								<Link
-									to="/partnership"
-									style={{ display: "flex" }}
-								>
-									<ListItemIcon
-										sx={{ minWidth: "2rem" }}
-									>
-										<img
-											src={icons[index]}
-											alt="Menu Icon"
-										></img>
-									</ListItemIcon>
-									<ListItemText
-										primary={page.name}
-									/>
-								</Link>
-							</ListItem>
+						{pages.map(({title, link}, index) => (
+							<Link to={link ? link : "/"}>
+                                <ListItem button
+                                          key={title}
+                                          sx={{
+                                              width: "fit-content",
+                                          }}
+                                >
+                                    <ListItemIcon sx={{ minWidth: "2rem" }}>
+                                        <img
+                                            src={icons[index]}
+                                            alt="Menu Icon"
+                                        ></img>
+                                    </ListItemIcon>
+                                    <ListItemText primary={title} />
+                                </ListItem>
+                            </Link>
 						))}
 					</Box>
 					{store.isLoggedIn ? (
@@ -199,11 +129,11 @@ export const UserNavbar: FC<{}> = observer(() => {
 						<>
 							<Link to="/Login">Login</Link>
 							<Typography sx={{ m: 1 }}>/</Typography>
-							<Link to="/signup">Sign Up</Link>
+							<Link to="/register">Sign Up</Link>
 						</>
 					)}
 				</Toolbar>
-			</Container>
+			</Grid>
 		</AppBar>
 	);
 });
