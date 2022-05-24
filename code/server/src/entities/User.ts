@@ -22,10 +22,7 @@ export class User {
     @Column("bit", {name: "gender"})
     gender: boolean;
 
-    @Column("datetime", {
-        name: "dob",
-        default: "NOW()",
-    })
+    @Column("datetime", {name: "dob"})
     dob: Date;
 
     @Column("char", {name: "phone", length: 10})
