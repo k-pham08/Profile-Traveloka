@@ -1,8 +1,8 @@
 import React from "react";
-import {Grid, FormControl, InputLabel, OutlinedInput} from "@mui/material";
-import {useStore} from "../stores";
-import {ServicesChooseGroup} from "./Service";
-import {observer} from "mobx-react-lite";
+import { Grid, FormControl, InputLabel, OutlinedInput } from "@mui/material";
+import { useStore } from "../stores";
+import { ServicesChooseGroup } from "./Service";
+import { observer } from "mobx-react-lite";
 
 export const CompanyInfo = observer(() => {
     const {sSignUp} = useStore();

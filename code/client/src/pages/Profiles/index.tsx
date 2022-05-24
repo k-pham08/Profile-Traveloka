@@ -1,7 +1,7 @@
 import {FC, useCallback, useEffect, useState} from "react";
 import {Button, Grid} from "@mui/material/";
 
-import {useNavigate, useParams} from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import {UserInfo, UserReward} from "../../components/user";
 import {UserOrderHistory} from "../../components/userOrderHistory";
@@ -24,33 +24,36 @@ export const Profile: FC = observer(() => {
     const navigator = useNavigate();
     const [submitting, setSubmitting] = useState<boolean>(false);
 
-    const {account, mode} = useParams();
+	const { account, mode } = useParams();
 
-    useEffect(() => {
-        if (mode) {
-            sProfile.set_IsView(mode == MODE.VIEW);
-            if (typeof account == "string") {
-                User.getUserById(account).then(([err, data]) => {
-                    if (err) {
-                        enqueueSnackbar(err.message, {variant: "error"});
-                        return;
-                    }
-                    sProfile.set_user(data);
-                })
-            } else {
-                User.getMe().then(([err, data]) => {
-                    if (err) {
-                        enqueueSnackbar(err.message, {variant: "error"});
-                        return;
-                    }
-                    sProfile.set_user(data);
-                })
-            }
-
-        } else {
-            navigator("/404");
-        }
-    }, [mode, account]);
+	useEffect(() => {
+		if (mode) {
+			sProfile.set_IsView(mode == MODE.VIEW);
+			if (typeof account == "string") {
+				User.getUserById(account).then(([err, data]) => {
+					if (err) {
+						enqueueSnackbar(err.message, {
+							variant: "error",
+						});
+						return;
+					}
+					sProfile.set_user(data);
+				});
+			} else {
+				User.getMe().then(([err, data]) => {
+					if (err) {
+						enqueueSnackbar(err.message, {
+							variant: "error",
+						});
+						return;
+					}
+					sProfile.set_user(data);
+				});
+			}
+		} else {
+			navigator("/404");
+		}
+	}, [mode, account]);
 
     const ChangeMode = useCallback(() => {
         const href: string = (account ? `/accounts/${account}/` : "/profile/") + (sProfile.isView ? "edit" : "view");

@@ -1,7 +1,7 @@
-import {FC, useEffect, useState} from "react";
-import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
-import {LocalizationProvider} from "@mui/x-date-pickers/LocalizationProvider";
-import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
+import { FC, useEffect, useState } from "react";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import {
     Select,
     SelectChangeEvent,
@@ -12,13 +12,14 @@ import {
     TextField,
     Grid, FormControlLabel, FormLabel, RadioGroup, Radio,
 } from "@mui/material";
-import {User} from "../../models/User";
-import {observer} from "mobx-react";
-import {roles, UserRole} from "../../models/types";
-import {useStore} from "../../stores";
+import { User } from "../../models/User";
+import { observer } from "mobx-react";
+import { roles, UserRole } from "../../models/types";
+import { useStore } from "../../stores";
 
-export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = observer(({user, setUser, isView}) => {
-    const {role} = useStore();
+export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> =
+	observer(({ user, setUser, isView }) => {
+		const { role } = useStore();
 
     const handleDateChange = (newValue: unknown) => {
         if (newValue instanceof Date)

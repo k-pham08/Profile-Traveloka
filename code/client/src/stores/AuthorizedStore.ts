@@ -1,38 +1,38 @@
-import {action, observable} from "mobx";
-import {User} from "../models/User";
+import { action, observable } from "mobx";
+import { User } from "../models/User";
 import {
-    clearAll,
-    clearJwtToken,
-    getJwtToken,
-    getRole,
-    setRole,
+	clearAll,
+	clearJwtToken,
+	getJwtToken,
+	getRole,
+	setRole,
 } from "../utils/LoginUtils";
-import {FetchAPI, Method, setAuthorizationToken} from "../service/fetchAPI";
-import {UserRole} from "../models/types";
-import {BaseStore} from "./BaseStore";
+import { FetchAPI, Method, setAuthorizationToken } from "../service/fetchAPI";
+import { UserRole } from "../models/types";
+import { BaseStore } from "./BaseStore";
 
 export class AuthorizedStore extends BaseStore {
-    @observable currentUser?: User;
-    @observable token = "";
-    @observable role = UserRole.USER.toString();
-    @observable isLoggedIn = false;
-    @observable isDone = false;
-    @observable isLoading = false;
+	@observable.ref currentUser?: User;
+	@observable token = "";
+	@observable role = UserRole.USER.toString();
+	@observable isLoggedIn = false;
+	@observable isDone = false;
+	@observable isLoading = false;
 
-    checkLogin() {
-        if (this.currentUser) return true;
+	checkLogin() {
+		if (this.currentUser) return true;
 
-        const authToken = getJwtToken();
+		const authToken = getJwtToken();
 
-        if (!authToken) {
-            this.set_isDone(true);
-            return false;
-        }
-        // this.set_isDone(false);
+		if (!authToken) {
+			this.set_isDone(true);
+			return false;
+		}
+		// this.set_isDone(false);
 
-        this.set_isLoggedIn(true);
-        const role = getRole();
-        if (role) this.set_role(role);
+		this.set_isLoggedIn(true);
+		const role = getRole();
+		if (role) this.set_role(role);
 
         if (!this.isLoading) {
             this.setToken(authToken).then((res) => {
@@ -49,54 +49,54 @@ export class AuthorizedStore extends BaseStore {
             this.set_isLoading(true);
         }
 
-        return true;
-    }
+		return true;
+	}
 
-    async setToken(token: string): Promise<any> {
-        setAuthorizationToken(token);
-        const [err, data] = await User.getMe();
+	async setToken(token: string): Promise<any> {
+		setAuthorizationToken(token);
+		const [err, data] = await FetchAPI<User>(Method.GET, "/api/users/me");
 
-        // console.log(err, data)
+		// console.log(err, data)
 
-        if (err) {
-            setAuthorizationToken("");
-            clearJwtToken();
-            this.set_isDone(true);
-            return [err, data] as const;
-        }
+		if (err) {
+			setAuthorizationToken("");
+			clearJwtToken();
+			this.set_isDone(true);
+			return [err, data] as const;
+		}
 
-        this.set_role(data.type);
-        this.set_token(token);
-        this.set_isLoggedIn(true);
+		this.set_role(data.type);
+		this.set_token(token);
+		this.set_isLoggedIn(true);
 
-        setRole(data.type);
+		setRole(data.type);
 
-        this.currentUser = data;
-        return [err, data] as const;
-    }
+		this.currentUser = data;
+		return [err, data] as const;
+	}
 
-    @action set_isDone(v: boolean) {
-        this.isDone = v;
-    }
+	@action set_isDone(v: boolean) {
+		this.isDone = v;
+	}
 
-    @action set_role(v: string) {
-        this.role = v;
-    }
+	@action set_role(v: string) {
+		this.role = v;
+	}
 
-    @action set_token(v: string) {
-        this.token = v;
-    }
+	@action set_token(v: string) {
+		this.token = v;
+	}
 
-    @action set_isLoggedIn(v: boolean) {
-        this.isLoggedIn = v;
-    }
+	@action set_isLoggedIn(v: boolean) {
+		this.isLoggedIn = v;
+	}
 
-    @action set_isLoading(v: boolean) {
-        this.isLoading = v;
-    }
+	@action set_isLoading(v: boolean) {
+		this.isLoading = v;
+	}
 
-    @action Logout() {
-        clearAll();
+	@action Logout() {
+		clearAll();
 
         // eslint-disable-next-line no-restricted-globals
         location.reload();
