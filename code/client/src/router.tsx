@@ -10,7 +10,7 @@ import {
 } from "./pages";
 import { UserRegister } from "./pages/User/UserRegister";
 import { PartnerRegister } from "./pages/PartnerRegister";
-import {Register} from "./pages/Register";
+import { Register } from "./pages/Register";
 
 // u can add new route in here
 export const routerConfig = [
