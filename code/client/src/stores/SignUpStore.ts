@@ -1,56 +1,38 @@
-import { action, observable } from "mobx";
-import { FetchAPI, Method } from "../service/fetchAPI";
-import { User } from "../models/User";
+import {action, makeObservable, observable} from "mobx";
+import {FetchAPI, Method} from "../service/fetchAPI";
+import {User} from "../models/User";
 
 export class SignUpStore {
-	@observable fullName: string = "";
+    constructor() {
+        makeObservable(this);
+    }
+    set_DOB(newValue: Date) {
+        throw new Error("Method not implemented.");
+    }
+    @observable user: User = new User();
+    // 0 - Nam
+    // 1 - Nữ
 
-	// 0 - Nam
-	// 1 - Nữ
-	@observable gender: number = 0;
-	@observable dob: Date = new Date();
-	@observable address: string = "";
-	@observable email: string = "";
-	@observable phone: string = "";
-
-	@observable username: string = "";
-	@observable password: string = "";
-	@observable confirm: string = "";
+    @observable username: string = "";
+    @observable password: string = "";
+    @observable confirm: string = "";
 
 	@observable companyName: string = "";
 	@observable services: string[] = [];
 
-	@action set_fullName(v: string) {
-		this.fullName = v;
-	}
+    @action get_User() {
+        return this.user;
+    }
 
-	@action set_gender(v: number) {
-		this.gender = v;
-	}
+    @action set_username(v: string) {
+        if (v)
+            this.username = v;
+    }
 
-	@action set_DOB(v: Date) {
-		this.dob = v;
-	}
-
-	@action set_address(v: string) {
-		this.address = v;
-	}
-
-	@action set_email(v: string) {
-		this.email = v;
-	}
-
-	@action set_phone(v: string) {
-		this.phone = v;
-	}
-
-	@action set_username(v: string) {
-		this.username = v;
-	}
-
-	@action set_password(v: string) {
-		this.password = v;
-	}
+    @action set_password(v: string) {
+        if (v)
+            this.password = v || "";
+    }
 
 	@action set_confirm(v: string) {
 		this.confirm = v;
@@ -60,33 +42,27 @@ export class SignUpStore {
 		this.companyName = v;
 	}
 
-	@action set_services(v: string) {
+	@action add_services(v: string) {
 		this.services?.push(v);
 	}
 
-	@action remove_service(v: string) {
-		let ser = this.services.indexOf(v);
-		this.services.splice(ser, 1);
-	}
+    @action remove_service(v: string) {
+        let ser = this.services.indexOf(v);
+        this.services.splice(ser, 1);
+    }
 
-	@action async doSignUp() {
-		const [err, data] = await FetchAPI<User>(
-			Method.POST,
-			"/auth/signup",
-			{
-				username: this.username,
-				password: this.password,
-				name: this.fullName,
-				email: this.email,
-				gender: this.gender,
-				dob: this.dob,
-				phone: this.phone,
-				address: this.address,
-				companyName: this.companyName,
-				services: this.services,
-			}
-		);
+    @action
+    async doSignUp() {
+        const [err, data] = await FetchAPI<User>(
+            Method.POST,
+            "/auth/signup",
+            {
+                ...this.user,
+                username: this.username,
+                password: this.password,
+            }
+        );
 
-		return [err, data] as const;
-	}
+        return [err, data] as const;
+    }
 }

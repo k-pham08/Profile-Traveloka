@@ -32,20 +32,20 @@ export const SERVICES = [
     "Cho thuê xe",
 ];
 
-export const ADMIN_SETTINGS: MenuItem[] = [{title: "Profile"}, {title: "Account"}, {title: "Dashboard"}, {
-    title: "Logout",
-    handle: store.Logout
-}];
+export const ADMIN_SETTINGS: MenuItem[] = [
+    {title: "Profile", link: "/profile/view"},
+    {title: "Dashboard"},
+    {title: "Logout", handle: store.Logout}];
 
 export const USER_SETTINGS: MenuItem[] = [
-    {title: "Chỉnh sửa hồ sơ"},
-    {title: "Điểm thưởng của tôi"},
-    {title: "Thẻ của tôi"},
-    {title: "Danh sách giao dịch"},
-    {title: "Đặt chỗ của tôi"},
-    {title: "Thông báo giá vé máy bay"},
-    {title: "Khuyến mãi"},
-    {title: "Đăng xuất", handle: store.Logout},
+    {title: "Chỉnh sửa hồ sơ", link: "/profile/view", icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/5/57c03b6d35b76670f2d701310cc18b26.svg"},
+    {title: "Điểm thưởng của tôi", link: "/", icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/e/e092465666a2dfe398407794a893cbcc.svg"},
+    {title: "Thẻ của tôi", link: "/", icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/4/468b3a08ab94b440b4e09fb9130eee1e.svg"},
+    {title: "Danh sách giao dịch", link: "/", icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0965a06a63e873adb97d5ed7d7b92dbe.svg"},
+    {title: "Đặt chỗ của tôi", link: "/", icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/b/b0f87008a7a01d72ffb5eacf06870cba.svg"},
+    {title: "Thông báo giá vé máy bay", link: "/", icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/7/70100d4a2047ac955124953dbc3351db.svg"},
+    {title: "Khuyến mãi", link: "/", icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/c/cef9778118bdd85e1062cdd0b6196362.svg"},
+    {title: "Đăng xuất", handle: store.Logout, icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/6/6464840154eb190d10525ea67e77648a.svg"},
 ];
 
 export const MENU_ICONS = [

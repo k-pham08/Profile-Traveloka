@@ -1,16 +1,22 @@
 import {action, observable} from "mobx";
 import {User} from "../models/User";
-import {clearAll, clearJwtToken, getJwtToken, getRole, setRole} from "../utils/LoginUtils";
+import {
+    clearAll,
+    clearJwtToken,
+    getJwtToken,
+    getRole,
+    setRole,
+} from "../utils/LoginUtils";
 import {FetchAPI, Method, setAuthorizationToken} from "../service/fetchAPI";
 import {UserRole} from "../models/types";
 import {BaseStore} from "./BaseStore";
 
-export class AuthorizedStore extends BaseStore{
+export class AuthorizedStore extends BaseStore {
     @observable.ref currentUser?: User;
     @observable token = "";
     @observable role = UserRole.USER.toString();
     @observable isLoggedIn = false;
-    @observable isDone = true;
+    @observable isDone = false;
     @observable isLoading = false;
 
     checkLogin() {
@@ -18,24 +24,28 @@ export class AuthorizedStore extends BaseStore{
 
         const authToken = getJwtToken();
 
-        if (!authToken || !this.isDone) return false;
+        if (!authToken) return false;
+        // this.set_isDone(false);
 
         this.set_isLoggedIn(true);
         const role = getRole();
-        if (role)
-            this.set_role(role);
+        if (role) this.set_role(role);
 
-        this.set_isDone(false);
-        this.setToken(authToken).then((res) => {
-            if (!res[0]) {
-                this.currentUser = res[1];
-            } else {
-                clearJwtToken();
-                // eslint-disable-next-line no-restricted-globals
-                location.reload();
-            }
-            this.set_isDone(true);
-        });
+        if (!this.isLoading){
+            this.setToken(authToken).then((res) => {
+                if (!res[0]) {
+                    this.currentUser = res[1];
+                } else {
+                    clearJwtToken();
+                    // eslint-disable-next-line no-restricted-globals
+                    location.reload();
+                }
+                this.set_isDone(true);
+                this.set_isLoading(false);
+            });
+            this.set_isLoading(true);
+        }
+
         return true;
     }
 
@@ -78,7 +88,7 @@ export class AuthorizedStore extends BaseStore{
         this.isLoggedIn = v;
     }
 
-    @action set_isLoading(v: boolean){
+    @action set_isLoading(v: boolean) {
         this.isLoading = v;
     }
 
@@ -89,4 +99,3 @@ export class AuthorizedStore extends BaseStore{
         location.reload();
     }
 }
-

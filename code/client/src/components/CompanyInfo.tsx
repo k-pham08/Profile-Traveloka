@@ -1,14 +1,7 @@
 import React from "react";
-import {
-	Grid,
-	FormControl,
-	FormControlLabel,
-	Checkbox,
-	InputLabel,
-	OutlinedInput,
-} from "@mui/material";
-import { services } from "../utils/services";
+import { Grid, FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import { useStore } from "../stores";
+import { ServicesChooseGroup } from "./Service";
 
 export const CompanyInfo = () => {
 	const { sSignUp } = useStore();
@@ -28,38 +21,18 @@ export const CompanyInfo = () => {
 						label="Tên doanh nghiệp"
 						name="address"
 						required
-						defaultValue={sSignUp.address}
+						defaultValue={sSignUp.user.address}
 						onChange={(event) => {
-							sSignUp.set_companyName(event.target.value);
+							sSignUp.user.companyName =
+								event.target.value;
 						}}
 					/>
 				</FormControl>
 			</Grid>
-			{services.map((service) => (
-				<Grid item xs={2}>
-					<FormControlLabel
-						control={
-							<Checkbox
-								onChange={(event) => {
-									if (event.target.checked) {
-										sSignUp.set_services(
-											service.code
-										);
-									} else {
-										sSignUp.remove_service(
-											service.code
-										);
-									}
-								}}
-							/>
-						}
-						label={service.name}
-						// onChange={(event) =>
-						// 	sSignUp.set_services(service.code)
-						// }
-					/>
-				</Grid>
-			))}
+			<ServicesChooseGroup
+				addList={sSignUp.add_services}
+				removeList={sSignUp.remove_service}
+			/>
 		</Grid>
 	);
 };

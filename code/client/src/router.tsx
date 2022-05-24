@@ -8,10 +8,8 @@ import {
 	Home,
 	Order,
 } from "./pages";
-import { UserHome } from "./pages/User/UserHome";
-import { UserProfile } from "./pages/User/UserProfile";
 import { UserRegister } from "./pages/User/UserRegister";
-import {PartnerRegister} from "./pages/PartnerRegister";
+import { PartnerRegister } from "./pages/PartnerRegister";
 
 // u can add new route in here
 export const routerConfig = [
@@ -20,18 +18,18 @@ export const routerConfig = [
 	{ path: "/vouchers", component: <Voucher />, isPrivate: true },
 	{ path: "/orders", component: <Order />, isPrivate: true },
 	{ path: "/partnership", component: <PartnerRegister /> },
+	{ path: "/profile/:mode", component: <Profile />, isPrivate: true },
 	{
 		path: "/accounts",
 		component: <Account />,
 		isPrivate: true,
 	},
 	{
-		path: "/accounts/:account",
+		path: "/accounts/:account/:mode",
 		component: <Profile />,
 		isPrivate: true,
 	},
-	{ path: "/home", component: <UserHome /> },
-	{ path: "/user-profile", component: <UserProfile /> },
+	{ path: "/home", component: <Home /> },
 	{ path: "/signup", component: <UserRegister /> },
 	{ path: "*", component: <NotFound /> },
 ];

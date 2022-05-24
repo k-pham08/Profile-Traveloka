@@ -4,11 +4,11 @@ const headers: { [key: string]: string } = {
     "Content-Type": "application/json",
     'Access-Control-Allow-Origin':'*',
     Accept: "application/json",
-
 };
 
-const HOST = process.env?.REACT_APP_API;
+// const HOST = process.env?.REACT_APP_API;
 
+const HOST = "http://localhost:3010"
 
 
 export function setAuthorizationToken(token: string) {

@@ -5,7 +5,8 @@ import {
 import { Grid, Paper, MenuList} from "@mui/material";
 
 import {BasicLayout} from "../../layouts/BasicLayout";
-import {UserSetting} from "../../components/Settings/UserSetting";
+import {DropdownSetting} from "../../components/Settings";
+import {USER_SETTINGS} from "../../utils/constraint";
 
 export const UserProfile = () => {
 	return (
@@ -14,13 +15,13 @@ export const UserProfile = () => {
 				<Grid item xs lg={4} >
 					<Paper elevation={3}>
 						<MenuList dense>
-							<UserSetting closeHandle={() => {}} />
+							<DropdownSetting menu={USER_SETTINGS} closeHandle={() => {}} />
 						</MenuList>
 					</Paper>
 				</Grid>
 				<Grid item md={8} lg={8}>
 					<Paper elevation={3} sx={{padding: "1rem"}}>
-						<UserInfo />
+						{/*<UserInfo />*/}
 						<UserChangePassword />
 					</Paper>
 				</Grid>
