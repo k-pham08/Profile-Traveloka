@@ -19,8 +19,8 @@ export class ServiceService {
           return this.serviceRepository.find();
      }
 
-     findOne(id) {
-          return this.serviceRepository.create(id);
+     findOne(serviceId) {
+          return this.serviceRepository.findOne({where: {serviceId}});
      }
 
      findSerByCode(code) {
