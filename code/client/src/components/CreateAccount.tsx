@@ -6,7 +6,7 @@ import {
 	InputAdornment,
 	IconButton, Grid,
 } from "@mui/material";
-import { useStore } from "../../stores";
+import { useStore } from "../stores";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export const CreateAccount: FC = () => {

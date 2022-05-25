@@ -11,11 +11,18 @@ export interface MenuLink{
 
 export interface MenuItem {
     title: string,
-    handle?: Function
+    handle?: Function,
+    link?: string,
+    icon?: string
 }
 
 export interface IErrorData<T> extends Error {
     status: number;
     message: string;
     errorObject?: T
+}
+
+export enum MODE {
+    VIEW = "view",
+    EDIT = "edit"
 }

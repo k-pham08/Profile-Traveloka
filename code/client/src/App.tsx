@@ -11,7 +11,7 @@ import {FC, useEffect} from "react";
 import {Protected} from "./components/Protected";
 import {Service} from "./models/Service";
 
-export const App: FC<{}> = () => {
+export const App: FC = () => {
     function isAuth(isPrivate: Boolean, element: any) {
         if (!isPrivate)
             return element;

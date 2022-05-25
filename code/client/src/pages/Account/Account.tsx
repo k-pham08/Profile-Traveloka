@@ -1,10 +1,10 @@
-import {FC, memo, useCallback, useEffect, useLayoutEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 
 import {BasicLayout} from "../../layouts/BasicLayout";
 import {observer} from "mobx-react-lite";
 import {User} from "../../models/User";
 import {useSnackbar} from "notistack";
-import {UserTable} from "../../components/UserTable";
+import {UserTable} from "../../components/Admin/UserTable";
 
 
 export const Account: FC<{}> = observer(({}) => {
