@@ -109,8 +109,8 @@ values('F5FAF674-B980-4798-83AE-D25121A838FE', 'vinhphan812', '25d55ad283aa400af
 insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
 values('0E011163-C8BA-4DA3-AFE2-81CAF4D1966B', 'phanvinh637', '25d55ad283aa400af464c76d713c07ad', 'Phan Thanh Vinh', 'phanvinh637@gmail.com', 0, '2001-04-27 01:48:31.060', '0975947317','824 su van hanh', 'PARTNER', 0);
 
-insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
-values('21F245C1-913B-47D8-9683-160DFA670898', 'partner', '25d55ad283aa400af464c76d713c07ad', 'Partner Test', 'partner.test@gmail.com', 0, '2001-04-27 01:48:31.060', '0942532812','824 su van hanh', 'PARTNER', 0);
+insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward, company_name)
+values('21F245C1-913B-47D8-9683-160DFA670898', 'partner', '25d55ad283aa400af464c76d713c07ad', 'Partner Test', 'partner.test@gmail.com', 0, '2001-04-27 01:48:31.060', '0942532812','824 su van hanh', 'PARTNER', 0, 'Vinh Group');
 
 INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09', '21F245C1-913B-47D8-9683-160DFA670898')
 INSERT [dbo].[user_services_service] ([sERVICEServiceId], [uSERUserId]) VALUES (N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc', '21F245C1-913B-47D8-9683-160DFA670898')

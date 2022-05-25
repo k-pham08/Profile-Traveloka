@@ -1,4 +1,4 @@
-export * from "./UserNavbar";
+export * from "../Navbar/UserNavbar";
 export * from "./AdsSlider";
 export * from "./Search";
 export * from "./SearchCombo";

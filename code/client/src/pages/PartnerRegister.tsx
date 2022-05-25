@@ -20,35 +20,27 @@ export const PartnerRegister: FC = () => {
             if (err)
                 return enqueueSnackbar(err.message, {variant: "error"});
 
-
-            navigator("/Login");
-            return enqueueSnackbar("Đăng ký thành công", {
-                variant: "success",
-            });
-        });
-    };
-
-    return (
-        <BasicLayout>
-            <Paper
-                elevation={12}
-                style={{
-                    width: "80%",
-                    margin: "2rem auto",
-                }}
-            >
-                <UserInfo></UserInfo>
-                <CompanyInfo></CompanyInfo>
-                <CreateAccount></CreateAccount>
-                <Button
-                    variant="contained"
-                    disabled={subminting}
-                    style={{margin: "0 0 2rem 2rem"}}
-                    onClick={handleSignUp}
-                >
-                    Đăng ký đối tác
-                </Button>
-            </Paper>
-        </BasicLayout>
-    );
+	return (
+		<BasicLayout>
+			<Paper
+				elevation={12}
+				style={{
+					width: "80%",
+					margin: "2rem auto",
+				}}
+			>
+				<UserInfo setUser={sSignUp.get_User()} isView={false} user={sSignUp.user}/>
+				<CompanyInfo />
+				{!isLoggedIn && <CreateAccount />}
+				<Button
+					variant="contained"
+					disabled={submitting}
+					style={{ margin: "0 0 2rem 2rem" }}
+					onClick={handleSignUp}
+				>
+					Đăng ký đối tác
+				</Button>
+			</Paper>
+		</BasicLayout>
+	);
 };

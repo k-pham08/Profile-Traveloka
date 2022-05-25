@@ -14,9 +14,11 @@ import {
 } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Link} from "react-router-dom";
-import {menu} from "../router";
-import {AdminSetting} from "./Settings/AdminSetting";
-import {APP_NAME} from "../utils/constraint";
+import {menu} from "../../router";
+import {ADMIN_SETTINGS, APP_NAME} from "../../utils/constraint";
+import {store} from "../../stores";
+import {DropdownSetting} from "../Settings";
+import {theme} from "../../utils/theme";
 
 export const Appbar = () => {
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -90,7 +92,9 @@ export const Appbar = () => {
                             {menu.map(({name, path}) => (
                                 <MenuItem key={name}>
                                     <Link to={path}>
-                                        <Typography textAlign="center">{name}</Typography>
+                                        <Typography textAlign="center">
+                                            {name}
+                                        </Typography>
                                     </Link>
                                 </MenuItem>
                             ))}
@@ -132,15 +136,10 @@ export const Appbar = () => {
 
                     <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Open settings">
-                            <IconButton
-                                onClick={handleOpenUserMenu}
-                                sx={{p: 0}}
-                            >
-                                <Avatar
-                                    alt="Remy Sharp"
-                                    src="/static/images/avatar/2.jpg"
-                                />
-                            </IconButton>
+                            <Button onClick={handleOpenUserMenu} color="inherit">
+                                <Avatar src="/static/images/avatar/2.jpg" sx={{margin: theme.spacing(1)}}/>
+                                <Typography color="white">{store.currentUser?.name}</Typography>
+                            </Button>
                         </Tooltip>
                         <Menu
                             sx={{mt: "45px"}}
@@ -158,7 +157,7 @@ export const Appbar = () => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {<AdminSetting handleClose={handleCloseNavMenu}/>}
+                            <DropdownSetting menu={ADMIN_SETTINGS} closeHandle={handleCloseNavMenu}/>
                         </Menu>
                     </Box>
                 </Toolbar>

@@ -68,8 +68,8 @@ export const OrderResult = () => {
 					</TableRow>
 				</TableHead>
 				<TableBody>
-					{rows.map((row) => (
-						<StyledTableRow key={row.name}>
+					{rows.map((row, index) => (
+						<StyledTableRow key={index}>
 							<StyledTableCell component="th" scope="row">
 								{row.name}
 							</StyledTableCell>

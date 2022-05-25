@@ -4,11 +4,11 @@ const headers: { [key: string]: string } = {
     "Content-Type": "application/json",
     'Access-Control-Allow-Origin':'*',
     Accept: "application/json",
-
 };
 
-const HOST = process.env?.REACT_APP_API;
+// const HOST = process.env?.REACT_APP_API;
 
+const HOST = "http://localhost:3010"
 
 
 export function setAuthorizationToken(token: string) {
@@ -31,7 +31,7 @@ export async function FetchAPI<T = any, TError = any>(
     body?: {}
 ): Promise<[IErrorData<TError> | undefined, T]> {
     try {
-        const url = new URL(input, HOST);
+        const url = new URL(input, HOST + "/api");
 
         const res = await fetch(url.toJSON(), {
             method,

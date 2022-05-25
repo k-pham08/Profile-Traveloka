@@ -6,13 +6,13 @@ import {FetchAPI, Method} from "../service/fetchAPI";
 export class Service {
     @observable id: string;
     @observable serviceCode: string;
-    @observable companies: Company[];
+    @observable serviceName: string;
     @observable serviceClassifies: ServiceClassify[]
 
     constructor(data?: any) {
         this.id = "";
         this.serviceCode = "";
-        this.companies = new Array<Company>();
+        this.serviceName = "";
         this.serviceClassifies = new Array<ServiceClassify>();
     }
 
