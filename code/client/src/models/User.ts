@@ -37,13 +37,13 @@ export class User {
 	}
 
 	static async getAllUser(id?: string) {
-		const [err, data] = await FetchAPI<User[]>(Method.GET, "/users");
+		const [err, data] = await FetchAPI<User[]>(Method.GET, "/api/users");
 
 		return [err, data] as const;
 	}
 
 	static async getUserById(id: string) {
-		const [err, data] = await FetchAPI<User>(Method.GET, "/users/" + id);
+		const [err, data] = await FetchAPI<User>(Method.GET, "/api/users/" + id);
 
 		return [err, data] as const;
 	}
@@ -51,7 +51,7 @@ export class User {
 	static async getTypes() {
 		const [err, data] = await FetchAPI<string[]>(
 			Method.GET,
-			"/users/types"
+			"/api/users/types"
 		);
 
 		return [err, data] as const;
