@@ -12,7 +12,7 @@ import {UserRole} from "../models/types";
 import {BaseStore} from "./BaseStore";
 
 export class AuthorizedStore extends BaseStore {
-    @observable.ref currentUser?: User;
+    @observable currentUser?: User;
     @observable token = "";
     @observable role = UserRole.USER.toString();
     @observable isLoggedIn = false;
@@ -24,7 +24,10 @@ export class AuthorizedStore extends BaseStore {
 
         const authToken = getJwtToken();
 
-        if (!authToken) return false;
+        if (!authToken) {
+            this.set_isDone(true);
+            return false;
+        }
         // this.set_isDone(false);
 
         this.set_isLoggedIn(true);
@@ -34,7 +37,7 @@ export class AuthorizedStore extends BaseStore {
         if (!this.isLoading){
             this.setToken(authToken).then((res) => {
                 if (!res[0]) {
-                    this.currentUser = res[1];
+                    this.currentUser = new User(res[1]);
                 } else {
                     clearJwtToken();
                     // eslint-disable-next-line no-restricted-globals

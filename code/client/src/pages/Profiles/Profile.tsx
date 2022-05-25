@@ -50,6 +50,8 @@ export const Profile: FC = observer(() => {
         }
     }, [])
 
+    useEffect(() => {}, [sProfile.user])
+
     console.log(sProfile.user)
 
     return (

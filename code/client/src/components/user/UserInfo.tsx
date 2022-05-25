@@ -17,7 +17,6 @@ import {User} from "../../models/User";
 import {observer} from "mobx-react";
 
 export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = observer(({user, setUser, isView}) => {
-
     useEffect(() => {
         console.log("change", user, isView)
     }, [user])
@@ -46,7 +45,7 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                         value={user.name}
                         onChange={(event) => {
                             console.log({...user})
-                            setUser.name = event.target.value;
+                            user.set_name(event.target.value);
                         }}
                         startAdornment={
                             <InputAdornment position="start"></InputAdornment>
@@ -85,7 +84,7 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                             value={user.dob}
                             onChange={handleDateChange}
                             disabled={isView}
-                            renderInput={(params: any) => <TextField name="dob" {...params} />}
+                            renderInput={(params: any) => <TextField name="dob" {...params}/>}
                         />
                     </LocalizationProvider>
                 </FormControl>

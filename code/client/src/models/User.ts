@@ -1,6 +1,6 @@
 import {FetchAPI, Method} from "../service/fetchAPI";
 import {Service} from "./Service";
-import {observable} from "mobx";
+import {action, makeObservable, observable } from "mobx";
 
 export class User {
     @observable
@@ -69,6 +69,11 @@ export class User {
             this.services = services;
             this.companyName = companyName;
         }
+        makeObservable(this);
+    }
+
+    @action set_name(v: string) {
+        this.name = v;
     }
 
     static async getAllUser(id?: string) {
