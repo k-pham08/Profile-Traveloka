@@ -71,11 +71,11 @@ const NotHaveAccount: FC = () => {
 };
 
 export const Login: FC<{}> = observer(() => {
-	const { sSignIn, token } = useStore();
+	const { sSignIn } = useStore();
 	const { enqueueSnackbar } = useSnackbar();
 	const classes = useStyles();
 	const [submitting, setSubmitting] = useState(false);
-	const callback: string = useSearchParams()[0].get("callback") || "";
+	const redirect: string = useSearchParams()[0].get("redirect") || "";
 	useEffect(() => {
 		setTitle("Đăng Nhập Traveloka");
 	}, []);
@@ -88,7 +88,7 @@ export const Login: FC<{}> = observer(() => {
 
 		setSubmitting(true);
 		sSignIn
-			.doLogin(callback)
+			.doLogin(redirect)
 			.then((err) => {
 				if (err) return enqueueSnackbar(err, { variant: "error" });
 			})
