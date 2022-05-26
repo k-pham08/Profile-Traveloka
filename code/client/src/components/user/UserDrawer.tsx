@@ -60,14 +60,14 @@ export const UserDrawer = () => {
 			<Divider />
 			<List>
 				{SERVICES.map((service, index) => (
-					<ListItem button key={service}>
+					<ListItem button key={service.name}>
 						<ListItemIcon>
 							<img
 								src={SERVICE_ICON[index]}
 								alt="Menu Icon"
 							></img>
 						</ListItemIcon>
-						<ListItemText primary={service} />
+						<ListItemText primary={service.name} />
 					</ListItem>
 				))}
 			</List>
