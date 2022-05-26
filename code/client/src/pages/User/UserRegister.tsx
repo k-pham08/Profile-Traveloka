@@ -40,7 +40,7 @@ export const UserRegister: FC<{}> = observer(() => {
             <Grid container>
                 <Paper elevation={12} sx={{p: 2}}>
                     <FormControl fullWidth>
-                        <UserInfo></UserInfo>
+                        <UserInfo  user={sSignUp.user}/>
                         <CreateAccount></CreateAccount>
                         <Button
                             variant="contained"

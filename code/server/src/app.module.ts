@@ -6,9 +6,10 @@ import {config} from "./config.database";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { routers } from "./routers.config";
 import { RouterModule } from "@nestjs/core";
+import { AuthModule } from "./auth/auth.module";
 
 @Module({
-     imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(config), RouterModule.register(routers)],
+     imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(config), AuthModule, RouterModule.register(routers)],
      controllers: [AppController],
      providers: [AppService],
 })
