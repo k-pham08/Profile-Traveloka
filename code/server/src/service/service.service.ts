@@ -17,8 +17,8 @@ export class ServiceService {
         return this.serviceRepository.create(createServiceDto);
     }
 
-     findOne(serviceId) {
-          return this.serviceRepository.findOne({where: {serviceId}});
+     findAll() {
+          return this.serviceRepository.find();
      }
 
     findOne(serviceId) {

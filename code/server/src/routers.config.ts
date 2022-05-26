@@ -6,7 +6,7 @@ import {AuthModule} from "./auth/auth.module";
 
 export const routers: Routes = [
      {
-          path: "api",
+          path: "/api",
           children: [AuthModule, ServiceModule, ServiceClassifyModule, UserModule],
      },
 ];
