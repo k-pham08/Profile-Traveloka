@@ -85,20 +85,20 @@ INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'
 INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f', N'SAVING-COMBO', N'Combo tiết kiệm')
 GO
 
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'ef84df2b-23c0-42f2-8287-0b71c3cf8bf1', N'APARTMENT', N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'5b195c7a-e363-4443-a35e-0e2fb907a9f1', N'GENERAL', N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'4a373a46-60ad-4ee2-88b4-16c5dd0b5f1c', N'M-CARS', N'e2d5a703-128b-48df-8473-43b9b8629f14')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'c41cbec1-62f7-43af-b48c-18114feec590', N'SINGLE', N'953b504b-86b1-4018-9e95-bde29518364d')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'4d2c3c5f-523f-4165-8c8f-2513d18eabab', N'BUSINESS-VIP', N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'93ba2671-e9f0-4f34-959e-37060cb3d748', N'L-CARS', N'e2d5a703-128b-48df-8473-43b9b8629f14')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'1ae77c10-e277-443c-81ad-3ef05e70cc47', N'GENERAL-VIP', N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'c413a13b-58b8-416c-b42e-69c69b624d18', N'S-CARS', N'e2d5a703-128b-48df-8473-43b9b8629f14')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'049b9990-34ff-4c2d-a32e-801f707df169', N'BUSINESS-NORMAL', N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'7b9db1f1-daa1-429e-b84b-9235c1ece445', N'BUSINESS', N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'ec5d1a47-a15c-475f-8fcc-d1ab3ec2fb47', N'VILLA', N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'af13c289-8b4c-420f-b1a3-e3fcf7822aa1', N'GENERAL-NORMAL', N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
---INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [service_id]) VALUES (N'150f5702-17dc-4850-a424-e7ae6b8238c7', N'FAMILY', N'953b504b-86b1-4018-9e95-bde29518364d')
---GO
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'ef84df2b-23c0-42f2-8287-0b71c3cf8bf1', N'APARTMENT',500000,100000000, N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'5b195c7a-e363-4443-a35e-0e2fb907a9f1', N'GENERAL',500000,100000000, N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'4a373a46-60ad-4ee2-88b4-16c5dd0b5f1c', N'M-CARS',500000,100000000, N'e2d5a703-128b-48df-8473-43b9b8629f14')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'c41cbec1-62f7-43af-b48c-18114feec590', N'SINGLE',500000,100000000, N'953b504b-86b1-4018-9e95-bde29518364d')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'4d2c3c5f-523f-4165-8c8f-2513d18eabab', N'BUSINESS-VIP',500000,100000000, N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'93ba2671-e9f0-4f34-959e-37060cb3d748', N'L-CARS',500000,100000000, N'e2d5a703-128b-48df-8473-43b9b8629f14')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'1ae77c10-e277-443c-81ad-3ef05e70cc47', N'GENERAL-VIP',500000,100000000, N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'c413a13b-58b8-416c-b42e-69c69b624d18', N'S-CARS',500000,100000000, N'e2d5a703-128b-48df-8473-43b9b8629f14')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'049b9990-34ff-4c2d-a32e-801f707df169', N'BUSINESS-NORMAL',500000,100000000, N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'7b9db1f1-daa1-429e-b84b-9235c1ece445', N'BUSINESS',500000,100000000, N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'ec5d1a47-a15c-475f-8fcc-d1ab3ec2fb47', N'VILLA',500000,100000000, N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'af13c289-8b4c-420f-b1a3-e3fcf7822aa1', N'GENERAL-NORMAL',500000,100000000, N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f')
+INSERT [dbo].[SERVICE_CLASSIFY]  VALUES (N'150f5702-17dc-4850-a424-e7ae6b8238c7', N'FAMILY',500000,100000000, N'953b504b-86b1-4018-9e95-bde29518364d')
+GO
 
 insert into [dbo].[USER]([user_id], username, [password], [name], email, gender, dob, phone, [address], type, reward)
 values('3A8C5CC5-A5F9-46CA-B657-2C033252CA60', 'system_admin', '25d55ad283aa400af464c76d713c07ad', 'SA', 'admin@traveloka.com', 0, '2001-04-27 01:48:31.060', '0942458283','824 su van hanh', 'ADMIN', 99999);
