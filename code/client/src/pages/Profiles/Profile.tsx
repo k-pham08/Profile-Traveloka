@@ -1,4 +1,4 @@
-import {FC, useEffect} from "react";
+import {FC, useCallback, useEffect} from "react";
 import {Button, Grid} from "@mui/material/";
 
 import {useNavigate, useParams} from "react-router-dom";
@@ -48,11 +48,13 @@ export const Profile: FC = observer(() => {
         } else {
             navigator("/404");
         }
-    }, [])
+    }, [mode, account]);
 
-    useEffect(() => {}, [sProfile.user])
-
-    console.log(sProfile.user)
+    const ChangeMode = useCallback(() => {
+        const href: string = (account ? `/accounts/${account}/` : "/profile/") + (sProfile.isView ? "edit" : "view");
+        console.log(href, account)
+        navigator(href);
+    }, []);
 
     return (
         <BasicLayout>
@@ -64,12 +66,14 @@ export const Profile: FC = observer(() => {
                             }}/>
                         </MenuList> : <UserOptionBar/>}
                 </Grid>
+
                 <Grid item md>
                     <UserInfo user={sProfile.user} setUser={sProfile.get_user()} isView={sProfile.isView}/>
                     <Grid container direction="row" justifyContent="flex-end" style={{margin: theme.spacing(1)}}>
-                        {sProfile.isView && <Button variant="contained" color="primary">
-                                <Typography>Chỉnh sửa</Typography>
-                        </Button>}
+                        <Button variant="contained" color={sProfile.isView ? "primary" : "success"}
+                                onClick={ChangeMode}>
+                            {sProfile.isView ? "Chỉnh sửa" : "Lưu"}
+                        </Button>
                     </Grid>
                     <UserReward/>
                     <UserOrderHistory/>

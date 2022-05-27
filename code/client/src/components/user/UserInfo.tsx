@@ -11,15 +11,15 @@ import {
     InputAdornment,
     FormControl,
     TextField,
-    Grid,
+    Grid, FormControlLabel, FormLabel, RadioGroup, Radio,
 } from "@mui/material";
 import {User} from "../../models/User";
 import {observer} from "mobx-react";
+import {roles, UserRole} from "../../models/types";
+import {useStore} from "../../stores";
 
 export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = observer(({user, setUser, isView}) => {
-    useEffect(() => {
-        console.log("change", user, isView)
-    }, [user])
+    const {role} = useStore();
 
     const handleDateChange = (newValue: unknown) => {
         if (newValue instanceof Date)
@@ -27,11 +27,15 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
     };
 
     const handleGenderChange = (event: SelectChangeEvent) => {
-        setUser.gender = !!event.target.value;
+        user.set_gender((event.target.value == "1"));
     };
 
+    const handleChangeType = (event: SelectChangeEvent) => {
+
+    }
+
     return (
-        <Grid container spacing={2} padding={"2rem"}>
+        <Grid container spacing={2}>
             <Grid item xs={12}>
                 <h2>Thông tin cá nhân</h2>
             </Grid>
@@ -44,36 +48,34 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                         id="outlined-adornment"
                         value={user.name}
                         onChange={(event) => {
-                            console.log({...user})
                             user.set_name(event.target.value);
                         }}
-                        startAdornment={
-                            <InputAdornment position="start"></InputAdornment>
-                        }
                         label="Tên đầy đủ"
                         name="name"
                         required
                     />
                 </FormControl>
             </Grid>
-            <Grid item xs={6}>
-                <FormControl fullWidth disabled={isView}>
-                    <InputLabel id="demo-simple-select-label">
-                        Giới tính
-                    </InputLabel>
-                    <Select
-                        labelId="gender-select-label"
-                        id="gender-select"
-                        label="Giới tính"
-                        name="gender"
-                        value={+user.gender + ""}
-                        onChange={handleGenderChange}
-                        required
-                    >
-                        <MenuItem value={0}>Nam</MenuItem>
-                        <MenuItem value={1}>Nữ</MenuItem>
-                    </Select>
+            <Grid item xs={6} style={{display: "flex", alignItems: "center"}}>
+                <FormControl disabled={isView}>
+                    <FormLabel id="radio-buttons-group">Giới tính</FormLabel>
+                    <RadioGroup row value={+user.gender} name="radio-buttons-group" onChange={handleGenderChange}>
+                        <FormControlLabel value={0} control={<Radio/>} label="Female"/>
+                        <FormControlLabel value={1} control={<Radio/>} label="Male"/>
+                    </RadioGroup>
                 </FormControl>
+                {role == UserRole.ADMIN && <FormControl disabled={isView}>
+                    <InputLabel id="demo-simple-select-label">Quyền</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={user.type}
+                        label="Quyền"
+                        onChange={handleChangeType}
+                    >
+                        {roles.map((item) => <MenuItem value={item}>{item}</MenuItem>)}
+                    </Select>
+                </FormControl>}
             </Grid>
             <Grid item xs={6}>
                 <FormControl variant="outlined" fullWidth>
@@ -91,15 +93,12 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
             </Grid>
             <Grid item xs={12}>
                 <FormControl fullWidth disabled={isView}>
-                    <InputLabel htmlFor="outlined">Địa chỉ</InputLabel>
+                    <InputLabel htmlFor="address">Địa chỉ</InputLabel>
                     <OutlinedInput
-                        id="outlined"
+                        id="address"
                         label="Địa chỉ"
                         name="address"
                         required
-                        startAdornment={
-                            <InputAdornment position="start"></InputAdornment>
-                        }
                         value={user.address}
                         onChange={(event) => {
                             setUser.address = event.target.value;
@@ -109,16 +108,13 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
             </Grid>
             <Grid item xs={6}>
                 <FormControl fullWidth disabled={isView}>
-                    <InputLabel htmlFor="outlined">Email</InputLabel>
+                    <InputLabel htmlFor="email">Email</InputLabel>
                     <OutlinedInput
-                        id="outlined"
+                        id="email"
                         label="Email"
                         name="email"
                         type="email"
                         value={user.email}
-                        startAdornment={
-                            <InputAdornment position="start"></InputAdornment>
-                        }
                         onChange={(event) => {
                             setUser.email = event.target.value;
                         }}
@@ -136,9 +132,6 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                         label="Số điện thoại"
                         name="phone"
                         value={user.phone}
-                        startAdornment={
-                            <InputAdornment position="start"></InputAdornment>
-                        }
                         onChange={(event) => {
                             setUser.phone = event.target.value;
                         }}

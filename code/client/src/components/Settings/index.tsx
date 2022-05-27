@@ -27,7 +27,7 @@ export const DropdownSetting: FC<{ menu: MenuItemType[], closeHandle: Function }
                 }}
             >
                 {icon && <img src={icon} style={{marginRight: "1rem"}}/>}
-                <Typography>{title}</Typography>
+                {title}
             </Typography>
         </MenuItem>
     ))}</>

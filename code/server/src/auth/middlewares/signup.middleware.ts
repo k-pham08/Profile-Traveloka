@@ -11,7 +11,9 @@ export class SignupMiddleware implements NestMiddleware {
             throw new BadGatewayException();
         }
 
-        res.locals.user = user;
+        const {type, reward,  ...data} = user
+
+        res.locals.user = data;
         next();
     }
 }
