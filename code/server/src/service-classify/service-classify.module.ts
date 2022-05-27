@@ -6,7 +6,7 @@ import { Service } from "../entities/Service";
 import { ServiceClassify } from "../entities/ServiceClassify";
 
 @Module({
-     imports: [TypeOrmModule.forFeature([ServiceClassify, Service])],
+     imports: [TypeOrmModule.forFeature([Service, ServiceClassify])],
      controllers: [ServiceClassifyController],
      providers: [ServiceClassifyService],
 })
