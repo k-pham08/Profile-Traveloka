@@ -31,7 +31,7 @@ export async function FetchAPI<T = any, TError = any>(
     body?: {}
 ): Promise<[IErrorData<TError> | undefined, T]> {
     try {
-        const url = new URL(input, HOST + "/api");
+        const url = new URL("/api" + input, HOST);
 
         const res = await fetch(url.toJSON(), {
             method,

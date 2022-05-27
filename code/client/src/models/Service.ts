@@ -17,7 +17,7 @@ export class Service {
     }
 
     static async getAll() {
-        const [err, data] = await FetchAPI<Service[]>(Method.GET, "/api/services");
+        const [err, data] = await FetchAPI<Service[]>(Method.GET, "/services");
         return [err, data] as const;
     }
 }

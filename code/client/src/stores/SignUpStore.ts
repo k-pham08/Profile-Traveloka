@@ -6,19 +6,21 @@ export class SignUpStore {
     constructor() {
         makeObservable(this);
     }
-    set_DOB(newValue: Date) {
-        throw new Error("Method not implemented.");
-    }
+
     @observable user: User = new User();
     // 0 - Nam
     // 1 - Nữ
-
+    @observable isRegisterPartner = false;
     @observable username: string = "";
     @observable password: string = "";
     @observable confirm: string = "";
 
-	@observable companyName: string = "";
-	@observable services: string[] = [];
+    @observable companyName: string = "";
+    @observable services: string[] = new Array<string>();
+
+    @action set_DOB(newValue: Date) {
+        this.user.dob = newValue;
+    }
 
     @action get_User() {
         return this.user;
@@ -34,21 +36,28 @@ export class SignUpStore {
             this.password = v || "";
     }
 
-	@action set_confirm(v: string) {
-		this.confirm = v;
-	}
+    @action set_confirm(v: string) {
+        this.confirm = v;
+    }
 
-	@action set_companyName(v: string) {
-		this.companyName = v;
-	}
+    @action set_companyName(v: string) {
+        this.companyName = v;
+    }
 
-	@action add_services(v: string) {
-		this.services?.push(v);
-	}
+    @action add_services(v: string) {
+        console.log(this)
+        this.services.push(v);
+    }
 
     @action remove_service(v: string) {
         let ser = this.services.indexOf(v);
         this.services.splice(ser, 1);
+    }
+
+    @action set_isRegisterPartner(v: boolean) {
+        this.services = [];
+        this.isRegisterPartner = v;
+        this.user.companyName = "";
     }
 
     @action
@@ -64,5 +73,10 @@ export class SignUpStore {
         );
 
         return [err, data] as const;
+    }
+
+    @action
+    async convertToPartnerAccount() {
+        const [err, data] = await FetchAPI<{message: string}>(Method.POST, "/users/")
     }
 }
