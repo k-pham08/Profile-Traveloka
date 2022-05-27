@@ -7,9 +7,10 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { routers } from "./routers.config";
 import { RouterModule } from "@nestjs/core";
 import { AuthModule } from "./auth/auth.module";
+import { ServiceClassifyModule } from "./service-classify/service-classify.module";
 
 @Module({
-     imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(configTest), AuthModule, RouterModule.register(routers)],
+     imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(configTest), AuthModule, RouterModule.register(routers), ServiceClassifyModule],
      controllers: [AppController],
      providers: [AppService],
 })
