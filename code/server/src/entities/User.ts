@@ -1,6 +1,7 @@
 import {Column, CreateDateColumn, Entity, Index, JoinTable, ManyToMany, OneToMany} from "typeorm";
 import {Service} from "./Service";
 import {DateUtils} from "typeorm/util/DateUtils";
+import { Order } from "./Order";
 
 @Entity("USER", {schema: "dbo"})
 export class User {
@@ -43,4 +44,8 @@ export class User {
     @ManyToMany(() => Service)
     @JoinTable()
     services: Service[];
+
+    @OneToMany(() => Order, order => order.user)
+    orders: Order[];
+    
 }

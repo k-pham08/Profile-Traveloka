@@ -50,6 +50,20 @@ Primary Key  ([classify_id])
 ) 
 go
 
+Create table [ORDER] (
+	[order_id] Uniqueidentifier NOT NULL,
+	[created_at] Datetime NOT NULL,
+	[total] Integer NOT NULL,
+	[service_id] Char(10) NOT NULL,
+	[user_id] Uniqueidentifier NOT NULL,
+Primary Key  ([order_id])
+) 
+go
+
+
+Alter table [ORDER] add  foreign key([user_id]) references [USER] ([user_id]) 
+go
+
 
 Alter table [SERVICE_CLASSIFY] add  foreign key([service_id]) references [SERVICE] ([service_id]) 
 go

@@ -8,9 +8,10 @@ import { routers } from "./routers.config";
 import { RouterModule } from "@nestjs/core";
 import { AuthModule } from "./auth/auth.module";
 import { ServiceClassifyModule } from "./service-classify/service-classify.module";
+import { OrderModule } from "./order/order.module";
 
 @Module({
-     imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(configTest), AuthModule, RouterModule.register(routers), ServiceClassifyModule],
+     imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(configTest), AuthModule, RouterModule.register(routers), ServiceClassifyModule, OrderModule],
      controllers: [AppController],
      providers: [AppService],
 })
