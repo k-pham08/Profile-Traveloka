@@ -16,10 +16,22 @@ export const PartnerRegister: FC = () => {
     const [submitting, setSubmitting] = useState(false);
 
     const handleSignUp = () => {
+        if (sSignUp.password !== sSignUp.confirm) {
+            enqueueSnackbar("Mật khẩu không khớp", {variant: "error"});
+            return;
+        }
         sSignUp.doSignUp().then(([err, data]) => {
             if (err)
-                return enqueueSnackbar(err.message, {variant: "error"});
-        })
+                return enqueueSnackbar(err.message, {
+                    variant: "error",
+                });
+
+            navigator("/Login");
+
+            return enqueueSnackbar("Đăng ký thành công", {
+                variant: "success",
+            });
+        });
     }
     return (
         <BasicLayout>
