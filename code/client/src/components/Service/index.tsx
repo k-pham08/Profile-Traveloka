@@ -3,21 +3,19 @@ import {observer} from "mobx-react-lite";
 import {Checkbox, FormControlLabel, Grid} from "@mui/material";
 import {store, useStore} from "../../stores";
 
-export const ServicesChooseGroup: FC<{addList: Function, removeList: Function}> = observer(({addList, removeList}) => {
-    const {services} = useStore();
+export const ServicesChooseGroup: FC<{}> = observer(() => {
+    const {services, sSignUp} = useStore();
 
-
-    // return <></>;
     return <>{services.map((service) => (
-            <Grid item xs={2}>
+            <Grid key={service.serviceCode} item xs={2}>
                 <FormControlLabel
                     control={
                         <Checkbox
                             onChange={(event) => {
                                 if (event.target.checked) {
-                                    addList(service.serviceCode);
+                                    sSignUp.add_services(service.serviceCode);
                                 } else {
-                                    removeList(service.serviceCode);
+                                    sSignUp.remove_service(service.serviceCode);
                                 }
                             }}
                         />

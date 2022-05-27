@@ -48,7 +48,7 @@ export class User {
                 username,
                 name,
                 gender,
-                bod,
+                dob,
                 phone,
                 address,
                 type,
@@ -61,7 +61,7 @@ export class User {
             this.username = username;
             this.name = name;
             this.gender = gender;
-            this.dob = bod;
+            this.dob = new Date(dob);
             this.phone = phone;
             this.address = address;
             this.type = type;
@@ -74,6 +74,10 @@ export class User {
 
     @action set_name(v: string) {
         this.name = v;
+    }
+
+    @action set_gender(v: boolean) {
+        this.gender = v;
     }
 
     static async getAllUser(id?: string) {

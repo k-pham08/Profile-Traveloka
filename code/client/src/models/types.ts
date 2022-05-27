@@ -4,6 +4,8 @@ export enum UserRole {
     PARTNER = "PARTNER"
 }
 
+export const roles: string[] = ["ADMIN", "USER", "PARTNER"];
+
 export interface MenuLink{
     title: string,
     link?: string

@@ -41,7 +41,7 @@ export class AuthController {
           }
 
           const createDto: CreateUserDto = new CreateUserDto(user);
-          if (createDto.companyName == null) {
+          if (!createDto.companyName) {
                createDto.type = UserRoles.USER;
           } else {
                for (let ser of user.services) {

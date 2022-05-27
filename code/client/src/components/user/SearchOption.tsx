@@ -18,11 +18,11 @@ export const SearchOption = () => {
 		>
 			<nav aria-label="main mailbox folders">
 				<List>
-					{SERVICES.map(({code, name}, index) => (
+					{SERVICES.map(({code, name, icon}, index) => (
 						<ListItem button key={code}>
 							<ListItemIcon>
 								<img
-									src={SERVICE_ICON[index]}
+									src={icon}
 									alt="Service Icon"
 								></img>
 							</ListItemIcon>

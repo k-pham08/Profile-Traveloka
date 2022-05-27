@@ -27,16 +27,16 @@ export const CreateAccount: FC = () => {
 	};
 
 	return (
-		<div style={{ padding: "2rem" }}>
+		<div>
 			<h2 style={{ width: "100%" }}>Tạo tài khoản</h2>
 			<Grid container spacing={2}>
 				<Grid item xs={12}>
 					<FormControl fullWidth sx={{ width: 1 }}>
-						<InputLabel htmlFor="outlined">
+						<InputLabel htmlFor="username">
 							Tên đăng nhập
 						</InputLabel>
 						<OutlinedInput
-							id="outlined"
+							id="username"
 							label="Tên đăng nhập"
 							name="username"
 							onChange={(event) =>
@@ -48,11 +48,11 @@ export const CreateAccount: FC = () => {
 				</Grid>
 				<Grid item xs={12}>
 					<FormControl sx={{ width: 1 }}>
-						<InputLabel htmlFor="outlined-adornment-password">
+						<InputLabel htmlFor="password">
 							Mật khẩu
 						</InputLabel>
 						<OutlinedInput
-							id="outlined-adornment-password"
+							id="password"
 							type={
 								values.showPassword
 									? "text"
@@ -65,12 +65,8 @@ export const CreateAccount: FC = () => {
 								<InputAdornment position="end">
 									<IconButton
 										aria-label="toggle password visibility"
-										onClick={
-											handleClickShowPassword
-										}
-										onMouseDown={
-											handleMouseDownPassword
-										}
+										onClick={handleClickShowPassword}
+										onMouseDown={handleMouseDownPassword}
 										edge="end"
 									>
 										{values.showPassword ? (
@@ -89,11 +85,11 @@ export const CreateAccount: FC = () => {
 				</Grid>
 				<Grid item xs={12}>
 					<FormControl sx={{ width: 1 }}>
-						<InputLabel htmlFor="outlined-adornment-password">
+						<InputLabel htmlFor="password-confirm">
 							Xác nhận mật khẩu
 						</InputLabel>
 						<OutlinedInput
-							id="outlined-adornment-password"
+							id="password-confirm"
 							type={
 								values.showPassword
 									? "text"
@@ -106,12 +102,8 @@ export const CreateAccount: FC = () => {
 								<InputAdornment position="end">
 									<IconButton
 										aria-label="toggle password visibility"
-										onClick={
-											handleClickShowPassword
-										}
-										onMouseDown={
-											handleMouseDownPassword
-										}
+										onClick={handleClickShowPassword}
+										onMouseDown={handleMouseDownPassword}
 										edge="end"
 									>
 										{values.showPassword ? (
