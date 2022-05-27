@@ -75,12 +75,14 @@ export class User {
 		this.name = v;
 	}
 
+	@action set_gender(v: boolean) {
+		this.gender = v;
+	}
+
 	static async getAllUser(id?: string) {
 		const [err, data] = await FetchAPI<User[]>(Method.GET, "/api/users");
-
-    @action set_gender(v: boolean) {
-        this.gender = v;
-    }
+		return [err, data] as const;
+	}
 
 	static async getUserById(id: string) {
 		const [err, data] = await FetchAPI<User>(
@@ -88,8 +90,8 @@ export class User {
 			"/api/users/" + id
 		);
 
-        return [err, data] as const;
-    }
+		return [err, data] as const;
+	}
 
 	static async getTypes() {
 		const [err, data] = await FetchAPI<string[]>(
