@@ -5,6 +5,7 @@ import {
 	ListItemText,
 	Paper,
 } from "@mui/material";
+import { FC } from "react";
 import { SERVICES } from "../../utils/constraint";
 
 export const SearchOption: FC<{ parentCallback: any }> = ({
@@ -20,7 +21,7 @@ export const SearchOption: FC<{ parentCallback: any }> = ({
 		>
 			<nav aria-label="main mailbox folders">
 				<List>
-					{SERVICES.map((service, index) => (
+					{SERVICES.map((service) => (
 						<ListItem
 							button
 							key={service.name}

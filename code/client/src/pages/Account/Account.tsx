@@ -7,7 +7,6 @@ import {useSnackbar} from "notistack";
 import {UserTable} from "../../components/Admin/UserTable";
 import {useStore} from "../../stores";
 
-
 export const Account: FC<{}> = observer(({}) => {
     const {sAccount} = useStore();
     const {enqueueSnackbar} = useSnackbar();
