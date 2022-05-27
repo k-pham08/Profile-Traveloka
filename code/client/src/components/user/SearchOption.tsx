@@ -5,9 +5,12 @@ import {
 	ListItemText,
 	Paper,
 } from "@mui/material";
-import { SERVICE_ICON, SERVICES } from "../../utils/constraint";
+import { FC } from "react";
+import { SERVICES } from "../../utils/constraint";
 
-export const SearchOption = () => {
+export const SearchOption: FC<{ parentCallback: any }> = ({
+	parentCallback,
+}) => {
 	return (
 		<Paper
 			sx={{
@@ -18,15 +21,19 @@ export const SearchOption = () => {
 		>
 			<nav aria-label="main mailbox folders">
 				<List>
-					{SERVICES.map(({code, name, icon}, index) => (
-						<ListItem button key={code}>
+					{SERVICES.map((service) => (
+						<ListItem
+							button
+							key={service.name}
+							onClick={() => parentCallback(service.code)}
+						>
 							<ListItemIcon>
 								<img
-									src={icon}
+									src={service.icon}
 									alt="Service Icon"
 								></img>
 							</ListItemIcon>
-							<ListItemText primary={name} />
+							<ListItemText primary={service.name} />
 						</ListItem>
 					))}
 				</List>
