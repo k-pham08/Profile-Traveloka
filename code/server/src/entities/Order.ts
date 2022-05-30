@@ -12,6 +12,9 @@ export class Order {
     @Column("int", { name: "total" })
     total: number;
 
+    @Column("int", { name: "reward" })
+    reward: number;
+
     @Column("char", { name: "service_id", length: 10 })
     serviceId: string;
 

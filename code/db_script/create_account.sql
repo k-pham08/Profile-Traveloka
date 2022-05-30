@@ -54,6 +54,7 @@ Create table [ORDER] (
 	[order_id] Uniqueidentifier NOT NULL,
 	[created_at] Datetime NOT NULL,
 	[total] Integer NOT NULL,
+	[point] Integer NOT NULL,
 	[service_id] Char(10) NOT NULL,
 	[user_id] Uniqueidentifier NOT NULL,
 Primary Key  ([order_id])

@@ -8,6 +8,8 @@ export class CreateOrderDto {
      @ApiProperty()
      total: number;
      @ApiProperty()
+     reward: number;
+     @ApiProperty()
      serviceId: string;
      @ApiProperty()
      userId: string;
