@@ -29,7 +29,7 @@ export class OrderService {
               reward: createOrderDto.reward,
               serviceId: createOrderDto.serviceId,
         });
-        user.reward = createOrderDto.reward;
+        user.reward += createOrderDto.reward;
         order.user = user;
         await this.userRepository.save(user);
         await this.orderRepository.save(order);

@@ -61,6 +61,22 @@ Primary Key  ([order_id])
 ) 
 go
 
+Create table [ORDER_DETAIL] (
+	[detail_id] Uniqueidentifier NOT NULL,
+	[product_name] Nvarchar(255) NOT NULL,
+	[quantity] Integer NOT NULL,
+	[price] Integer NOT NULL,
+	[thumbnail] Nvarchar(255) NULL,
+	[link] Nvarchar(255) NULL,
+	[order_id] Uniqueidentifier NOT NULL,
+Primary Key  ([detail_id])
+) 
+go
+
+
+Alter table [ORDER_DETAIL] add  foreign key([order_id]) references [ORDER] ([order_id]) 
+go
+
 
 Alter table [ORDER] add  foreign key([user_id]) references [USER] ([user_id]) 
 go

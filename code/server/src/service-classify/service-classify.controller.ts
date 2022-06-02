@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from "@nestjs/common";
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from "@nestjs/common";
 import { ServiceClassifyService } from "./service-classify.service";
 import { CreateServiceClassifyDto } from "./dto/create-service-classify.dto";
 import { UpdateServiceClassifyDto } from "./dto/update-service-classify.dto";
@@ -29,7 +29,7 @@ export class ServiceClassifyController {
           return this.serviceClassifyService.findOne(id);
      }
 
-     @Patch(":id")
+     @Put(":id")
      @Roles(UserRoles.ADMIN)
      update(@Param("id") id: string, @Body() updateServiceClassifyDto: UpdateServiceClassifyDto) {
           return this.serviceClassifyService.update(id, updateServiceClassifyDto);
