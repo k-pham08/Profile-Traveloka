@@ -5,7 +5,7 @@ import {
 	ListItemText,
 	Paper,
 } from "@mui/material";
-import { SERVICE_ICON, SERVICES } from "../../utils/constraint";
+import { SERVICES } from "../../utils/constraint";
 
 export const SearchOption = () => {
 	return (

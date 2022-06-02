@@ -36,5 +36,17 @@ export class SignInStore  {
         }
         return err.message;
     }
+    @action async LoginWithAdmin(id: string){
+        const [err, data] = await FetchAPI<{access_token: string}>(Method.POST, "/auth/login-admin/" + id);
+        if(!err) {
+            setJwtToken(data.access_token);
+            const currentURL = getCurrentURL();
+            this.signInRedirect = currentURL || "/";
+            clearCurrentURL();
+
+            window.location.href = this.signInRedirect;
+        }
+        return err;
+    }
 
 }

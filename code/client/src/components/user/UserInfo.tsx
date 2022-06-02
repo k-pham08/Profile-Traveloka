@@ -8,7 +8,6 @@ import {
     MenuItem,
     OutlinedInput,
     InputLabel,
-    InputAdornment,
     FormControl,
     TextField,
     Grid, FormControlLabel, FormLabel, RadioGroup, Radio,
@@ -23,15 +22,15 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
 
     const handleDateChange = (newValue: unknown) => {
         if (newValue instanceof Date)
-            setUser.dob = newValue;
+            user.dob = newValue;
     };
 
     const handleGenderChange = (event: SelectChangeEvent) => {
-        user.set_gender((event.target.value == "1"));
+        user.gender = (event.target.value == "1");
     };
 
     const handleChangeType = (event: SelectChangeEvent) => {
-
+        user.type = event.target.value;
     }
 
     return (
@@ -48,7 +47,7 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                         id="outlined-adornment"
                         value={user.name}
                         onChange={(event) => {
-                            user.set_name(event.target.value);
+                            user.name = event.target.value;
                         }}
                         label="Tên đầy đủ"
                         name="name"

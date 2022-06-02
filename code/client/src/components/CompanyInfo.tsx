@@ -26,7 +26,7 @@ export const CompanyInfo = observer(() => {
                     />
                 </FormControl>
             </Grid>
-            <ServicesChooseGroup/>
+            <ServicesChooseGroup store={sSignUp}/>
         </Grid>
     );
 })

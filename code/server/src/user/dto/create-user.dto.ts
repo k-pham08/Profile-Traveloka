@@ -50,6 +50,6 @@ export class CreateUserDto {
           this.phone = phone;
           this.address = address;
           this.companyName = companyName;
-          this.services = services;
+          this.services = services || [];
      }
 }

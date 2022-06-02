@@ -14,13 +14,14 @@ import {
 } from "@mui/material/";
 import MenuIcon from "@mui/icons-material/Menu";
 import {Link} from "react-router-dom";
-import {menu} from "../../router";
-import {ADMIN_SETTINGS, APP_NAME} from "../../utils/constraint";
-import {store} from "../../stores";
+import {ADMIN_SETTINGS, APP_NAME, MENU_ADMIN, MENU_PARTNER} from "../../utils/constraint";
+import {store, useStore} from "../../stores";
 import {DropdownSetting} from "../Settings";
 import {theme} from "../../utils/theme";
+import {UserRole} from "../../models/types";
 
 export const Appbar = () => {
+    const {role} = useStore();
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
@@ -89,7 +90,7 @@ export const Appbar = () => {
                                 display: {xs: "block", md: "none"},
                             }}
                         >
-                            {menu.map(({name, path}) => (
+                            {(role == UserRole.ADMIN ? MENU_ADMIN : MENU_PARTNER).map(({name, path}) => (
                                 <MenuItem key={name}>
                                     <Link to={path}>
                                         <Typography textAlign="center">
@@ -109,7 +110,7 @@ export const Appbar = () => {
                             display: {xs: "flex", md: "none"},
                         }}
                     >
-                        LOGO
+                        {APP_NAME}
                     </Typography>
                     <Box
                         sx={{
@@ -117,7 +118,7 @@ export const Appbar = () => {
                             display: {xs: "none", md: "flex"},
                         }}
                     >
-                        {menu.map(({name, path}) => (
+                        {(role == UserRole.ADMIN ? MENU_ADMIN : MENU_PARTNER).map(({name, path}) => (
                             <Link to={path} key={name}>
                                 <Button
                                     key={name}
@@ -138,7 +139,7 @@ export const Appbar = () => {
                         <Tooltip title="Open settings">
                             <Button onClick={handleOpenUserMenu} color="inherit">
                                 <Avatar src="/static/images/avatar/2.jpg" sx={{margin: theme.spacing(1)}}/>
-                                <Typography color="white">{store.currentUser?.name}</Typography>
+                                <Typography color="white">{store.currentUser?.companyName || store.currentUser?.name}</Typography>
                             </Button>
                         </Tooltip>
                         <Menu

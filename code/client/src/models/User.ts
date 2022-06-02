@@ -1,6 +1,6 @@
 import {FetchAPI, Method} from "../service/fetchAPI";
 import {Service} from "./Service";
-import {action, makeObservable, observable } from "mobx";
+import {action, makeObservable, observable} from "mobx";
 
 export class User {
     @observable
@@ -104,15 +104,19 @@ export class User {
         return [err, data] as const;
     }
 
-    static async updateUser(data: any) {
-        const user = new User(data);
-        console.log(user);
-        // FetchAPI
-    }
-
     static async getMe() {
         const [err, data] = await FetchAPI<User>(Method.GET, "/users/me");
 
+        return [err, data] as const;
+    }
+
+    static async update(id: string, user: any) {
+        const [err, data] = await FetchAPI<{ message: string }>(Method.PUT, "/users/" + id, user);
+        return [err, data] as const;
+    }
+
+    static async delete(id: string) {
+        const [err, data] = await FetchAPI<{message: string}>(Method.DELETE, "/users/" + id);
         return [err, data] as const;
     }
 }

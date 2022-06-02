@@ -1,6 +1,5 @@
 import {action, makeObservable, observable} from "mobx";
 import {Service} from "../models/Service";
-import {UserRole} from "../models/types";
 
 export class BaseStore {
 	constructor() {

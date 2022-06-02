@@ -1,7 +1,9 @@
 import {ApiProperty, PartialType} from "@nestjs/swagger";
 import { CreateUserDto } from "./create-user.dto";
 
-export class UpdateUserDto extends PartialType(CreateUserDto) {
+export class UpdateUserDto {
+     @ApiProperty()
+     reward: number;
      @ApiProperty()
      username: string;
      @ApiProperty()
@@ -18,4 +20,8 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
      phone: string;
      @ApiProperty()
      type: string;
+     @ApiProperty()
+     services: string[];
+     @ApiProperty()
+     userId: string;
 }

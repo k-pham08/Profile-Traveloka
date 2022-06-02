@@ -8,20 +8,14 @@ import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 import {DesktopDatePicker} from "@mui/x-date-pickers/DesktopDatePicker";
 import {useSnackbar} from "notistack";
 import {useNavigate} from "react-router-dom"
+import {observer} from "mobx-react-lite";
+import {useStore} from "../../stores";
 
-export const UserTable: FC<{ list: User[], setList: Dispatch<SetStateAction<User[]>> }> = ({list, setList}) => {
+export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({list, reloadList}) => {
+    const {sSignIn} = useStore();
     const navigator = useNavigate();
-    const [date, setDate] = useState<Date>(new Date());
     const [types, setTypes] = useState<any>([]);
     const {enqueueSnackbar} = useSnackbar();
-
-
-    const handleDateChange = (newValue: unknown) => {
-        if (newValue instanceof Date) {
-            setDate(newValue)
-            return newValue;
-        }
-    };
 
     useEffect(() => {
         User.getTypes().then(([err, data]) => {
@@ -36,6 +30,8 @@ export const UserTable: FC<{ list: User[], setList: Dispatch<SetStateAction<User
             }, Object.assign({})));
         })
     }, [])
+    useEffect(() => {
+    }, [list])
 
     const columns: Column<User>[] = [
         {title: 'Name', field: 'name'},
@@ -44,19 +40,26 @@ export const UserTable: FC<{ list: User[], setList: Dispatch<SetStateAction<User
         {
             title: 'Birthday', field: 'dob', type: "datetime", render: (row) => {
                 return <>{formatDDMMYYYY(row.dob)}</>
+            },
+            width: "10rem",
+            editComponent: (props) => {
+                return (<LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DesktopDatePicker
+                        label="Birthday"
+                        inputFormat="dd/MM/yyyy"
+                        value={props.value}
+                        renderInput={(params: any) => {
+                            return (
+                                <TextField name="bod" {...params} />
+                            )
+                        }}
+                        onChange={(newValue: unknown) => {
+                            if (newValue instanceof Date) {
+                                props.onChange(newValue);
+                            }
+                        }}/>
+                </LocalizationProvider>)
             }
-            , editComponent: props => (<LocalizationProvider dateAdapter={AdapterDateFns}>
-                <DesktopDatePicker
-                    label="Birthday"
-                    inputFormat="dd/MM/yyyy"
-                    value={date}
-                    renderInput={(params: any) => {
-                        return (
-                            <TextField name="bod" {...params} />
-                        )
-                    }}
-                    onChange={handleDateChange}/>
-            </LocalizationProvider>)
         },
         {
             title: 'Email',
@@ -71,24 +74,48 @@ export const UserTable: FC<{ list: User[], setList: Dispatch<SetStateAction<User
         data={list}
         localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this User?'}}}}
         editable={{
-            onRowUpdate: (newData, oldData) =>
-                new Promise((resolve, reject) => {
-                    User.updateUser(newData).then(() => {
+            onRowUpdate: (newData, oldData) => {
+                return new Promise((resolve, reject) => {
+                    const {userId, ...user} = newData;
+                    if (!user.name || !user.username || !user.email || !user.phone) {
+                        enqueueSnackbar("Please Enter Info Before Update It!", {variant: "error"});
+                        return resolve({});
+                    }
+                    User.update(userId, user).then(([err, data]) => {
+                        enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
+
                         resolve({});
+                        if (!err) {
+                            reloadList()
+                        }
                     })
-                }),
-            onRowDelete: oldData =>
-                new Promise((resolve, reject) => {
-                    resolve({})
-                }),
+                });
+            },
+            onRowDelete: oldData => {
+                return User.delete(oldData.userId).then(([err, data]) => {
+                    enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
+                    if(!err){
+                        reloadList();
+                    }
+                });
+            },
         }}
         actions={[
             {
-                icon: 'info',
-                tooltip: 'Info',
+                icon: "visibility",
+                tooltip: "Go To Account",
                 onClick: (event, rowData) => {
                     rowData = rowData as User;
-
+                    sSignIn.LoginWithAdmin(rowData.userId || "").then((err) => {
+                        console.log(err)
+                    });
+                }
+            },
+            {
+                icon: 'info',
+                tooltip: 'Info & Edit',
+                onClick: (event, rowData) => {
+                    rowData = rowData as User;
                     navigator(`/accounts/${rowData.userId}/view`);
                 }
             }
@@ -97,4 +124,4 @@ export const UserTable: FC<{ list: User[], setList: Dispatch<SetStateAction<User
             actionsColumnIndex: -1
         }}
     />
-}
+})

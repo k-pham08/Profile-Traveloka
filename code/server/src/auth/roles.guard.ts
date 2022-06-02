@@ -10,6 +10,8 @@ export class RolesGuard implements CanActivate {
 
     canActivate(context: ExecutionContext): boolean {
         const requiredRoles = this.reflector.getAllAndOverride<UserRoles[]>(ROLES_KEY, [context.getHandler(), context.getClass()]);
+        const {params} = context.switchToHttp().getRequest();
+
         if (!requiredRoles || requiredRoles.length == 0) {
             return true;
         }
@@ -21,10 +23,20 @@ export class RolesGuard implements CanActivate {
 
         if (user.type == UserRoles.ADMIN) return true;
 
-        if (!requiredRoles.includes(user.type)) throw new ForbiddenException({
-            success: false,
-            message: "USER_ROLE_DENIED"
-        })
+        if (requiredRoles.includes(UserRoles.SELF)) {
+            if (params.id == user.userId) return true;
+
+            throw new UnauthorizedException({
+                success: false,
+                message: "USER_ROLE_DENIED"
+            })
+        }
+
+        if (!requiredRoles.includes(user.type))
+            throw new UnauthorizedException({
+                success: false,
+                message: "USER_ROLE_DENIED"
+            })
 
         return true;
     }

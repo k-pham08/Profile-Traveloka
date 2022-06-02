@@ -1,9 +1,11 @@
 import {action, makeObservable, observable} from "mobx";
 import {FetchAPI, Method} from "../service/fetchAPI";
 import {User} from "../models/User";
+import {ServiceStore} from "./ServiceStore";
 
-export class SignUpStore {
+export class SignUpStore extends ServiceStore {
     constructor() {
+        super();
         makeObservable(this);
     }
 
@@ -16,7 +18,6 @@ export class SignUpStore {
     @observable confirm: string = "";
 
     @observable companyName: string = "";
-    @observable services: string[] = new Array<string>();
 
     @action set_DOB(newValue: Date) {
         this.user.dob = newValue;
@@ -44,18 +45,9 @@ export class SignUpStore {
         this.companyName = v;
     }
 
-    @action add_services(v: string) {
-        console.log(this)
-        this.services.push(v);
-    }
-
-    @action remove_service(v: string) {
-        let ser = this.services.indexOf(v);
-        this.services.splice(ser, 1);
-    }
-
     @action set_isRegisterPartner(v: boolean) {
         this.services = [];
+        console.log(v)
         this.isRegisterPartner = v;
         this.user.companyName = "";
     }
@@ -67,6 +59,7 @@ export class SignUpStore {
             "/auth/signup",
             {
                 ...this.user,
+                services: this.services,
                 username: this.username,
                 password: this.password,
             }

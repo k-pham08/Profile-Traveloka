@@ -7,7 +7,7 @@ import {Paper, Button, Typography, Grid, FormGroup, FormControlLabel, Checkbox} 
 import {useSnackbar} from "notistack";
 import {useStore} from "../../stores";
 import {useNavigate, useMatch} from "react-router-dom";
-import {LOGO_TRAVELOKA} from "../../utils/constraint";
+import {LOGO_TRAVELOKA, MIN_YEAR_OLD_USER} from "../../utils/constraint";
 import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import {UserRole} from "../../models/types";
@@ -23,23 +23,31 @@ const useStyle = makeStyles({
 })
 
 export const Register: FC = observer(() => {
-    const {sSignUp, isLoggedIn, currentUser, role} = useStore();
+    const [submitting, setSubmitting] = useState(false);
+    const {sSignUp, isLoggedIn, currentUser, role, Logout} = useStore();
+    const {enqueueSnackbar} = useSnackbar();
     const classes = useStyle();
     const navigator = useNavigate();
     const isPartnership = useMatch("/partnership")?.pathname == "/partnership";
-    sSignUp.isRegisterPartner = isPartnership;
-
 
     useEffect(() => {
+        sSignUp.set_isRegisterPartner(isPartnership);
+    }, [])
 
-
+    useEffect(() => {
         if (currentUser) {
-            sSignUp.user = currentUser;
+            // sSignUp.user = currentUser;
+            Logout();
         }
     }, [currentUser])
 
-    const {enqueueSnackbar} = useSnackbar();
-    const [submitting, setSubmitting] = useState(false);
+    useEffect(() => {}, [sSignUp.isRegisterPartner])
+
+    const handleCheckboxPartner = () => {
+
+        console.log(sSignUp.isRegisterPartner);
+        sSignUp.set_isRegisterPartner(!sSignUp.isRegisterPartner)
+    }
 
     const handleSignUp = () => {
         const {user} = sSignUp;
@@ -51,6 +59,11 @@ export const Register: FC = observer(() => {
 
         if (!user.name) {
             return enqueueSnackbar("Vui lòng điền họ tên đầy đủ", {variant: "error"});
+        }
+
+        if(user.dob.getFullYear() >= MIN_YEAR_OLD_USER)
+        {
+            return enqueueSnackbar("Bạn phải lớn hơn 16 tuổi", {variant: "error"});
         }
 
         if (!user.address) {
@@ -89,12 +102,10 @@ export const Register: FC = observer(() => {
         sSignUp.doSignUp().then(([err, data]) => {
             if (err)
                 return enqueueSnackbar(err.message, {variant: "error"});
+            navigator("/Login");
         })
     }
 
-    const handleCheckboxPartner = () => {
-        sSignUp.set_isRegisterPartner(!sSignUp.isRegisterPartner)
-    }
     return (
         <BasicLayout>
             <Paper
@@ -118,7 +129,7 @@ export const Register: FC = observer(() => {
                             control={<Checkbox checked={sSignUp.isRegisterPartner} onChange={handleCheckboxPartner}/>}
                             label="Đăng kí tài khoản doanh nghiệp"/>}
                         {sSignUp.isRegisterPartner && <CompanyInfo/>}
-                        {!isLoggedIn && <CreateAccount/>}
+                        <CreateAccount/>
                         <Grid container justifyContent={"center"} pt={2}>
                             <Button
                                 variant="contained"

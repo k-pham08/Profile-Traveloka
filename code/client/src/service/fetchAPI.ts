@@ -2,13 +2,13 @@ import {IErrorData} from "../models/types";
 
 const headers: { [key: string]: string } = {
     "Content-Type": "application/json",
-    'Access-Control-Allow-Origin':'*',
+    'Access-Control-Allow-Origin': '*',
     Accept: "application/json",
 };
 
-// const HOST = process.env?.REACT_APP_API;
+const HOST = process.env?.REACT_APP_API;
 
-const HOST = "http://localhost:3010"
+// const HOST = "http://localhost:3010"
 
 
 export function setAuthorizationToken(token: string) {
@@ -45,7 +45,12 @@ export async function FetchAPI<T = any, TError = any>(
             try {
                 const data = await res.json();
 
-                if (data.success) return [undefined, data.data as any as T]
+                if (data.success) {
+                    if (data.data)
+                        return [undefined, data.data as any as T]
+                    else
+                        return [undefined, data as any as T];
+                }
 
                 return [Object.assign(new Error(data.message)), data.data as any as T];
             } catch (error) {

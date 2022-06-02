@@ -5,12 +5,7 @@ import {makeObservable} from "mobx";
 
 export const store = makeObservable(new Store());
 
-
-
 export const StoreContext = createContext(store);
-
-// import { setBaseStoreContext } from "./useBaseStore";
-// setBaseStoreContext(storeContext as Context<any>);
 
 export function useStore() {
 	return useContext(StoreContext);

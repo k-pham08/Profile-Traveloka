@@ -12,7 +12,6 @@ import {
 
 import {
     SERVICES,
-    SERVICE_ICON,
     DRAWER_ITEMS,
     DRAWER_ICONS,
 } from "../../utils/constraint";

@@ -22,40 +22,37 @@ export class UserService {
     // }
 
     create(createUserDto: CreateUserDto): Promise<User> {
-        return this.userRepository.save(createUserDto);
+        try{
+            return this.userRepository.save(createUserDto);
+        }catch(e) {
+            console.log(e)
+        }
+        return null;
     }
 
     findAll() {
-        return this.userRepository.find({select: makeSelected("user")});
+        // select: makeSelected("user"),
+        return this.userRepository.find({ relations: {services: true}});
     }
 
     findOne(user): Promise<User> {
+        return this.userRepository.findOne({where: user, relations: {services: true}, select: makeSelected("user")});
+    }
+
+    findUserAuth(user): Promise<User> {
         return this.userRepository.findOne({where: user, relations: {services: true}});
     }
 
-        findByUsername(username
-    :
-        string
-    )
-        {
-            return this.userRepository.findOneBy({username});
-        }
-
-        update(id
-    :
-        string, updateUserDto
-    :
-        UpdateUserDto
-    )
-        {
-            return this.userRepository.update(id, updateUserDto);
-        }
-
-        remove(id
-    :
-        string
-    )
-        {
-            return this.userRepository.delete(id);
-        }
+    findByUsername(username: string) {
+        return this.userRepository.findOneBy({username});
     }
+
+    update(id: string, userDto: any) {
+        userDto.userId = id;
+        return this.userRepository.save(userDto);
+    }
+
+    remove(id: string) {
+        return this.userRepository.delete(id);
+    }
+}

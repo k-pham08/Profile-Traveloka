@@ -9,15 +9,16 @@ import { AuthController } from "./auth.controller";
 import { JwtStrategy } from "./jwt.strategy";
 import { SignupMiddleware } from "./middlewares/signup.middleware";
 import { ServiceModule } from "../service/service.module";
+import {VoucherModule} from "../voucher/voucher.module";
 
 @Module({
-     imports: [UserModule, ServiceModule, PassportModule, JwtModule.register(jwtConfig as JwtModuleOptions)],
+     imports: [UserModule, ServiceModule, VoucherModule, PassportModule, JwtModule.register(jwtConfig as JwtModuleOptions)],
      providers: [AuthService, LocalStrategy, JwtStrategy],
      exports: [AuthService],
      controllers: [AuthController],
 })
 export class AuthModule implements NestModule {
      configure(consumer: MiddlewareConsumer): any {
-          consumer.apply(SignupMiddleware).forRoutes({ path: "/auth/signup", method: RequestMethod.POST });
+          consumer.apply(SignupMiddleware).forRoutes({ path: "/api/auth/signup", method: RequestMethod.POST });
      }
 }

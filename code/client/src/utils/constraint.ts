@@ -16,7 +16,7 @@ export const ADVERTISEMENTS = [
     "https://ik.imagekit.io/tvlk/image/imageResource/2022/04/07/1649315686206-427fdc6225748d594d5b914dfa7d0cad.jpeg?tr=h-230,q-75,w-472",
 ];
 
-export const SERVICE_ICON = [];
+export const MIN_YEAR_OLD_USER = new Date().getFullYear() - 16;
 
 export const SERVICES = [
     {
@@ -52,6 +52,18 @@ export const ADMIN_SETTINGS: MenuItem[] = [
     {title: "Logout", handle: store.Logout},
 ];
 
+// u can add new item in menu here
+export const MENU_PARTNER = [
+    {name: "vouchers", path: "/vouchers"},
+    {name: "orders", path: "/orders"},
+];
+
+export const MENU_ADMIN = [
+    {name: "accounts", path: "/accounts"},
+    {name: "services", path: "/services"},
+    {name: "orders", path: "/orders"},
+]
+
 export const USER_SETTINGS: MenuItem[] = [
     {
         title: "Chỉnh sửa hồ sơ",
@@ -85,7 +97,7 @@ export const USER_SETTINGS: MenuItem[] = [
     },
     {
         title: "Khuyến mãi",
-        link: "/",
+        handle: store.gotoVoucher,
         icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/c/cef9778118bdd85e1062cdd0b6196362.svg",
     },
     {

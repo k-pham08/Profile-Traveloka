@@ -3,10 +3,11 @@ import { ServiceClassifyModule } from "./service-classify/service-classify.modul
 import { UserModule } from "./user/user.module";
 import { Routes } from "@nestjs/core";
 import {AuthModule} from "./auth/auth.module";
+import {VoucherModule} from "./voucher/voucher.module";
 
 export const routers: Routes = [
      {
           path: "/api",
-          children: [AuthModule, ServiceModule, ServiceClassifyModule, UserModule],
+          children: [AuthModule, ServiceModule, ServiceClassifyModule, UserModule, VoucherModule],
      },
 ];

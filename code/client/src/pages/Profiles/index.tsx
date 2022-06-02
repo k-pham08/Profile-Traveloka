@@ -1,4 +1,4 @@
-import {FC, useCallback, useEffect} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {Button, Grid} from "@mui/material/";
 
 import {useNavigate, useParams} from "react-router-dom";
@@ -16,11 +16,13 @@ import {observer} from "mobx-react";
 import {DropdownSetting} from "../../components/Settings";
 import {USER_SETTINGS} from "../../utils/constraint";
 import {theme} from "../../utils/theme";
+import {ServicesChooseGroup} from "../../components/Service";
 
 export const Profile: FC = observer(() => {
     const {sProfile, role} = useStore();
     const {enqueueSnackbar} = useSnackbar();
     const navigator = useNavigate();
+    const [submitting, setSubmitting] = useState<boolean>(false);
 
     const {account, mode} = useParams();
 
@@ -52,8 +54,19 @@ export const Profile: FC = observer(() => {
 
     const ChangeMode = useCallback(() => {
         const href: string = (account ? `/accounts/${account}/` : "/profile/") + (sProfile.isView ? "edit" : "view");
-        console.log(href, account)
-        navigator(href);
+
+        console.log(mode)
+        if (!sProfile.isView) {
+            sProfile.updateInfo().then(([err, data]) => {
+                if (err) {
+                    return enqueueSnackbar(err.message, {variant: "error"});
+                }
+                enqueueSnackbar(data.message, {variant: "success"})
+                navigator(href);
+            });
+        } else
+            navigator(href);
+
     }, []);
 
     return (
@@ -68,7 +81,11 @@ export const Profile: FC = observer(() => {
                 </Grid>
 
                 <Grid item md>
-                    <UserInfo user={sProfile.user} setUser={sProfile.get_user()} isView={sProfile.isView}/>
+                    <UserInfo user={sProfile.user} setUser={sProfile.user} isView={sProfile.isView}/>
+                    <Grid container mt={2}>
+                        {sProfile.user.type == UserRole.PARTNER &&
+                            <ServicesChooseGroup store={sProfile} isView={sProfile.isView}/>}
+                    </Grid>
                     <Grid container direction="row" justifyContent="flex-end" style={{margin: theme.spacing(1)}}>
                         <Button variant="contained" color={sProfile.isView ? "primary" : "success"}
                                 onClick={ChangeMode}>

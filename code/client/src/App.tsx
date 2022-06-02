@@ -12,10 +12,10 @@ import {Protected} from "./components/Protected";
 import {Service} from "./models/Service";
 
 export const App: FC = () => {
-    function isAuth(isPrivate: Boolean, element: any) {
+    function isAuth(isPrivate: Boolean, element: any, isAdmin: Boolean) {
         if (!isPrivate)
             return element;
-        return <Protected>
+        return <Protected isAdmin={isAdmin}>
             {element}
         </Protected>
     }
@@ -44,13 +44,15 @@ export const App: FC = () => {
                                          path,
                                          component,
                                          isPrivate = false,
+                                         isAdmin = false
                                      }) => (
                                         <Route
                                             key={path}
                                             path={path}
                                             element={isAuth(
                                                 isPrivate,
-                                                component
+                                                component,
+                                                isAdmin
                                             )}
                                         />
                                     )

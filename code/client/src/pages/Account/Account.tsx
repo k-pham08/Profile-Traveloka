@@ -5,22 +5,27 @@ import {observer} from "mobx-react-lite";
 import {User} from "../../models/User";
 import {useSnackbar} from "notistack";
 import {UserTable} from "../../components/Admin/UserTable";
+import {useStore} from "../../stores";
 
 
 export const Account: FC<{}> = observer(({}) => {
+    const {sAccount} = useStore();
     const {enqueueSnackbar} = useSnackbar();
-    const [users, setUsers] = useState<User[]>([]);
-    useEffect(() => {
-        User.getAllUser().then(([err, data]) => {
+
+    const loadList = () => {
+        sAccount.reloadList().then(([err, data]) => {
             if (err) {
-                enqueueSnackbar(err.message, {variant: "error"});
-                return;
+                return enqueueSnackbar(err.message, {variant: "error"});
             }
-            setUsers(data);
+            sAccount.set_users(data);
         });
+    }
+
+    useEffect(() => {
+        loadList();
     }, []);
 
     return <BasicLayout>
-        <UserTable list={users}  setList={setUsers}/>
+        <UserTable list={sAccount.users} reloadList={loadList}/>
     </BasicLayout>
 });

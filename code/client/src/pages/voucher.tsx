@@ -1,16 +1,22 @@
 import {FC, useEffect, useState} from "react";
 import {BasicLayout} from "../layouts/BasicLayout";
-import {store} from "../stores";
+import {store, useStore} from "../stores";
+import {useSnackbar} from "notistack";
+import {observer} from "mobx-react-lite";
 
-export const Voucher: FC = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(store.isLoggedIn);
+export const Voucher: FC = observer(() => {
+    const {gotoVoucher} = useStore();
+    const {enqueueSnackbar} = useSnackbar();
+
     useEffect(() => {
-        setIsLoggedIn(store.isLoggedIn);
-    }, [store.isLoggedIn])
+        // gotoVoucher((err: { message: string }) => {
+        //     enqueueSnackbar(err.message, {variant: "error"});
+        // });
+    })
 
     return (
         <BasicLayout>
             <div>Voucher</div>
         </BasicLayout>
     );
-};
+});

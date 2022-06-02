@@ -34,7 +34,7 @@ export class AuthorizedStore extends BaseStore {
         const role = getRole();
         if (role) this.set_role(role);
 
-        if (!this.isLoading){
+        if (!this.isLoading) {
             this.setToken(authToken).then((res) => {
                 if (!res[0]) {
                     this.currentUser = new User(res[1]);
@@ -100,5 +100,19 @@ export class AuthorizedStore extends BaseStore {
 
         // eslint-disable-next-line no-restricted-globals
         location.reload();
+    }
+
+    gotoVoucher(errorCallback: Function) {
+        const {REACT_APP_VOUCHER_HOST} = process.env;
+        // const role = this.role;
+
+        FetchAPI<{ redirect: string }>(Method.POST, "/vouchers").then(([err, data]) => {
+            if (err) {
+                if (errorCallback) errorCallback(err);
+                console.log(err)
+                return;
+            }
+            window.location.href = REACT_APP_VOUCHER_HOST + data.redirect;
+        });
     }
 }
