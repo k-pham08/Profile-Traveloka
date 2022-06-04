@@ -4,7 +4,7 @@ import { User } from "./User";
 
 @Entity("ORDER", { schema: "dbo" })
 export class Order {
-    @Column("uniqueidentifier", { primary: true, name: "order_id" })
+    @Column("uniqueidentifier", { primary: true, name: "order_id", default: () => "newId()"})
     orderId: string;
 
     @Column("datetime", { name: "created_at" })
@@ -16,8 +16,8 @@ export class Order {
     @Column("int", { name: "reward" })
     reward: number;
 
-    @Column("char", { name: "service_id", length: 10 })
-    serviceId: string;
+    @Column("char", { name: "partner_id", length: 10 })
+    partnerId: string;
 
     @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
     orderDetails: OrderDetail[];
