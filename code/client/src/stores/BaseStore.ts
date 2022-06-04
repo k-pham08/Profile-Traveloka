@@ -9,6 +9,9 @@ export class BaseStore {
 	@observable
 	services: Service[] = new Array<Service>();
 
+	@observable
+	types: string[] = new Array<string>();
+
 	@action set_services(v: Service[]) {
 		this.services = v;
 	}

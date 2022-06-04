@@ -10,6 +10,7 @@ import {
 import {FetchAPI, Method, setAuthorizationToken} from "../service/fetchAPI";
 import {UserRole} from "../models/types";
 import {BaseStore} from "./BaseStore";
+import {store} from "./index";
 
 export class AuthorizedStore extends BaseStore {
     @observable currentUser?: User;
@@ -68,6 +69,14 @@ export class AuthorizedStore extends BaseStore {
         this.set_role(data.type);
         this.set_token(token);
         this.set_isLoggedIn(true);
+
+        User.getTypes().then(([err, data]) => {
+            if (!err) {
+                store.types = data;
+                return;
+            }
+            window.alert(err.message);
+        })
 
         setRole(data.type);
 

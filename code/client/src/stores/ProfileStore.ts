@@ -5,11 +5,20 @@ import {ServiceStore} from "./ServiceStore";
 export class ProfileStore extends ServiceStore{
     @observable username: string = "";
     @observable user: User = new User();
-    @observable isView = false;
+    @observable isView: boolean = false;
+    @observable isChangePassword: boolean = false;
+    @observable new_password: string = "";
+    @observable confirm_password: string = "";
+    @observable old_password: string = "";
 
     constructor() {
         super();
         makeObservable(this);
+    }
+
+    @action
+    set_IsChangePassword(v: boolean) {
+        this.isChangePassword = v;
     }
 
     @action
@@ -31,5 +40,18 @@ export class ProfileStore extends ServiceStore{
     async updateInfo(){
         const [err, data] = await User.update(this.user.userId, {...this.user, services: this.services});
         return [err, data] as const;
+    }
+    @action
+    set_password(value: string) {
+        this.new_password = value;
+    }
+    @action
+    set_confirm(value: string) {
+        this.confirm_password = value;
+    }
+
+    @action
+    set_oldPassword(value: string) {
+        this.old_password = value;
     }
 }

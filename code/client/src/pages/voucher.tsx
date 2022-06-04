@@ -9,14 +9,13 @@ export const Voucher: FC = observer(() => {
     const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
-        // gotoVoucher((err: { message: string }) => {
-        //     enqueueSnackbar(err.message, {variant: "error"});
-        // });
+        gotoVoucher((err: { message: string }) => {
+            enqueueSnackbar(err.message, {variant: "error"});
+        });
     })
 
     return (
         <BasicLayout>
-            <div>Voucher</div>
         </BasicLayout>
     );
 });

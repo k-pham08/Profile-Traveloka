@@ -134,3 +134,9 @@ export const DRAWER_ICONS = [
 
 export const LOGO_TRAVELOKA =
     "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/3/30bf6c528078ba28d34bc3e37d124bdb.svg";
+
+
+export const regexes = {
+    phone: /^[0-9\-\+]{10,12}$/g,
+    email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
+}

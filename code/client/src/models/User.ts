@@ -116,7 +116,15 @@ export class User {
     }
 
     static async delete(id: string) {
-        const [err, data] = await FetchAPI<{message: string}>(Method.DELETE, "/users/" + id);
+        const [err, data] = await FetchAPI<{ message: string }>(Method.DELETE, "/users/" + id);
+        return [err, data] as const;
+    }
+
+    static async changePassword(id: string, new_password: string, old_password: string) {
+        const [err, data] = await FetchAPI<{ message: string }>(Method.POST, `/users/${id}/change-password`, {
+            new_password,
+            old_password
+        });
         return [err, data] as const;
     }
 }

@@ -10,8 +10,10 @@ import {store, StoreContext} from "./stores";
 import {FC, useEffect} from "react";
 import {Protected} from "./components/Protected";
 import {Service} from "./models/Service";
+import {User} from "./models/User";
 
 export const App: FC = () => {
+
     function isAuth(isPrivate: Boolean, element: any, isAdmin: Boolean) {
         if (!isPrivate)
             return element;
@@ -25,9 +27,9 @@ export const App: FC = () => {
         Service.getAll().then(([err, data]) => {
             if (!err) {
                 store.set_services(data);
+                return;
             }
-
-
+            window.alert(err.message);
         });
     })
 

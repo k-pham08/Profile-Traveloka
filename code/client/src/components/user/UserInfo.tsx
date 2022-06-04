@@ -38,7 +38,7 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
             <Grid item xs={12}>
                 <h2>Thông tin cá nhân</h2>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12}  >
                 <FormControl fullWidth disabled={isView}>
                     <InputLabel htmlFor="outlined-adornment">
                         Tên đầy đủ

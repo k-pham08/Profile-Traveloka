@@ -1,16 +1,9 @@
 export enum UserRoles {
     ALL = "ALL",
+    SELF ="SELF",
     USER = "USER",
     ADMIN = "ADMIN",
     PARTNER = "PARTNER",
-    SELF ="SELF"
-}
-
-
-
-export enum PartnerJob {
-    ADMIN = "ADMIN",
-    STAFF = "STAFF"
 }
 
 export const RoleLevel = {

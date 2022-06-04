@@ -15,7 +15,7 @@ import { useStore } from "../stores";
 import { useSnackbar } from "notistack";
 import { ERROR } from "../utils/messageTerms";
 import { observer } from "mobx-react";
-import { Link, useSearchParams } from "react-router-dom";
+import {Link, useNavigate, useSearchParams} from "react-router-dom";
 import { theme } from "../utils/theme";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -71,7 +71,7 @@ const NotHaveAccount: FC = () => {
 };
 
 export const Login: FC<{}> = observer(() => {
-	const { sSignIn } = useStore();
+	const { sSignIn} = useStore();
 	const { enqueueSnackbar } = useSnackbar();
 	const classes = useStyles();
 	const [submitting, setSubmitting] = useState(false);

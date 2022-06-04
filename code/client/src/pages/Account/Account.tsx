@@ -1,8 +1,7 @@
-import {FC, useEffect, useState} from "react";
+import {FC, useEffect} from "react";
 
 import {BasicLayout} from "../../layouts/BasicLayout";
 import {observer} from "mobx-react-lite";
-import {User} from "../../models/User";
 import {useSnackbar} from "notistack";
 import {UserTable} from "../../components/Admin/UserTable";
 import {useStore} from "../../stores";

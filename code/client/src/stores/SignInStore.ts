@@ -30,7 +30,7 @@ export class SignInStore  {
             this.signInRedirect = currentUrl || "/";
 
             clearCurrentURL();
-
+            window.history.pushState(null, "", "/");
             window.location.href = urlCallback ? `${urlCallback}?token=${data.access_token}`: this.signInRedirect;
             return;
         }

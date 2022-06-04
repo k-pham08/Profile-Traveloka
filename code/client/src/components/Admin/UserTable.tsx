@@ -12,30 +12,23 @@ import {observer} from "mobx-react-lite";
 import {useStore} from "../../stores";
 
 export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({list, reloadList}) => {
-    const {sSignIn} = useStore();
+    const {sSignIn, types} = useStore();
     const navigator = useNavigate();
-    const [types, setTypes] = useState<any>([]);
+    const [typesLookUp, setTypesLookUp] = useState<any>([]);
     const {enqueueSnackbar} = useSnackbar();
 
     useEffect(() => {
-        User.getTypes().then(([err, data]) => {
-            if (err) {
-                enqueueSnackbar(err.message, {variant: "error"});
-                return;
-            }
-
-            setTypes(data.reduce((r, i) => {
-                r[i] = i;
-                return r;
-            }, Object.assign({})));
-        })
+        setTypesLookUp(types.reduce((r, i) => {
+            r[i] = i;
+            return r;
+        },  Object.assign({})));
     }, [])
     useEffect(() => {
     }, [list])
 
     const columns: Column<User>[] = [
         {title: 'Name', field: 'name'},
-        {title: "Type", field: "type", lookup: types},
+        {title: "Type", field: "type", lookup: typesLookUp},
         {title: "Username", field: "username"},
         {
             title: 'Birthday', field: 'dob', type: "datetime", render: (row) => {
@@ -107,7 +100,10 @@ export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({
                 onClick: (event, rowData) => {
                     rowData = rowData as User;
                     sSignIn.LoginWithAdmin(rowData.userId || "").then((err) => {
-                        console.log(err)
+                        if(err){
+                            console.log(err)
+                            enqueueSnackbar(err.message, {variant: "error"});
+                        }
                     });
                 }
             },

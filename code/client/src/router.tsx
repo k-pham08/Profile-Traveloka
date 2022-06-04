@@ -20,6 +20,7 @@ export const routerConfig = [
     {path: "/partnership", component: <Register/>},
     {path: "/profile/:mode", component: <Profile/>, isPrivate: true},
     {path: "/services", component: <Services/>, isPrivate: true, isAdmin: true},
+    {path: "/services/:id", component: <></>, isPrivate: true, isAdmin: true},
     {
         path: "/accounts",
         component: <Account/>,

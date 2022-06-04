@@ -7,11 +7,12 @@ import {Paper, Button, Typography, Grid, FormGroup, FormControlLabel, Checkbox} 
 import {useSnackbar} from "notistack";
 import {useStore} from "../../stores";
 import {useNavigate, useMatch} from "react-router-dom";
-import {LOGO_TRAVELOKA, MIN_YEAR_OLD_USER} from "../../utils/constraint";
+import {LOGO_TRAVELOKA, MIN_YEAR_OLD_USER, regexes} from "../../utils/constraint";
 import {makeStyles} from "@material-ui/core/styles";
 import {observer} from "mobx-react-lite";
 import {UserRole} from "../../models/types";
 import {Oops} from "../../components/Error/Oops";
+import {useLocation} from "react-router";
 
 const useStyle = makeStyles({
     root: {
@@ -28,11 +29,13 @@ export const Register: FC = observer(() => {
     const {enqueueSnackbar} = useSnackbar();
     const classes = useStyle();
     const navigator = useNavigate();
-    const isPartnership = useMatch("/partnership")?.pathname == "/partnership";
+
+    const location = useLocation();
+    let isPartnership = location.pathname == "/partnership";
 
     useEffect(() => {
         sSignUp.set_isRegisterPartner(isPartnership);
-    }, [])
+    }, [location])
 
     useEffect(() => {
         if (currentUser) {
@@ -41,10 +44,10 @@ export const Register: FC = observer(() => {
         }
     }, [currentUser])
 
-    useEffect(() => {}, [sSignUp.isRegisterPartner])
+    useEffect(() => {
+    }, [sSignUp.isRegisterPartner])
 
     const handleCheckboxPartner = () => {
-
         console.log(sSignUp.isRegisterPartner);
         sSignUp.set_isRegisterPartner(!sSignUp.isRegisterPartner)
     }
@@ -52,17 +55,13 @@ export const Register: FC = observer(() => {
     const handleSignUp = () => {
         const {user} = sSignUp;
 
-        const regexs = {
-            phone: /^[0-9\-\+]{10,12}$/g,
-            email: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g
-        }
+
 
         if (!user.name) {
             return enqueueSnackbar("Vui lòng điền họ tên đầy đủ", {variant: "error"});
         }
 
-        if(user.dob.getFullYear() >= MIN_YEAR_OLD_USER)
-        {
+        if (user.dob.getFullYear() >= MIN_YEAR_OLD_USER) {
             return enqueueSnackbar("Bạn phải lớn hơn 16 tuổi", {variant: "error"});
         }
 
@@ -74,7 +73,7 @@ export const Register: FC = observer(() => {
             return enqueueSnackbar("Vui lòng điền số điện thoại của bạn", {variant: "error"});
         }
 
-        if (!regexs.phone.test(user.phone)) {
+        if (!regexes.phone.test(user.phone)) {
             return enqueueSnackbar("Số Điện thoại của bạn không đúng. Vui lòng thử lại", {variant: "error"});
         }
 
@@ -82,7 +81,7 @@ export const Register: FC = observer(() => {
             return enqueueSnackbar("Vui lòng điền số email của bạn", {variant: "error"});
         }
 
-        if (!regexs.email.test(user.email)) {
+        if (!regexes.email.test(user.email)) {
             return enqueueSnackbar("Email của bạn không đúng. Vui lòng thử lại", {variant: "error"});
         }
 
@@ -98,8 +97,9 @@ export const Register: FC = observer(() => {
         if (isLoggedIn && currentUser) {
             return;
         }
-
+        setSubmitting(true);
         sSignUp.doSignUp().then(([err, data]) => {
+            setSubmitting(false);
             if (err)
                 return enqueueSnackbar(err.message, {variant: "error"});
             navigator("/Login");
@@ -128,6 +128,7 @@ export const Register: FC = observer(() => {
                         {!isPartnership && <FormControlLabel
                             control={<Checkbox checked={sSignUp.isRegisterPartner} onChange={handleCheckboxPartner}/>}
                             label="Đăng kí tài khoản doanh nghiệp"/>}
+
                         {sSignUp.isRegisterPartner && <CompanyInfo/>}
                         <CreateAccount/>
                         <Grid container justifyContent={"center"} pt={2}>

@@ -31,8 +31,7 @@ export class UserService {
     }
 
     findAll() {
-        // select: makeSelected("user"),
-        return this.userRepository.find({ relations: {services: true}});
+        return this.userRepository.find({select: makeSelected("user")});
     }
 
     findOne(user): Promise<User> {
@@ -43,8 +42,8 @@ export class UserService {
         return this.userRepository.findOne({where: user, relations: {services: true}});
     }
 
-    findByUsername(username: string) {
-        return this.userRepository.findOneBy({username});
+    findOneWithPassword(user): Promise<User>{
+        return this.userRepository.findOne({where: user});
     }
 
     update(id: string, userDto: any) {

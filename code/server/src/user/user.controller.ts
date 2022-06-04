@@ -2,14 +2,13 @@ import {
     BadRequestException,
     Body,
     Controller,
-    Delete,
+    Delete, ForbiddenException,
     Get,
     NotFoundException,
     Param,
     Post,
     Put,
     Request,
-    UnauthorizedException,
     UseGuards,
 } from "@nestjs/common";
 import {UserService} from "./user.service";
@@ -18,11 +17,11 @@ import {UpdateUserDto} from "./dto/update-user.dto";
 import {ApiTags} from "@nestjs/swagger";
 import {JwtAuthGuard} from "../auth/jwt-auth.guard";
 import {Roles} from "../decorators/role.decorator";
-import {PartnerJob, UserRoles} from "../enums/roles";
+import {UserRoles} from "../enums/roles";
 import {RolesGuard} from "../auth/roles.guard";
 import {User} from "../entities/User";
 import {ServiceService} from "../service/service.service";
-import {Service} from "../entities/Service";
+import {md5} from "../utils/md5";
 
 @ApiTags("Users")
 @Controller("users")
@@ -36,11 +35,6 @@ export class UserController {
     create(@Body() createUserDto: CreateUserDto) {
         return this.userService.create(createUserDto);
     }
-
-    // @Post()
-    // createPartner(@Body() createPartnerDto: CreatePartnerDto) {
-    //      return this.userService.createPartner(createPartnerDto);
-    // }
 
     @Get("/me")
     @Roles(UserRoles.ALL)
@@ -68,22 +62,10 @@ export class UserController {
     }
 
     @Get("types")
-    @Roles(UserRoles.ADMIN)
     async getTypesList(@Request() req) {
         const {user} = req;
+        let type: string[] = user.type == UserRoles.ADMIN ? Object.keys(UserRoles).splice(2) : [];
 
-        let type: string[] = [];
-
-        switch (user.type) {
-            case UserRoles.ADMIN:
-                type = Object.keys(UserRoles).splice(1);
-                break;
-            case UserRoles.PARTNER:
-                type = Object.keys(PartnerJob);
-                break;
-            default:
-                throw new UnauthorizedException({success: false, message: "NOT_PERMISSION"});
-        }
         return {success: true, data: type};
     }
 
@@ -91,6 +73,23 @@ export class UserController {
     @Roles(UserRoles.SELF)
     async findOne(@Param("id") id: string) {
         return {success: true, data: await this.userService.findOne({userId: id})};
+    }
+
+    @Post(":id/change-password")
+    @Roles(UserRoles.SELF)
+    async changePassword(@Param("id") id: string, @Request() req) {
+        const {type} = req.user;
+        const {new_password, old_password} = req.body;
+
+        const user: User = await this.userService.findOneWithPassword({userId: id});
+
+        if (type != UserRoles.ADMIN) {
+            if (user.password != md5(old_password)) {
+                throw new ForbiddenException({success: false, message: "OLD_PASSWORD_INCORRECT"})
+            }
+        }
+        await this.userService.update(id, {password: md5(new_password)});
+        return {success: true, message: "CHANGE_PASSWORD_SUCCESSFUL"};
     }
 
     // only this user and ADMIN can update it
@@ -106,6 +105,7 @@ export class UserController {
         }
 
         if (type == UserRoles.PARTNER) {
+
             if (services) {
                 user.services = [];
                 for (const code of services) {
@@ -122,10 +122,10 @@ export class UserController {
     @Delete(":id")
     @Roles(UserRoles.ADMIN)
     async remove(@Param("id") id: string) {
-        try{
+        try {
             await this.userService.remove(id);
             return {success: true, message: "Delete User Successful!"}
-        } catch(e){
+        } catch (e) {
             return {success: false, message: e.message}
         }
     }

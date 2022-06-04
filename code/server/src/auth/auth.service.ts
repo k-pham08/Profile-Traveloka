@@ -23,6 +23,7 @@ export class AuthService {
     async login(user: any) {
         const services = user.services ? user.services.map(({serviceCode}) => serviceCode) : [];
         const payload = {
+            name: user.type == UserRoles.PARTNER ? user.companyName : user.name,
             username: user.username,
             email: user.email,
             sub: user.userId,
