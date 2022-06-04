@@ -5,9 +5,10 @@ import {
 	ListItemText,
 	Paper,
 } from "@mui/material";
+import { FC } from "react";
 import { SERVICES } from "../../utils/constraint";
 
-export const SearchOption = () => {
+export const SearchOption: FC<{renderOption: Function}> = ({renderOption}) => {
 	return (
 		<Paper
 			sx={{
@@ -18,8 +19,10 @@ export const SearchOption = () => {
 		>
 			<nav aria-label="main mailbox folders">
 				<List>
-					{SERVICES.map(({code, name, icon}, index) => (
-						<ListItem button key={code}>
+					{SERVICES.map(({code, name, icon}) => (
+						<ListItem button key={code} onClick={() => {
+							renderOption(code)
+						}}>
 							<ListItemIcon>
 								<img
 									src={icon}
