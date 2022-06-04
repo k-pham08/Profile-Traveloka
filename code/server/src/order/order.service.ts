@@ -8,6 +8,7 @@ import { CreateOrderDto } from "./dto/create-order.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
 import { Roles } from "../decorators/role.decorator";
 import { UserRoles } from "../enums/roles";
+import { OrderDetail } from "../entities/OrderDetail";
 
 @Injectable()
 // @UseGuards(RolesGuard)
@@ -18,21 +19,40 @@ export class OrderService {
         private readonly orderRepository: Repository<Order>,
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
+        @InjectRepository(OrderDetail)
+        private readonly orderDetailRepository: Repository<OrderDetail>
     ) {}
 
     async create(createOrderDto: CreateOrderDto) {
-        const user = await this.userRepository.findOneBy({ userId: createOrderDto.userId });
-        const order = await this.orderRepository.create({
-              orderId: createOrderDto.orderId,
-              createdAt: createOrderDto.createdAt,
-              total: createOrderDto.total,
-              reward: createOrderDto.reward,
-              serviceId: createOrderDto.serviceId,
-        });
-        user.reward += createOrderDto.reward;
-        order.user = user;
-        await this.userRepository.save(user);
-        await this.orderRepository.save(order);
+        try {
+            const details: OrderDetail[] = []
+            const user = await this.userRepository.findOneBy({ userId: createOrderDto.userId });
+            user.reward += createOrderDto.reward;
+            const order = await this.orderRepository.create({
+                  createdAt: createOrderDto.createdAt,
+                  total: createOrderDto.total,
+                  reward: createOrderDto.reward,
+                  partnerId: createOrderDto.partnerId,
+                  user: user
+            });
+            for (const detail of createOrderDto.details) {
+                const orderDetail = await this.orderDetailRepository.create({
+                    productName: detail.productName,
+                    quantity: detail.quantity,
+                    price: detail.price,
+                    thumbnail: detail.thumbnail,
+                    link: detail.link,
+                })
+                details.push(orderDetail)
+                await this.orderDetailRepository.save(orderDetail);
+            };
+            
+            order.orderDetails = [...details];
+            await this.userRepository.save(user);
+            await this.orderRepository.save(order);
+        } catch(err) {
+            console.log(err)
+        }
     }
 
     findAll() {

@@ -1,1 +1,4 @@
-export class CreateOrderDetailDto {}
+import { ApiProperty } from "@nestjs/swagger";
+
+export class CreateOrderDetailDto {
+}

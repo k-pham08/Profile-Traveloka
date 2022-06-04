@@ -4,7 +4,7 @@ import { Order } from "./Order";
 
 @Entity("ORDER_DETAIL", { schema: "dbo" })
 export class OrderDetail {
-  @Column("uniqueidentifier", { primary: true, name: "detail_id" })
+  @Column("uniqueidentifier", { primary: true, name: "detail_id", default: () => "newId()" })
   detailId: string;
 
   @Column("nvarchar", { name: "product_name", length: 255 })

@@ -1,8 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
+import { Order } from "../../entities/Order";
 
 export class CreateOrderDto {
-     @ApiProperty()
-     orderId: string;
      @ApiProperty()
      createdAt: Date;
      @ApiProperty()
@@ -10,7 +9,15 @@ export class CreateOrderDto {
      @ApiProperty()
      reward: number;
      @ApiProperty()
-     serviceId: string;
+     details: {
+          productName: string;
+          quantity: number;
+          price: number;
+          thumbnail: string;
+          link: string;
+     }[];
+     @ApiProperty()
+     partnerId: string;
      @ApiProperty()
      userId: string;
 }

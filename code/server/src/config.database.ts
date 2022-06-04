@@ -10,3 +10,14 @@ export const config: SqlServerConnectionOptions = {
      entities: ["dist/entities/*.js"],
      synchronize: true,
 };
+
+export const configTest: SqlServerConnectionOptions = {
+     type: "mssql",
+     host: "localhost",
+     port: 1433,
+     username: "khoapham-08",
+     password: "khoapham08",
+     database: "Profile",
+     entities: ["dist/entities/*.js"],
+     synchronize: true,
+};
