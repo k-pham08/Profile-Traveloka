@@ -85,7 +85,7 @@ export class AuthController {
             const data = await this.userService.create(createDto);
 
             // register to vouchers APP
-            await this.voucherService.registerVoucherService(data);
+            // await this.voucherService.registerVoucherService(data);
 
             res.json({success: true, message: "REGISTER_SUCCESS", data});
         } catch (e) {
