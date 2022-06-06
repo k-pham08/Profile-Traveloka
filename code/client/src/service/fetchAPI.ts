@@ -4,6 +4,7 @@ const headers: { [key: string]: string } = {
     "Content-Type": "application/json",
     'Access-Control-Allow-Origin': '*',
     Accept: "application/json",
+    "app_id": "vy03"
 };
 
 const HOST = process.env?.REACT_APP_API;

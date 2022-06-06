@@ -27,13 +27,15 @@ export class OrderService {
         try {
             const details: OrderDetail[] = []
             const user = await this.userRepository.findOneBy({ userId: createOrderDto.userId });
+            const partner = await this.userRepository.findOneBy({userId: createOrderDto.partnerId});
             user.reward += createOrderDto.reward;
             const order = await this.orderRepository.create({
                   createdAt: createOrderDto.createdAt,
                   total: createOrderDto.total,
                   reward: createOrderDto.reward,
-                  partnerId: createOrderDto.partnerId,
-                  user: user
+                  voucherCode: createOrderDto.voucherCode,
+                  user: user,
+                  partner: partner
             });
             for (const detail of createOrderDto.details) {
                 const orderDetail = await this.orderDetailRepository.create({
@@ -49,6 +51,7 @@ export class OrderService {
             
             order.orderDetails = [...details];
             await this.userRepository.save(user);
+            await this.userRepository.save(partner);
             await this.orderRepository.save(order);
         } catch(err) {
             console.log(err)

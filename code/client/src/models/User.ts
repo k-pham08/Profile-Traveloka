@@ -27,6 +27,8 @@ export class User {
     services: Service[];
     @observable
     companyName: string;
+    @observable
+    access_token: string;
 
     constructor(data?: any) {
         this.userId = "";
@@ -41,6 +43,7 @@ export class User {
         this.reward = 0;
         this.companyName = "";
         this.services = [];
+        this.access_token = "";
         if (data != null) {
             const {
                 userId,
