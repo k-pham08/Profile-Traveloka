@@ -55,52 +55,13 @@ export const Register: FC = observer(() => {
     const handleSignUp = () => {
         const {user} = sSignUp;
 
-        if (!user.name) {
-            return enqueueSnackbar("Vui lòng điền họ tên đầy đủ", {variant: "error"});
-        }
-
-        if (user.dob.getFullYear() >= MIN_YEAR_OLD_USER) {
-            return enqueueSnackbar("Bạn phải lớn hơn 16 tuổi", {variant: "error"});
-        }
-
-        if (!user.address) {
-            return enqueueSnackbar("Vui lòng điền địa chỉ của bạn", {variant: "error"});
-        }
-
-        if (!user.phone) {
-            return enqueueSnackbar("Vui lòng điền số điện thoại của bạn", {variant: "error"});
-        }
-
-        if (!regexes.phone.test(user.phone)) {
-            return enqueueSnackbar("Số Điện thoại của bạn không đúng. Vui lòng thử lại", {variant: "error"});
-        }
-
-        if (!user.email) {
-            return enqueueSnackbar("Vui lòng điền số email của bạn", {variant: "error"});
-        }
-
-        if (!regexes.email.test(user.email)) {
-            return enqueueSnackbar("Email của bạn không đúng. Vui lòng thử lại", {variant: "error"});
-        }
-
-        if (sSignUp.isRegisterPartner) {
-            if (!user.companyName) {
-                return enqueueSnackbar("Vui lòng điền tên doanh nghiệp của bạn", {variant: "error"});
-            }
-            if (sSignUp.services.length == 0) {
-                return enqueueSnackbar("Doanh nghiệp phải sử dụng ít nhất 1 dịch vụ", {variant: "error"});
-            }
-        }
-
-        if (isLoggedIn && currentUser) {
-            return;
-        }
-        setSubmitting(true);
         sSignUp.doSignUp().then(([err, data]) => {
             setSubmitting(false);
             if (err)
                 return enqueueSnackbar(err.message, {variant: "error"});
             navigator("/Login");
+        }).catch((e)=>{
+            enqueueSnackbar(e.message, {variant: "error"});
         })
     }
 
