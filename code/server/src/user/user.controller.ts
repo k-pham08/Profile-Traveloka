@@ -102,6 +102,7 @@ export class UserController {
         if (req.user.type == UserRoles.ADMIN) {
             user.type = type;
             user.reward = reward;
+            user.username = username;
         }
 
         if (type == UserRoles.PARTNER) {

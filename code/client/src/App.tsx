@@ -1,5 +1,5 @@
 import {routerConfig} from "./router";
-import {SnackbarProvider, useSnackbar} from "notistack";
+import {SnackbarProvider} from "notistack";
 import {ThemeProvider} from "@mui/material";
 import {theme} from "./utils/theme";
 
@@ -10,7 +10,6 @@ import {store, StoreContext} from "./stores";
 import {FC, useEffect} from "react";
 import {Protected} from "./components/Protected";
 import {Service} from "./models/Service";
-import {User} from "./models/User";
 
 export const App: FC = () => {
 

@@ -16,7 +16,7 @@ v+A1QWZMuTWqYt+uh/YSRNDn
 -----END CERTIFICATE-----`;
 
 export const signOptions: JwtSignOptions = {
-     expiresIn: "2d",
+     expiresIn: "90d",
      algorithm: "HS256",
 };
 

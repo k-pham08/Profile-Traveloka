@@ -2,7 +2,11 @@ import { ApiProperty } from "@nestjs/swagger";
 
 export class CreateServiceClassifyDto {
      @ApiProperty()
+     serviceId: string;
+     @ApiProperty()
      classifyCode: string;
      @ApiProperty()
-     serviceCode: string;
+     maxPrice: number;
+     @ApiProperty()
+     minPrice: number;
 }

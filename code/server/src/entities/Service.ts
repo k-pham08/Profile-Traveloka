@@ -3,7 +3,7 @@ import { ServiceClassify } from "./ServiceClassify";
 
 @Entity("SERVICE", { schema: "dbo" })
 export class Service {
-     @Column("uniqueidentifier", { primary: true, name: "service_id" })
+     @Column("uniqueidentifier", { primary: true, name: "service_id", default: () => "newId()" })
      serviceId: string;
 
      @Column("varchar", { name: "service_code", length: 255 })

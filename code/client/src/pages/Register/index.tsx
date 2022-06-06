@@ -55,8 +55,6 @@ export const Register: FC = observer(() => {
     const handleSignUp = () => {
         const {user} = sSignUp;
 
-
-
         if (!user.name) {
             return enqueueSnackbar("Vui lòng điền họ tên đầy đủ", {variant: "error"});
         }

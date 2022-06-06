@@ -1,21 +1,21 @@
-import { Column, Entity, Index, JoinColumn, ManyToOne } from "typeorm";
-import { Service } from "./Service";
+import {Column, Entity, Index, JoinColumn, ManyToOne} from "typeorm";
+import {Service} from "./Service";
 
-@Entity("SERVICE_CLASSIFY", { schema: "dbo" })
+@Entity("SERVICE_CLASSIFY", {schema: "dbo"})
 export class ServiceClassify {
-     @Column("uniqueidentifier", { primary: true, name: "classify_id" })
-     classifyId: string;
+    @Column("uniqueidentifier", {primary: true, name: "classify_id", default: () => "newId()"})
+    classifyId: string;
 
-     @Column("nvarchar", { name: "classify_code", length: 255 })
-     classifyCode: string;
+    @Column("nvarchar", {name: "classify_code", length: 255})
+    classifyCode: string;
 
-     @Column("int", { name: "max_price" })
-     maxPrice: number;
+    @Column("int", {name: "max_price"})
+    maxPrice: number;
 
-     @Column("int", { name: "min_price" })
-     minPrice: number;
+    @Column("int", {name: "min_price"})
+    minPrice: number;
 
-     @ManyToOne(() => Service, service => service.serviceClassifies)
-     @JoinColumn([{ name: "service_id", referencedColumnName: "serviceId" }])
-     service: Service;
+    @ManyToOne(() => Service, service => service.serviceClassifies)
+    @JoinColumn([{name: "service_id", referencedColumnName: "serviceId"}])
+    service: Service;
 }

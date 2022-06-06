@@ -9,7 +9,7 @@ import {
     Order,
 } from "./pages";
 import {Register} from "./pages/Register";
-import {Services} from "./pages/Services";
+import {ServiceDetail, Services} from "./pages/Services";
 
 // u can add new route in here
 export const routerConfig = [
@@ -20,7 +20,7 @@ export const routerConfig = [
     {path: "/partnership", component: <Register/>},
     {path: "/profile/:mode", component: <Profile/>, isPrivate: true},
     {path: "/services", component: <Services/>, isPrivate: true, isAdmin: true},
-    {path: "/services/:id", component: <></>, isPrivate: true, isAdmin: true},
+    {path: "/services/:id", component: <ServiceDetail/>, isPrivate: true, isAdmin: true},
     {
         path: "/accounts",
         component: <Account/>,

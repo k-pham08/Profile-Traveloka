@@ -24,7 +24,11 @@ export const Account: FC<{}> = observer(({}) => {
         loadList();
     }, []);
 
+    useEffect(() => {
+        console.log(sAccount.users[0])
+    }, [sAccount.users])
+
     return <BasicLayout>
-        <UserTable list={sAccount.users} reloadList={loadList}/>
+        <UserTable list={sAccount.users} reloadList={loadList} setList={sAccount.set_users}/>
     </BasicLayout>
 });

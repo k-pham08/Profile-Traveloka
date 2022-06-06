@@ -93,7 +93,8 @@ INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'
 INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'953b504b-86b1-4018-9e95-bde29518364d', N'RESTAURANT', N'Nhà hàng')
 INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'e91bf9c5-4dc9-4f0f-b8ec-d059582e3655', N'VOUCHER', N'Voucher')
 INSERT [dbo].[SERVICE] ([service_id], [service_code], [service_name]) VALUES (N'5771be02-6b90-4ff5-87d6-ee59a6d86b7f', N'SAVING-COMBO', N'Combo tiết kiệm')
-GO
+
+// FK_5a030c73bbf2cef0568e1e9d4c3
 
 INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [max_price], [min_price], [service_id]) VALUES (N'ef84df2b-23c0-42f2-8287-0b71c3cf8bf1', N'APARTMENT', 100000000, 500000, N'97dc9c1f-ef58-41b6-8f91-12fc7ab3cf09')
 INSERT [dbo].[SERVICE_CLASSIFY] ([classify_id], [classify_code], [max_price], [min_price], [service_id]) VALUES (N'5b195c7a-e363-4443-a35e-0e2fb907a9f1', N'GENERAL', 100000000, 500000, N'eaeaacf3-3ba7-4bba-916b-2b0c108c57bc')

@@ -11,8 +11,13 @@ import {useNavigate} from "react-router-dom"
 import {observer} from "mobx-react-lite";
 import {useStore} from "../../stores";
 
-export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({list, reloadList}) => {
-    const {sSignIn, types} = useStore();
+export const UserTable: FC<{ list: User[], reloadList: Function, setList: Function }> = observer(({
+                                                                                                      list,
+                                                                                                      reloadList,
+                                                                                                      setList
+                                                                                                  }) => {
+    const [data, setData] = useState<User[]>([]);
+    const {sAccount, sSignIn, types} = useStore();
     const navigator = useNavigate();
     const [typesLookUp, setTypesLookUp] = useState<any>([]);
     const {enqueueSnackbar} = useSnackbar();
@@ -21,10 +26,12 @@ export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({
         setTypesLookUp(types.reduce((r, i) => {
             r[i] = i;
             return r;
-        },  Object.assign({})));
-    }, [])
-    useEffect(() => {
-    }, [list])
+        }, Object.assign({})));
+    }, [types]);
+
+    // useEffect(() => {
+    //     setData(list);
+    // }, [list]);
 
     const columns: Column<User>[] = [
         {title: 'Name', field: 'name'},
@@ -64,11 +71,17 @@ export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({
         style={{padding: "0rem 1rem"}}
         title="Accounts Manager"
         columns={columns}
-        data={list}
+        data={sAccount.users}
         localization={{body: {editRow: {deleteText: 'Are you sure you want to delete this User?'}}}}
         editable={{
             onRowUpdate: (newData, oldData) => {
                 return new Promise((resolve, reject) => {
+                    // setData((state) => {
+                    //     return state.map((e) => {
+                    //         return e.userId == newData.userId ? newData : e;
+                    //     });
+                    // })
+
                     const {userId, ...user} = newData;
                     if (!user.name || !user.username || !user.email || !user.phone) {
                         enqueueSnackbar("Please Enter Info Before Update It!", {variant: "error"});
@@ -76,19 +89,19 @@ export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({
                     }
                     User.update(userId, user).then(([err, data]) => {
                         enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
-
-                        resolve({});
                         if (!err) {
-                            reloadList()
+                            sAccount.set_users(list.map((e) => e.userId == newData.userId ? newData : e));
                         }
+                        resolve({});
+
                     })
-                });
+                })
             },
             onRowDelete: oldData => {
                 return User.delete(oldData.userId).then(([err, data]) => {
                     enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
-                    if(!err){
-                        reloadList();
+                    if (!err) {
+                        sAccount.set_users(list.filter((u) => u.userId != oldData.userId));
                     }
                 });
             },
@@ -100,8 +113,7 @@ export const UserTable: FC<{ list: User[], reloadList: Function }> = observer(({
                 onClick: (event, rowData) => {
                     rowData = rowData as User;
                     sSignIn.LoginWithAdmin(rowData.userId || "").then((err) => {
-                        if(err){
-                            console.log(err)
+                        if (err) {
                             enqueueSnackbar(err.message, {variant: "error"});
                         }
                     });
