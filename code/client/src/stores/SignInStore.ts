@@ -31,7 +31,7 @@ export class SignInStore  {
 
             clearCurrentURL();
             window.history.pushState(null, "", "/");
-            window.location.href = urlCallback ? `${urlCallback}?token=${data.access_token}`: this.signInRedirect;
+            window.location.href = urlCallback ? `${urlCallback}?appId=vy03&token=${data.access_token}`: this.signInRedirect;
             return;
         }
         return err.message;
