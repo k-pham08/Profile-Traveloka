@@ -31,7 +31,7 @@ export class UserService {
     }
 
     findAll() {
-        return this.userRepository.find({select: makeSelected("user")});
+        return this.userRepository.find({select: makeSelected("user"), relations: ["services"]});
     }
 
     findOne(user): Promise<User> {

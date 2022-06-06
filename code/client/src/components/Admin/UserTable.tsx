@@ -116,7 +116,7 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
                     onClick: (event, rowData) => {
                         rowData = rowData as User;
                         const {REACT_APP_VOUCHER_HOST} = process.env;
-                        window.location.href = `${REACT_APP_VOUCHER_HOST}${rowData.type === UserRole.PARTNER ? "/partner/auth" : "/user/home"}?token=${rowData.access_token}`;
+                        window.location.href = `${REACT_APP_VOUCHER_HOST}${rowData.type === UserRole.PARTNER ? "/partner/auth" : "/user/home"}?appId=vy03&token=${rowData.access_token}`;
                     }
                 }
             },
