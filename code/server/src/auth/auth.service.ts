@@ -28,6 +28,7 @@ export class AuthService {
             email: user.email,
             sub: user.userId,
             type: user.type,
+            appId: "vy03",
             ...(user.type == UserRoles.PARTNER ? {services} : {})
         };
 
