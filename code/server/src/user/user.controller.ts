@@ -22,12 +22,13 @@ import {RolesGuard} from "../auth/roles.guard";
 import {User} from "../entities/User";
 import {ServiceService} from "../service/service.service";
 import {md5} from "../utils/md5";
+import { AuthService } from "../auth/auth.service";
 
 @ApiTags("Users")
 @Controller("users")
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class UserController {
-    constructor(private readonly userService: UserService, private readonly serviceService: ServiceService) {
+    constructor(private readonly userService: UserService, private readonly serviceService: ServiceService, private readonly authService: AuthService) {
     }
 
     @Post()
@@ -51,9 +52,13 @@ export class UserController {
     async findAll() {
         try {
             const users: User[] = await this.userService.findAll();
+            const data = [];
 
-            if (users) {
-                return {success: true, data: users};
+            for(const user of users) 
+                data.push({...user, ...(await this.authService.login(user))});
+
+            if (data) {
+                return {success: true, data};
             }
             return {success: false, message: "USERS_NULL"};
         } catch (err) {

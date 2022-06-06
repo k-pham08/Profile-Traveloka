@@ -10,6 +10,7 @@ import {useSnackbar} from "notistack";
 import {useNavigate} from "react-router-dom"
 import {observer} from "mobx-react-lite";
 import {useStore} from "../../stores";
+import { UserRole } from "../../models/types";
 
 export const UserTable: FC<{ list: User[], reloadList: Function, setList: Function }> = observer(({
                                                                                                       list,
@@ -107,6 +108,18 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
             },
         }}
         actions={[
+            (rowData) => {
+                return {
+                    icon: "offline_share",
+                    tooltip: rowData.type === UserRole.ADMIN ? "Admin Should Not Connect Voucher Servive" : "Go To Voucher Service",
+                    disabled: rowData.type === UserRole.ADMIN,
+                    onClick: (event, rowData) => {
+                        rowData = rowData as User;
+                        const {REACT_APP_VOUCHER_HOST} = process.env;
+                        window.location.href = `${REACT_APP_VOUCHER_HOST}${rowData.type === UserRole.PARTNER ? "/partner/auth" : "/user/home"}?token=${rowData.access_token}`;
+                    }
+                }
+            },
             {
                 icon: "visibility",
                 tooltip: "Go To Account",

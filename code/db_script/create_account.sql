@@ -54,8 +54,9 @@ CREATE TABLE [dbo].[ORDER](
 	[order_id] [uniqueidentifier] NOT NULL,
 	[created_at] [datetime] NOT NULL,
 	[total] [int] NOT NULL,
-	[service_id] [char](10) NOT NULL,
 	[reward] [int] NOT NULL,
+	[voucher_code] [nvarchar](255) NOT NULL,
+	[partner_id] [uniqueidentifier] NULL,
 	[user_id] [uniqueidentifier] NULL,
 Primary Key ([order_id])
 )
@@ -79,6 +80,9 @@ Alter table [SERVICE_CLASSIFY] add  foreign key([service_id]) references [SERVIC
 go
 
 Alter table [ORDER] add  foreign key([user_id]) references [USER] ([user_id]) 
+go
+
+Alter table [ORDER] add  foreign key([partner_id]) references [USER] ([user_id]) 
 go
 
 Alter table [ORDER_DETAIL] add  foreign key([order_id]) references [ORDER] ([order_id]) 

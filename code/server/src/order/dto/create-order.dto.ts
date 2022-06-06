@@ -17,6 +17,8 @@ export class CreateOrderDto {
           link: string;
      }[];
      @ApiProperty()
+     voucherCode: string;     
+     @ApiProperty()
      partnerId: string;
      @ApiProperty()
      userId: string;
