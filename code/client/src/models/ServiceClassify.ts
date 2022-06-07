@@ -1,5 +1,5 @@
 import {FetchAPI, Method} from "../service/fetchAPI";
-import {action, makeAutoObservable, makeObservable, observable} from "mobx";
+import {action, makeAutoObservable, observable} from "mobx";
 
 export class ServiceClassify {
     @observable classifyCode: string;

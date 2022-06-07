@@ -25,7 +25,10 @@ export class OrderService {
 
     async create(createOrderDto: CreateOrderDto) {
         try {
-            const details: OrderDetail[] = []
+            const details: OrderDetail[] = [];
+            
+            createOrderDto.createdAt = new Date();
+
             const user = await this.userRepository.findOneBy({ userId: createOrderDto.userId });
             const partner = await this.userRepository.findOneBy({userId: createOrderDto.partnerId});
             user.reward += createOrderDto.reward;
@@ -62,8 +65,12 @@ export class OrderService {
         return this.orderRepository.find();
     }
 
+    findOfAccount(id, type){
+        return this.orderRepository.find({where:(type == UserRoles.USER ? {user: id} : {partner: id})})
+    }
+
     findOne(id) {
-        return this.orderRepository.findOne(id);
+        return this.orderRepository.findOne({where: {orderId: id}, relations: {orderDetails: true}})
     }
 
     update(id: string, updateOrderDto: UpdateOrderDto) {

@@ -33,7 +33,6 @@ export class Service {
 
     static async getById(id: string) {
         const [err, data] = await FetchAPI<Service>(Method.GET, `/services/${id}`);
-
         return [err, data] as const;
     }
 

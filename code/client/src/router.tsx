@@ -8,6 +8,7 @@ import {
     Home,
     Order,
 } from "./pages";
+import { OrderDetail } from "./pages/Orders/OrderDetails";
 import {Register} from "./pages/Register";
 import {ServiceDetail, Services} from "./pages/Services";
 
@@ -17,6 +18,7 @@ export const routerConfig = [
     {path: "/login", component: <Login/>},
     {path: "/vouchers", component: <Voucher/>, isPrivate: true},
     {path: "/orders", component: <Order/>, isPrivate: true},
+    {path: "/orders/:id", component: <OrderDetail/>, isPrivate: true},
     {path: "/partnership", component: <Register/>},
     {path: "/profile/:mode", component: <Profile/>, isPrivate: true},
     {path: "/services", component: <Services/>, isPrivate: true, isAdmin: true},

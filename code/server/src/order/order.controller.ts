@@ -1,12 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards, Request, InternalServerErrorException } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../auth/roles.guard';
+import { Roles } from '../decorators/role.decorator';
+import { UserRoles } from '../enums/roles';
+import e = require('express');
 
 @ApiTags("Order")
-@Controller("order")
+@Controller("orders")
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
@@ -16,22 +20,46 @@ export class OrderController {
   }
 
   @Get()
-  findAll() {
-    return this.orderService.findAll();
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRoles.SELF)
+  async findAll(@Request() req) {
+    try {
+        const {userId, type} = req.user;
+        const data = await (type == UserRoles.ADMIN ? this.orderService.findAll() : this.orderService.findOfAccount(userId, type)) 
+
+        return {success: true, data};
+    } catch(e) {
+        throw new InternalServerErrorException({success: false, message: e.message});
+    }
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    try {
+      const data = await this.orderService.findOne(id);
+      return {success: true, data};
+    } catch (e) {
+      throw new InternalServerErrorException({success: false, message: e.message});
+    }
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.orderService.update(id, updateOrderDto);
+  async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+    try {
+      await this.orderService.update(id, updateOrderDto);
+      return {success: true, message: "Update Order Successful"}
+    } catch (e) {
+      throw new InternalServerErrorException({success: false, message: e.message})
+    }
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderService.remove(id);
+  async remove(@Param('id') id: string) {
+    try {
+      await this.orderService.remove(id);
+      return {success: true, message: "Delete Order Successful"}
+    } catch (e) {
+      throw new InternalServerErrorException({success: false, message: e.message})
+    }
   }
 }
