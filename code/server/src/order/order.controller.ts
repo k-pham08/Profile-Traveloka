@@ -15,6 +15,7 @@ export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
   @Post()
+  @Roles(UserRoles.ADMIN)
   create(@Body() createOrderDto: CreateOrderDto) {
     return this.orderService.create(createOrderDto);
   }
@@ -34,6 +35,7 @@ export class OrderController {
   }
 
   @Get(':id')
+  @Roles(UserRoles.ADMIN)
   async findOne(@Param('id') id: string) {
     try {
       const data = await this.orderService.findOne(id);
@@ -44,6 +46,7 @@ export class OrderController {
   }
 
   @Put(':id')
+  @Roles(UserRoles.ADMIN)
   async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
     try {
       await this.orderService.update(id, updateOrderDto);
@@ -54,6 +57,7 @@ export class OrderController {
   }
 
   @Delete(':id')
+  @Roles(UserRoles.ADMIN)
   async remove(@Param('id') id: string) {
     try {
       await this.orderService.remove(id);

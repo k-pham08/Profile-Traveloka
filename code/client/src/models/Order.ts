@@ -38,4 +38,9 @@ export class Order {
         const [err, data] = await FetchAPI<{ message: string }>(Method.PUT, `/orders/${order.orderId}`, order);
         return [err, data] as const;
     }
+
+    static async delete(id: string){
+        const [err, data] = await FetchAPI<{message: string}>(Method.DELETE, `/orders/${id}`);
+        return [err, data] as const;
+    }
 }

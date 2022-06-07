@@ -77,7 +77,12 @@ export class OrderService {
         return this.orderRepository.update(id, updateOrderDto);
     }
 
-    remove(id) {
-        return this.orderRepository.remove(id);
+    async remove(id) {
+        const order = await this.orderRepository.findOneBy({orderId: id});
+        const details = await this.orderDetailRepository.find({where: {order: order}});
+        for (const detail of details) {
+            await this.orderDetailRepository.delete(detail.detailId);
+        }
+        await this.orderRepository.delete(order)
     }
 }

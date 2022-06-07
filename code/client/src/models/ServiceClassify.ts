@@ -26,8 +26,7 @@ export class ServiceClassify {
     }
 
     static async update(classify: ServiceClassify) {
-        const {classifyId, ...Dto} = classify;
-        const [err, data] = await FetchAPI<{ message: string }>(Method.PUT, "/service-classify/" + classifyId, Dto);
+        const [err, data] = await FetchAPI<{ message: string }>(Method.PUT, "/service-classify/" + classify.classifyId, classify);
         return [err, data] as const;
     }
 

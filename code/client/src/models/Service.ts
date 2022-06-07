@@ -38,7 +38,6 @@ export class Service {
 
     static async update(service: Service) {
         const [err, data] = await FetchAPI<{ message: string }>(Method.PUT, "/services/" + service.serviceId, service);
-
         return [err, data] as const;
     }
 

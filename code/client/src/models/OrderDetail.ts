@@ -20,4 +20,14 @@ export class OrderDetail{
         this.orderId = "";
         makeObservable(this)
     }
+
+    static async update(detail: OrderDetail){
+        const [err, data] = await FetchAPI<{message: string}>(Method.PUT, `/order-detail/${detail.detailId}`, detail);
+        return [err, data] as const;
+    }
+
+    static async delete(id: string){
+        const [err, data] = await FetchAPI<{message: string}>(Method.DELETE, `/order-detail/${id}`);
+        return [err, data] as const;
+    }
 }

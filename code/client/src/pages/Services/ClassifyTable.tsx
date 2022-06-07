@@ -6,6 +6,8 @@ import {useSnackbar} from "notistack";
 import {ServiceClassify} from "../../models/ServiceClassify";
 import {useNavigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
+import { resolve } from "path";
+import { rejects } from "assert";
 
 export const ClassifyTable: FC = observer(() => {
     const {sServiceDetail} = useStore();
@@ -51,25 +53,25 @@ export const ClassifyTable: FC = observer(() => {
             onRowUpdate: (newData, oldData) => {
                 return new Promise<ServiceClassify[]>((resolve, reject) => {
                     if (sServiceDetail.isCreateNew) {
-                        resolve(sServiceDetail.service.serviceClassifies.map((s) => s.classifyCode == oldData?.classifyCode ? newData : s));
+                        resolve(sServiceDetail.service.serviceClassifies.map((s) => s.classifyCode === oldData?.classifyCode ? newData : s));
                     } else
                         ServiceClassify.update(newData).then(([err, data]) => {
                             enqueueSnackbar(err ? err.message : data.message, {variant: err ? "error" : "success"});
                             if (!err) {
-                                resolve(sServiceDetail.service.serviceClassifies.map((s) => s.classifyId == newData.classifyId ? newData : s));
+                                resolve(sServiceDetail.service.serviceClassifies.map((s) => s.classifyId === newData.classifyId ? newData : s));
                             }
                         })
-                }).then(setClassify);
+                })
             },
             onRowDelete: oldData => {
                 return new Promise<ServiceClassify[]>((resolve, reject) => {
                     if (sServiceDetail.isCreateNew) {
-                        resolve(sServiceDetail.service.serviceClassifies.filter((s) => s.classifyCode == oldData.classifyCode));
+                        resolve(sServiceDetail.service.serviceClassifies.filter((s) => s.classifyCode === oldData.classifyCode));
                     } else
                         ServiceClassify.delete(oldData.classifyId).then(([err, data]) => {
                             enqueueSnackbar(err ? err.message : data.message, {variant: err ? "error" : "success"});
                             if (!err) {
-                                resolve(sServiceDetail.service.serviceClassifies.filter((s) => s.classifyCode == oldData.classifyCode));
+                                resolve(sServiceDetail.service.serviceClassifies.filter((s) => s.classifyCode === oldData.classifyCode));
                             }
                         });
                 }).then(setClassify);

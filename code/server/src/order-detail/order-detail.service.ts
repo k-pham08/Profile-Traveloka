@@ -27,15 +27,15 @@ export class OrderDetailService {
     return await this.orderDetailRepository.find({where: {order: order}})
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return `This action returns a #${id} orderDetail`;
   }
 
-  update(id: number, updateOrderDetailDto: UpdateOrderDetailDto) {
-    return `This action updates a #${id} orderDetail`;
+  update(id: string, updateOrderDetailDto: UpdateOrderDetailDto) {
+    return this.orderDetailRepository.update(id, updateOrderDetailDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} orderDetail`;
+  remove(id) {
+    return this.orderDetailRepository.delete(id);
   }
 }

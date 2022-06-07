@@ -91,7 +91,7 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
                     User.update(userId, user).then(([err, data]) => {
                         enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
                         if (!err) {
-                            sAccount.set_users(list.map((e) => e.userId == newData.userId ? newData : e));
+                            sAccount.set_users(list.map((e) => e.userId === newData.userId ? newData : e));
                         }
                         resolve({});
 
@@ -102,7 +102,7 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
                 return User.delete(oldData.userId).then(([err, data]) => {
                     enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
                     if (!err) {
-                        sAccount.set_users(list.filter((u) => u.userId != oldData.userId));
+                        sAccount.set_users(list.filter((u) => u.userId !== oldData.userId));
                     }
                 });
             },
