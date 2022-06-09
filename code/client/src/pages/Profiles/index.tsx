@@ -121,8 +121,8 @@ export const Profile: FC = observer(() => {
     return (
         <BasicLayout>
             <Grid container spacing={2} direction="row">
-                <Grid item xs md xl={2} style={{width: "100%"}}>
-                    {role == UserRole.USER ?
+                <Grid item xs={3} style={{width: "100%"}}>
+                    {role === UserRole.USER ?
                         <MenuList dense>
                             <DropdownSetting menu={USER_SETTINGS} closeHandle={() => {
                             }}/>
