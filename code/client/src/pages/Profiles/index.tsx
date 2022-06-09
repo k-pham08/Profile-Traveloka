@@ -15,14 +15,11 @@ import {FormControl, InputLabel, MenuList, OutlinedInput} from "@mui/material";
 import {observer} from "mobx-react";
 import {DropdownSetting} from "../../components/Settings";
 import {USER_SETTINGS} from "../../utils/constraint";
-import {theme} from "../../utils/theme";
 import {ServicesChooseGroup} from "../../components/Service";
 import {ChangePassword} from "../User/ChangePassword";
-import { Paper } from "@material-ui/core";
-import { padding } from "@mui/system";
 
 export const Profile: FC = observer(() => {
-    const {sProfile, role} = useStore();
+    const {sProfile, role, currentUser} = useStore();
     const {enqueueSnackbar} = useSnackbar();
     const navigator = useNavigate();
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -31,7 +28,7 @@ export const Profile: FC = observer(() => {
 
     useEffect(() => {
         if (mode) {
-            sProfile.set_IsView(mode == MODE.VIEW);
+            sProfile.set_IsView(mode === MODE.VIEW);
             if (typeof account == "string") {
                 User.getUserById(account).then(([err, data]) => {
                     if (err) {
@@ -78,7 +75,7 @@ export const Profile: FC = observer(() => {
                 setSubmitting(true);
                 const {user, old_password, new_password, confirm_password} = sProfile;
 
-                if (role != UserRole.ADMIN) {
+                if (role !== UserRole.ADMIN) {
                     if (!old_password)
                         throw new Error("Vui lòng điền mật khẩu cũ !");
                     if (!new_password)
@@ -128,31 +125,14 @@ export const Profile: FC = observer(() => {
                             }}/>
                         </MenuList> : <UserOptionBar/>}
                 </Grid>
-
                 <Grid item xs={9}>
-                    <Paper elevation={8} style={{padding: "2rem", marginBottom: "1rem"}}>
+                    <div>
                         <UserInfo user={sProfile.user} setUser={sProfile.user} isView={sProfile.isView}/>
                         <Grid container mt={2}>
-                            {sProfile.user.type == UserRole.PARTNER &&
-                                <>
-                                    <FormControl fullWidth disabled={sProfile.isView}>
-                                        <InputLabel htmlFor="outlined-adornment">
-                                            Tên Doanh Nghiệp
-                                        </InputLabel>
-                                        <OutlinedInput
-                                            id="outlined-adornment"
-                                            value={sProfile.user.companyName}
-                                            onChange={(event) => {
-                                                sProfile.user.companyName = event.target.value;
-                                            }}
-                                            label="Tên Doanh Nghiệp"
-                                            name="name"
-                                            required
-                                        />
-                                    </FormControl>
-                                    <ServicesChooseGroup store={sProfile} isView={sProfile.isView}/>
-                                </>}
+                            {sProfile.user.type === UserRole.PARTNER &&
+                                <ServicesChooseGroup store={sProfile} isView={sProfile.isView}/>}
                         </Grid>
+                    </div>
                     {sProfile.isChangePassword && <ChangePassword/>}
 
                     <Grid container spacing={1} direction="row" justifyContent="flex-end">
@@ -178,9 +158,8 @@ export const Profile: FC = observer(() => {
                             </Button>
                         </Grid>
                     </Grid>
-                    </Paper>
                     <UserReward/>
-                    <UserOrderHistory/>
+                    {(currentUser !== undefined && currentUser.type !== UserRole.ADMIN) ? <UserOrderHistory/> : <></>}
                 </Grid>
             </Grid>
         </BasicLayout>

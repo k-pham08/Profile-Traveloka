@@ -2,7 +2,6 @@
 import {
     Login,
     Account,
-    Voucher,
     NotFound,
     Profile,
     Home,

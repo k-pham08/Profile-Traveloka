@@ -37,8 +37,8 @@ export class Order {
         return [err, data] as const;
     }
 
-    static async getByAccount(){
-        const [err, data] = await FetchAPI<Order[]>(Method.GET, "/orders/");
+    static async getByAccount(userId: string){
+        const [err, data] = await FetchAPI<Order[]>(Method.GET, `/orders/${userId}`);
         return [err, data] as const;
     }
 

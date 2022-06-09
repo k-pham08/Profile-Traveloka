@@ -69,6 +69,14 @@ export class OrderService {
         return this.orderRepository.find({where: (type === UserRoles.USER ? {user: {userId: id}} : {partner: {userId: id}}), relations: {orderDetails: true, partner: true}})
     }
 
+    async findByAccount(id: string){
+        const user = await this.userRepository.findOne({where: {userId: id}});
+        if(user.type == UserRoles.USER)
+            return this.orderRepository.find({where: {user: {userId: id}}, relations: {orderDetails: true, partner: true}})
+        else if(user.type == UserRoles.PARTNER)
+            return this.orderRepository.find({where: {partner: {userId: id}}, relations: {orderDetails: true, partner: true}}) 
+    }
+
     findOne(id) {
         return this.orderRepository.findOne({where: {orderId: id}, relations: {orderDetails: true}})
     }

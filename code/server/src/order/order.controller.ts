@@ -17,7 +17,12 @@ export class OrderController {
   @Post()
   @Roles(UserRoles.ADMIN)
   create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.create(createOrderDto);
+    try {
+      const data = this.orderService.create(createOrderDto);
+      return {success: true, data};
+    } catch (e) {
+      throw new InternalServerErrorException({success: false, message: e.message})
+    }
   }
 
   @Get()
@@ -30,6 +35,16 @@ export class OrderController {
         return {success: true, data};
     } catch(e) {
         throw new InternalServerErrorException({success: false, message: e.message});
+    }
+  }
+
+  @Get(":userId")
+  async findByAccount(@Param('userId') id: string) {
+    try {
+      const data = await this.orderService.findByAccount(id);
+      return {success: true, data};
+    } catch (e) {
+      throw new InternalServerErrorException({success: false, message: e.message})
     }
   }
 

@@ -6,22 +6,33 @@ import { Order } from "../models/Order";
 import { Paper, Typography, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider } from "@mui/material";
 import InboxIcon from '@mui/icons-material/Inbox';
 import moment from "moment";
+import { useParams } from "react-router";
 
 
 export const OrderResult: FC = observer(() => {
     const {enqueueSnackbar} = useSnackbar();
     const {sOrder} = useStore();
+	const {account} = useParams();
 
     useEffect(() => {
-        Order.getAll().then(([err, data]) => {
-            if(err) {
-                enqueueSnackbar(err.message, {variant: "error"});    
-                return;
-            }
-            sOrder.set_orders(data);
-        })
+        if(account){
+			Order.getByAccount(account).then(([err, data]) => {
+				if(err) {
+					enqueueSnackbar(err.message, {variant: "error"});    
+					return;
+				}
+				sOrder.set_orders(data);
+			})
+		} else {
+			Order.getAll().then(([err, data]) => {
+				if(err) {
+					enqueueSnackbar(err.message, {variant: "error"});    
+					return;
+				}
+				sOrder.set_orders(data);
+			})
+		}
     }, []);   
-
 
     return (
 		<Paper style={{width: "100%"}}>

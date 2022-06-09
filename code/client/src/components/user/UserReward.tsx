@@ -13,7 +13,7 @@ import { useStore } from "../../stores";
 export const UserReward = () => {
 	const {sProfile} = useStore();
 	return (
-		<Paper elevation={8}>
+		<Paper elevation={8} style={{marginTop: "2rem"}}>
 			<Card variant="outlined">
 				<Fragment>
 					<CardContent>
