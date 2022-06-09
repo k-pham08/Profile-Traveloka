@@ -54,7 +54,7 @@ export const ADMIN_SETTINGS: MenuItem[] = [
 
 // u can add new item in menu here
 export const MENU_PARTNER = [
-    {name: "vouchers", path: "/vouchers"},
+    {name: "vouchers"},
     {name: "orders", path: "/orders"},
 ];
 

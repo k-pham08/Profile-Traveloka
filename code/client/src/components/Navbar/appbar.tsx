@@ -92,13 +92,13 @@ export const Appbar = () => {
                                 display: {xs: "block", md: "none"},
                             }}
                         >
-                            {(role == UserRole.ADMIN ? MENU_ADMIN : MENU_PARTNER).map(({name, path}) => (
+                            {(role === UserRole.ADMIN ? MENU_ADMIN : MENU_PARTNER).map(({name, path}) => (
                                 <MenuItem key={name}>
-                                    <Link to={path}>
+                                    {/* <Link to={path}>
                                         <Typography textAlign="center">
                                             {name}
                                         </Typography>
-                                    </Link>
+                                    </Link> */}
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -133,8 +133,24 @@ export const Appbar = () => {
                                 >
                                     {name}
                                 </Button>
-                            </Link>
-                        ))}
+                                </Link>
+                            } else {
+                                return <a href={`${REACT_APP_VOUCHER_HOST}/partner/auth?appId=vy03&token=${store.token}`}>
+                                <Button
+                                    key={name}
+                                    onClick={handleCloseNavMenu}
+                                    sx={{
+                                        my: 2,
+                                        color: "white",
+                                        display: "block",
+                                    }}
+                                >
+                                    {name}
+                                </Button>
+                                </a>
+                            }
+                            
+                        })}
                     </Box>
 
                     <Box sx={{flexGrow: 0}}>
