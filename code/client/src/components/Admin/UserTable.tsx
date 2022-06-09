@@ -1,4 +1,4 @@
-import {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
+import { FC, useEffect, useState} from "react";
 import {User} from "../../models/User";
 import MaterialTable, {Column} from "material-table";
 import {formatDDMMYYYY} from "../../utils/date";
@@ -17,7 +17,6 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
                                                                                                       reloadList,
                                                                                                       setList
                                                                                                   }) => {
-    const [data, setData] = useState<User[]>([]);
     const {sAccount, sSignIn, types} = useStore();
     const navigator = useNavigate();
     const [typesLookUp, setTypesLookUp] = useState<any>([]);
@@ -77,12 +76,6 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
         editable={{
             onRowUpdate: (newData, oldData) => {
                 return new Promise((resolve, reject) => {
-                    // setData((state) => {
-                    //     return state.map((e) => {
-                    //         return e.userId == newData.userId ? newData : e;
-                    //     });
-                    // })
-
                     const {userId, ...user} = newData;
                     if (!user.name || !user.username || !user.email || !user.phone) {
                         enqueueSnackbar("Please Enter Info Before Update It!", {variant: "error"});

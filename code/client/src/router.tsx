@@ -16,7 +16,6 @@ import {ServiceDetail, Services} from "./pages/Services";
 export const routerConfig = [
     {path: "/", component: <Home/>},
     {path: "/login", component: <Login/>},
-    {path: "/vouchers", component: <Voucher/>, isPrivate: true},
     {path: "/orders", component: <Order/>, isPrivate: true},
     {path: "/orders/:id", component: <OrderDetail/>, isPrivate: true},
     {path: "/partnership", component: <Register/>},
