@@ -1,6 +1,7 @@
 import {action, makeObservable, observable} from "mobx";
 import {FetchAPI, Method} from "../service/fetchAPI";
 import { OrderDetail } from "./OrderDetail";
+import { User } from "./User";
 
 export class Order {
     @observable orderId: string;
@@ -9,6 +10,7 @@ export class Order {
     @observable reward: number;
     @observable voucherCode: string;
     @observable orderDetails: OrderDetail[];
+    @observable partner: User;
 
     constructor(data?: any){
         this.orderId="";
@@ -17,6 +19,7 @@ export class Order {
         this.reward=0;
         this.voucherCode="";
         this.orderDetails = new Array<OrderDetail>();
+        this.partner = new User();
         makeObservable(this);
     }
 
@@ -31,6 +34,11 @@ export class Order {
 
     static async getById(id: string){
         const [err, data] = await FetchAPI<Order>(Method.GET, `/orders/${id}`);
+        return [err, data] as const;
+    }
+
+    static async getByAccount(){
+        const [err, data] = await FetchAPI<Order[]>(Method.GET, "/orders/");
         return [err, data] as const;
     }
 

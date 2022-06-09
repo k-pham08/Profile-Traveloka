@@ -65,8 +65,8 @@ export class OrderService {
         return this.orderRepository.find();
     }
 
-    findOfAccount(id, type){
-        return this.orderRepository.find({where:(type == UserRoles.USER ? {user: id} : {partner: id})})
+    async findOfAccount(id: string, type){
+        return this.orderRepository.find({where: (type === UserRoles.USER ? {user: {userId: id}} : {partner: {userId: id}}), relations: {orderDetails: true, partner: true}})
     }
 
     findOne(id) {

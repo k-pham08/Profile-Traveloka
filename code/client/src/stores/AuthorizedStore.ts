@@ -113,7 +113,6 @@ export class AuthorizedStore extends BaseStore {
 
     gotoVoucher(errorCallback: Function) {
         const {REACT_APP_VOUCHER_HOST} = process.env;
-        // const role = this.role;
 
         FetchAPI<{ redirect: string }>(Method.POST, "/vouchers").then(([err, data]) => {
             if (err) {

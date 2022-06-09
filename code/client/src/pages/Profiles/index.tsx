@@ -18,6 +18,8 @@ import {USER_SETTINGS} from "../../utils/constraint";
 import {theme} from "../../utils/theme";
 import {ServicesChooseGroup} from "../../components/Service";
 import {ChangePassword} from "../User/ChangePassword";
+import { Paper } from "@material-ui/core";
+import { padding } from "@mui/system";
 
 export const Profile: FC = observer(() => {
     const {sProfile, role} = useStore();
@@ -119,41 +121,41 @@ export const Profile: FC = observer(() => {
     return (
         <BasicLayout>
             <Grid container spacing={2} direction="row">
-                <Grid item xs md xl={2} style={{width: "100%"}}>
-                    {role == UserRole.USER ?
+                <Grid item xs={3} style={{width: "100%"}}>
+                    {role === UserRole.USER ?
                         <MenuList dense>
                             <DropdownSetting menu={USER_SETTINGS} closeHandle={() => {
                             }}/>
                         </MenuList> : <UserOptionBar/>}
                 </Grid>
 
-                <Grid item xs md={8}>
-                    <UserInfo user={sProfile.user} setUser={sProfile.user} isView={sProfile.isView}/>
-                    <Grid container mt={2}>
-                        {sProfile.user.type == UserRole.PARTNER &&
-                            <>
-                                <FormControl fullWidth disabled={sProfile.isView}>
-                                    <InputLabel htmlFor="outlined-adornment">
-                                        Tên Doanh Nghiệp
-                                    </InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment"
-                                        value={sProfile.user.companyName}
-                                        onChange={(event) => {
-                                            sProfile.user.companyName = event.target.value;
-                                        }}
-                                        label="Tên Doanh Nghiệp"
-                                        name="name"
-                                        required
-                                    />
-                                </FormControl>
-                                <ServicesChooseGroup store={sProfile} isView={sProfile.isView}/>
-                            </>}
-                    </Grid>
-
+                <Grid item xs={9}>
+                    <Paper elevation={8} style={{padding: "2rem", marginBottom: "1rem"}}>
+                        <UserInfo user={sProfile.user} setUser={sProfile.user} isView={sProfile.isView}/>
+                        <Grid container mt={2}>
+                            {sProfile.user.type == UserRole.PARTNER &&
+                                <>
+                                    <FormControl fullWidth disabled={sProfile.isView}>
+                                        <InputLabel htmlFor="outlined-adornment">
+                                            Tên Doanh Nghiệp
+                                        </InputLabel>
+                                        <OutlinedInput
+                                            id="outlined-adornment"
+                                            value={sProfile.user.companyName}
+                                            onChange={(event) => {
+                                                sProfile.user.companyName = event.target.value;
+                                            }}
+                                            label="Tên Doanh Nghiệp"
+                                            name="name"
+                                            required
+                                        />
+                                    </FormControl>
+                                    <ServicesChooseGroup store={sProfile} isView={sProfile.isView}/>
+                                </>}
+                        </Grid>
                     {sProfile.isChangePassword && <ChangePassword/>}
 
-                    <Grid container spacing={1} direction="row" justifyContent="flex-end" style={{margin: theme.spacing(1)}}>
+                    <Grid container spacing={1} direction="row" justifyContent="flex-end">
 
                         {sProfile.isChangePassword && <Grid item>
                             <Button variant="outlined" color="error" onClick={CancelChangePasswordHandle}>Cancel</Button>
@@ -176,6 +178,7 @@ export const Profile: FC = observer(() => {
                             </Button>
                         </Grid>
                     </Grid>
+                    </Paper>
                     <UserReward/>
                     <UserOrderHistory/>
                 </Grid>

@@ -30,7 +30,7 @@ export const DropdownSetting: FC<{ menu: MenuItemType[], closeHandle: Function }
                     justifyContent: "center",
                 }}
             >
-                {icon && <img src={icon} style={{marginRight: "1rem"}}/>}
+                {icon && <img src={icon} style={{marginRight: "1rem"}} alt={""}/>}
                 {title}
             </Typography>
         </MenuItem>

@@ -22,12 +22,11 @@ export class OrderController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
-  @Roles(UserRoles.SELF)
+  @Roles(UserRoles.ALL)
   async findAll(@Request() req) {
     try {
         const {userId, type} = req.user;
-        const data = await (type == UserRoles.ADMIN ? this.orderService.findAll() : this.orderService.findOfAccount(userId, type)) 
-
+        const data = await (type == UserRoles.ADMIN ? this.orderService.findAll() : this.orderService.findOfAccount(userId, type));
         return {success: true, data};
     } catch(e) {
         throw new InternalServerErrorException({success: false, message: e.message});

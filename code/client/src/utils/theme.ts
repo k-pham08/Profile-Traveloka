@@ -18,5 +18,6 @@ export const useGeneralStyles = makeStyles({
 })
 
 export const generalStyles = {
-    paddingTable: {padding: "0rem 1rem"}
+    paddingTable: {padding: "0rem 1rem"},
+    widthTable: {width: "100%"}
 }

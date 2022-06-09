@@ -13,20 +13,19 @@ import { useStore } from "../../stores";
 export const UserReward = () => {
 	const {sProfile} = useStore();
 	return (
-		<Paper>
+		<Paper elevation={8}>
 			<Card variant="outlined">
 				<Fragment>
 					<CardContent>
-						<h2>Avialable Reward</h2>
+						<h2>Điểm thưởng hiện có</h2>
 						<Typography variant="h2" component="div">
 							{sProfile.user.reward}
 						</Typography>
 						<Typography sx={{ mb: 1.5 }} color="text.secondary">
-							Value {sProfile.user.reward} VND
+							Trị giá {sProfile.user.reward} VND
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<Button size="small">Detail</Button>
 					</CardActions>
 				</Fragment>
 			</Card>

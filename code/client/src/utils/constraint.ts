@@ -82,7 +82,7 @@ export const USER_SETTINGS: MenuItem[] = [
     },
     {
         title: "Danh sách giao dịch",
-        link: "/",
+        link: "/orders/history",
         icon: "https://d1785e74lyxkqq.cloudfront.net/_next/static/v2/0/0965a06a63e873adb97d5ed7d7b92dbe.svg",
     },
     {
