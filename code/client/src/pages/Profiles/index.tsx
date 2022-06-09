@@ -15,13 +15,12 @@ import {FormControl, InputLabel, MenuList, OutlinedInput} from "@mui/material";
 import {observer} from "mobx-react";
 import {DropdownSetting} from "../../components/Settings";
 import {USER_SETTINGS} from "../../utils/constraint";
-import {theme} from "../../utils/theme";
 import {ServicesChooseGroup} from "../../components/Service";
 import {ChangePassword} from "../User/ChangePassword";
 import {Order} from "../../models/Order";
 
 export const Profile: FC = observer(() => {
-    const {sProfile, role} = useStore();
+    const {sProfile, role, currentUser} = useStore();
     const {enqueueSnackbar} = useSnackbar();
     const navigator = useNavigate();
     const [submitting, setSubmitting] = useState<boolean>(false);

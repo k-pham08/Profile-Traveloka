@@ -10,7 +10,7 @@ import {
     InputLabel,
     FormControl,
     TextField,
-    Grid, FormControlLabel, FormLabel, RadioGroup, Radio,
+    Grid, FormControlLabel, FormLabel, RadioGroup, Radio, Paper,
 } from "@mui/material";
 import {User} from "../../models/User";
 import {observer} from "mobx-react";
@@ -34,7 +34,8 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
     }
 
     return (
-        <Grid container spacing={2}>
+        <Paper elevation={8} style={{padding: "2rem", marginBottom: "1rem"}}>
+            <Grid container spacing={2}>
             <Grid item xs={12}>
                 <h2>Thông tin cá nhân</h2>
             </Grid>
@@ -139,5 +140,8 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                 </FormControl>
             </Grid>
         </Grid>
+        </Paper>
+
+        
     );
 });
