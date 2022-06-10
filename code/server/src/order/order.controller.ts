@@ -8,6 +8,7 @@ import { RolesGuard } from '../auth/roles.guard';
 import { Roles } from '../decorators/role.decorator';
 import { UserRoles } from '../enums/roles';
 import e = require('express');
+import console = require('console');
 
 @ApiTags("Order")
 @Controller("orders")
@@ -16,10 +17,20 @@ export class OrderController {
 
   @Post()
   @Roles(UserRoles.ADMIN)
-  create(@Body() createOrderDto: CreateOrderDto) {
+  async create(@Body() createOrderDto: CreateOrderDto) {
     try {
-      const data = this.orderService.create(createOrderDto);
-      return {success: true, data};
+      if(!this.orderService.orderIsValid(createOrderDto)){
+        return {success: false, message: "Order could not be null or empty, number could not <= 0", data: createOrderDto}
+      } else if(!this.orderService.detailsIsValid(createOrderDto)) {
+        return {success: false, message: "Details could not be null or empty, number could not <= 0", data: createOrderDto}
+      } else if(!await this.orderService.userIsValid(createOrderDto)) {
+        return {success: false, message: "Wrong user type or user do not exsist", data: createOrderDto}
+      } else if(!await this.orderService.partnerIsValid(createOrderDto)) {
+        return {success: false, message: "Wrong partner or partner do not exsist", data: createOrderDto}
+      } else {
+        const data = await this.orderService.create(createOrderDto);
+        return {success: true, data};
+      }
     } catch (e) {
       throw new InternalServerErrorException({success: false, message: e.message})
     }

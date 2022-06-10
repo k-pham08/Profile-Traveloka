@@ -26,15 +26,13 @@ export class OrderService {
     async create(createOrderDto: CreateOrderDto) {
         try {
             const details: OrderDetail[] = [];
-            
             createOrderDto.createdAt = new Date();
-
             const user = await this.userRepository.findOneBy({ userId: createOrderDto.userId });
             const partner = await this.userRepository.findOneBy({userId: createOrderDto.partnerId});
             user.reward += createOrderDto.reward;
             const order = await this.orderRepository.create({
                   createdAt: createOrderDto.createdAt,
-                  total: createOrderDto.total,
+                  total: 0,
                   reward: createOrderDto.reward,
                   voucherCode: createOrderDto.voucherCode,
                   user: user,
@@ -48,6 +46,7 @@ export class OrderService {
                     thumbnail: detail.thumbnail,
                     link: detail.link,
                 })
+                order.total += orderDetail.price;
                 details.push(orderDetail)
                 await this.orderDetailRepository.save(orderDetail);
             };
@@ -71,10 +70,15 @@ export class OrderService {
 
     async findByAccount(id: string){
         const user = await this.userRepository.findOne({where: {userId: id}});
-        if(user.type == UserRoles.USER)
-            return this.orderRepository.find({where: {user: {userId: id}}, relations: {orderDetails: true, partner: true}})
-        else if(user.type == UserRoles.PARTNER)
-            return this.orderRepository.find({where: {partner: {userId: id}}, relations: {orderDetails: true, partner: true}}) 
+        if(user){
+            if(user.type == UserRoles.USER)
+                return this.orderRepository.find({where: {user: {userId: id}}, relations: {orderDetails: true, partner: true}})
+             else if(user.type == UserRoles.PARTNER)
+                return this.orderRepository.find({where: {partner: {userId: id}}, relations: {orderDetails: true, partner: true}})
+        } else {
+            return this.orderRepository.findOne({where: {orderId: id}, relations: {orderDetails: true}})
+        }
+         
     }
 
     findOne(id) {
@@ -92,5 +96,46 @@ export class OrderService {
             await this.orderDetailRepository.delete(detail.detailId);
         }
         await this.orderRepository.delete(order)
+    }
+
+    orderIsValid(createOrderDto: CreateOrderDto) {
+        if( createOrderDto.details == [] || 
+            createOrderDto.partnerId == "" || 
+            createOrderDto.reward <= 0 || 
+            createOrderDto.total <= 0 ||
+            createOrderDto.userId == "") {
+                return false;
+            }
+        return true;
+    }
+
+    detailsIsValid(createOrderDto: CreateOrderDto){
+        const details = createOrderDto.details;
+        for (const detail of details) {
+            if(detail.productName == "" || detail.link == "" || detail.price <= 0 || detail.quantity <= 0){
+                return false;
+                break;
+            } else 
+                return true;
+        }
+        
+    }
+
+    async userIsValid(createOrderDto: CreateOrderDto){
+        const user = await this.userRepository.findOne({where: {userId: createOrderDto.userId}});
+        if(user == null){
+            return false;
+        } else if(user.type != UserRoles.USER){
+            return false;
+        } return true;
+    }
+
+    async partnerIsValid(createOrderDto: CreateOrderDto) {
+        const partner = await this.userRepository.findOne({where: {userId: createOrderDto.partnerId}});
+        if(partner == null){
+            return false;
+        } else if(partner.type != UserRoles.PARTNER){
+            return false;
+        } return true;
     }
 }

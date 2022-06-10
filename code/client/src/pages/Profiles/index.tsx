@@ -158,7 +158,7 @@ export const Profile: FC = observer(() => {
                             </Button>
                         </Grid>
                     </Grid>
-                    <UserReward/>
+                    {(currentUser !== undefined && currentUser.type !== UserRole.USER) ? <></> : <UserReward/>}
                     {(currentUser !== undefined && currentUser.type !== UserRole.ADMIN) ? <UserOrderHistory/> : <></>}
                 </Grid>
             </Grid>
