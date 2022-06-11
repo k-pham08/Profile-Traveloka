@@ -1,6 +1,5 @@
 import { Paper } from "@mui/material";
 import React from "react";
-import { OrderFilter } from "./orderFilter";
 import { OrderResult } from "./orderResult";
 
 export const UserOrderHistory = () => {

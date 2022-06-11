@@ -11,7 +11,7 @@ import {useSnackbar} from "notistack";
 import {User} from "../../models/User";
 import {useStore} from "../../stores";
 import {MODE, UserRole} from "../../models/types";
-import {FormControl, InputLabel, MenuList, OutlinedInput} from "@mui/material";
+import {MenuList} from "@mui/material";
 import {observer} from "mobx-react";
 import {DropdownSetting} from "../../components/Settings";
 import {USER_SETTINGS} from "../../utils/constraint";
@@ -153,13 +153,13 @@ export const Profile: FC = observer(() => {
                         <Grid item>
                             <Button disabled={submitting} variant="contained"
                                     color={sProfile.isView ? "primary" : "success"}
-                                    onClick={ChangeModeHandle}>
+                                    onClick={ChangeModeHandle}
+                                    sx={{mb: 1}}>
                                 {sProfile.isView ? "Chỉnh sửa" : "Lưu"}
                             </Button>
                         </Grid>
                     </Grid>
-                    {(currentUser !== undefined && currentUser.type !== UserRole.USER) ? <></> : <UserReward/>}
-                    {(currentUser !== undefined && currentUser.type !== UserRole.ADMIN) ? <UserOrderHistory/> : <></>}
+                    {(sProfile.user.type !== UserRole.USER) ? <></> : <><UserReward/><UserOrderHistory/></>}
                 </Grid>
             </Grid>
         </BasicLayout>

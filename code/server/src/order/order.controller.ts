@@ -18,14 +18,20 @@ export class OrderController {
   @Post()
   @Roles(UserRoles.ADMIN)
   async create(@Body() createOrderDto: CreateOrderDto) {
+
+    let orderIsValid = this.orderService.orderIsValid(createOrderDto);
+    let detailsIsValid = this.orderService.detailsIsValid(createOrderDto);
+    let userIsValid = await this.orderService.userIsValid(createOrderDto);
+    let partnerIsValid = await this.orderService.partnerIsValid(createOrderDto);
+
     try {
-      if(!this.orderService.orderIsValid(createOrderDto)){
+      if(!orderIsValid){
         return {success: false, message: "Order could not be null or empty, number could not <= 0", data: createOrderDto}
-      } else if(!this.orderService.detailsIsValid(createOrderDto)) {
+      } else if(!detailsIsValid) {
         return {success: false, message: "Details could not be null or empty, number could not <= 0", data: createOrderDto}
-      } else if(!await this.orderService.userIsValid(createOrderDto)) {
+      } else if(!userIsValid) {
         return {success: false, message: "Wrong user type or user do not exsist", data: createOrderDto}
-      } else if(!await this.orderService.partnerIsValid(createOrderDto)) {
+      } else if(!partnerIsValid) {
         return {success: false, message: "Wrong partner or partner do not exsist", data: createOrderDto}
       } else {
         const data = await this.orderService.create(createOrderDto);

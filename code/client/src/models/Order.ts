@@ -11,6 +11,7 @@ export class Order {
     @observable voucherCode: string;
     @observable orderDetails: OrderDetail[];
     @observable partner: User;
+    @observable user: User;
 
     constructor(data?: any){
         this.orderId="";
@@ -20,6 +21,7 @@ export class Order {
         this.voucherCode="";
         this.orderDetails = new Array<OrderDetail>();
         this.partner = new User();
+        this.user = new User();
         makeObservable(this);
     }
 

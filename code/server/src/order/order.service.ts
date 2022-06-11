@@ -46,7 +46,7 @@ export class OrderService {
                     thumbnail: detail.thumbnail,
                     link: detail.link,
                 })
-                order.total += orderDetail.price;
+                order.total += orderDetail.price*orderDetail.quantity;
                 details.push(orderDetail)
                 await this.orderDetailRepository.save(orderDetail);
             };
@@ -65,24 +65,24 @@ export class OrderService {
     }
 
     async findOfAccount(id: string, type){
-        return this.orderRepository.find({where: (type === UserRoles.USER ? {user: {userId: id}} : {partner: {userId: id}}), relations: {orderDetails: true, partner: true}})
+        return this.orderRepository.find({where: (type === UserRoles.USER ? {user: {userId: id}} : {partner: {userId: id}}), relations: {orderDetails: true, partner: true, user: true}})
     }
 
     async findByAccount(id: string){
         const user = await this.userRepository.findOne({where: {userId: id}});
         if(user){
             if(user.type == UserRoles.USER)
-                return this.orderRepository.find({where: {user: {userId: id}}, relations: {orderDetails: true, partner: true}})
+                return this.orderRepository.find({where: {user: {userId: id}}, relations: {orderDetails: true, partner: true, user: true}})
              else if(user.type == UserRoles.PARTNER)
-                return this.orderRepository.find({where: {partner: {userId: id}}, relations: {orderDetails: true, partner: true}})
+                return this.orderRepository.find({where: {partner: {userId: id}}, relations: {orderDetails: true, partner: true, user: true}})
         } else {
-            return this.orderRepository.findOne({where: {orderId: id}, relations: {orderDetails: true}})
+            return this.orderRepository.findOne({where: {orderId: id}, relations: {orderDetails: true, partner: true, user: true}})
         }
          
     }
 
     findOne(id) {
-        return this.orderRepository.findOne({where: {orderId: id}, relations: {orderDetails: true}})
+        return this.orderRepository.findOne({where: {orderId: id}, relations: {orderDetails: true, partner: true, user: true}})
     }
 
     update(id: string, updateOrderDto: UpdateOrderDto) {
