@@ -13,19 +13,18 @@ import { rejects } from "assert";
 export const DetailTable: FC = observer(() => {
     const {enqueueSnackbar} = useSnackbar();
     const {id} = useParams()
-    const navigator = useNavigate();
     const {sOrderDetail} = useStore();
 
-    useEffect(() => {
-        if(id){
-            Order.getById(id).then(([err, data]) => {
-                if(err){
-                    enqueueSnackbar(err.message, {variant: "error"});
-                }
-                sOrderDetail.set_order(data);
-            })
-        }
-    }, [id]); 
+    // useEffect(() => {
+    //     if(id){
+    //         Order.getById(id).then(([err, data]) => {
+    //             if(err){
+    //                 enqueueSnackbar(err.message, {variant: "error"});
+    //             }
+    //             sOrderDetail.set_order(data);
+    //         })
+    //     }
+    // }, [id]); 
 
     const columns: Column<OrderDetail>[] = [
         {title: "Product name", field: "productName"},

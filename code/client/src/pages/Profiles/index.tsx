@@ -11,7 +11,7 @@ import {useSnackbar} from "notistack";
 import {User} from "../../models/User";
 import {useStore} from "../../stores";
 import {MODE, UserRole} from "../../models/types";
-import {FormControl, InputLabel, MenuList, OutlinedInput} from "@mui/material";
+import {MenuList} from "@mui/material";
 import {observer} from "mobx-react";
 import {DropdownSetting} from "../../components/Settings";
 import {USER_SETTINGS} from "../../utils/constraint";
