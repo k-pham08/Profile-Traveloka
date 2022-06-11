@@ -1,5 +1,5 @@
 import {FC, useCallback, useEffect, useState} from "react";
-import {Button, Grid} from "@mui/material/";
+import {Button, FormControl, Grid, InputLabel, OutlinedInput} from "@mui/material/";
 
 import {useNavigate, useParams} from "react-router-dom";
 
@@ -20,7 +20,7 @@ import {ChangePassword} from "../User/ChangePassword";
 import {Order} from "../../models/Order";
 
 export const Profile: FC = observer(() => {
-    const {sProfile, role, currentUser} = useStore();
+    const {sProfile, role} = useStore();
     const {enqueueSnackbar} = useSnackbar();
     const navigator = useNavigate();
     const [submitting, setSubmitting] = useState<boolean>(false);
@@ -85,7 +85,7 @@ export const Profile: FC = observer(() => {
                     if (!confirm_password)
                         throw new Error("Vui lòng điền xác nhận mật khẩu !");
 
-                    if (confirm_password != new_password)
+                    if (confirm_password !== new_password)
                         throw new Error("Mật khẩu xác nhận không đúng !");
                 }
 
@@ -120,7 +120,7 @@ export const Profile: FC = observer(() => {
     return (
         <BasicLayout>
             <Grid container spacing={2} direction="row">
-                <Grid item xs={3} style={{width: "100%"}}>
+                <Grid item sm={12} md={3} xs={12} style={{width: "100%"}}>
                     {role === UserRole.USER ?
                         <MenuList dense>
                             <DropdownSetting menu={USER_SETTINGS} closeHandle={() => {

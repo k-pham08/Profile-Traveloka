@@ -40,11 +40,10 @@ export class UserController {
     }
 
     @Post(":id")
-    @Roles(UserRoles.PARTNER && UserRoles.ADMIN)
     async setReward(@Param("id") id: string, @Body() rewardDto: RewardDto){
         try {
             await this.userService.setReward(id, rewardDto);
-            return {success: true, data: rewardDto}
+            return {success: true}
         } catch (e) {
             throw new InternalServerErrorException({success: false, message: e.message})
         }

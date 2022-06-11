@@ -34,7 +34,6 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
     }
 
     return (
-        <Paper elevation={8} style={{padding: "2rem", marginBottom: "1rem"}}>
             <Grid container spacing={2}>
             <Grid item xs={12}>
                 <h2>Thông tin cá nhân</h2>
@@ -64,7 +63,7 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                         <FormControlLabel value={1} control={<Radio/>} label="Male"/>
                     </RadioGroup>
                 </FormControl>
-                {role == UserRole.ADMIN && <FormControl disabled={isView}>
+                {role === UserRole.ADMIN && <FormControl disabled={isView}>
                     <InputLabel id="demo-simple-select-label">Quyền</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
@@ -140,8 +139,5 @@ export const UserInfo: FC<{ user: User; setUser?: any; isView?: boolean }> = obs
                 </FormControl>
             </Grid>
         </Grid>
-        </Paper>
-
-        
     );
 });

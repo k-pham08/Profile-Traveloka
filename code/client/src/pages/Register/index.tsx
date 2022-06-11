@@ -73,7 +73,7 @@ export const Register: FC = observer(() => {
                 className={classes.root}
             >
 
-                {role == UserRole.USER ? <>
+                {role === UserRole.USER ? <>
                         <Grid container justifyContent={"center"} pt={2}>
                             <img src={LOGO_TRAVELOKA} alt="Logo"/>
                         </Grid>
