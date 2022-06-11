@@ -39,6 +39,17 @@ export class UserController {
         return this.userService.create(createUserDto);
     }
 
+    @Post(":id")
+    @Roles(UserRoles.PARTNER && UserRoles.ADMIN)
+    async setReward(@Param("id") id: string, @Body() rewardDto: RewardDto){
+        try {
+            await this.userService.setReward(id, rewardDto);
+            return {success: true, data: rewardDto}
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message})
+        }
+    }
+
     @Get("/me")
     @Roles(UserRoles.ALL)
     async getMe(@Request() req) {
