@@ -23,6 +23,8 @@ export class OrderService {
         private readonly orderDetailRepository: Repository<OrderDetail>
     ) {}
 
+    
+
     async create(createOrderDto: CreateOrderDto) {
         try {
             const details: OrderDetail[] = [];
@@ -48,13 +50,13 @@ export class OrderService {
                 })
                 order.total += orderDetail.price*orderDetail.quantity;
                 details.push(orderDetail)
-                await this.orderDetailRepository.save(orderDetail);
+                //await this.orderDetailRepository.save(orderDetail);
             };
             
             order.orderDetails = [...details];
-            await this.userRepository.save(user);
-            await this.userRepository.save(partner);
-            await this.orderRepository.save(order);
+            // await this.userRepository.save(user);
+            // await this.userRepository.save(partner);
+            // await this.orderRepository.save(order);
         } catch(err) {
             console.log(err)
         }

@@ -4,6 +4,7 @@ import {
     Controller,
     Delete, ForbiddenException,
     Get,
+    InternalServerErrorException,
     NotFoundException,
     Param,
     Post,
@@ -23,6 +24,7 @@ import {User} from "../entities/User";
 import {ServiceService} from "../service/service.service";
 import {md5} from "../utils/md5";
 import { AuthService } from "../auth/auth.service";
+import { RewardDto } from '../user/dto/reward.dto';
 
 @ApiTags("Users")
 @Controller("users")
@@ -35,6 +37,17 @@ export class UserController {
     @Roles(UserRoles.ADMIN)
     create(@Body() createUserDto: CreateUserDto) {
         return this.userService.create(createUserDto);
+    }
+
+    @Post(":id")
+    @Roles(UserRoles.PARTNER && UserRoles.ADMIN)
+    async setReward(@Param("id") id: string, @Body() rewardDto: RewardDto){
+        try {
+            await this.userService.setReward(id, rewardDto);
+            return {success: true, data: rewardDto}
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message})
+        }
     }
 
     @Get("/me")

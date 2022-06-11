@@ -35,7 +35,7 @@ export class OrderController {
         return {success: false, message: "Wrong partner or partner do not exsist", data: createOrderDto}
       } else {
         const data = await this.orderService.create(createOrderDto);
-        return {success: true, data};
+        return {success: true, data: createOrderDto};
       }
     } catch (e) {
       throw new InternalServerErrorException({success: false, message: e.message})
