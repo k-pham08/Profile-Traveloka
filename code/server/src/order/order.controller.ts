@@ -1,15 +1,15 @@
 import {
-    Controller,
-    Get,
-    Post,
+    BadRequestException,
     Body,
-    Patch,
-    Param,
+    Controller,
     Delete,
+    Get,
+    InternalServerErrorException,
+    Param,
+    Post,
     Put,
-    UseGuards,
     Request,
-    InternalServerErrorException, BadRequestException
+    UseGuards
 } from '@nestjs/common';
 import {OrderService} from './order.service';
 import {CreateOrderDto} from './dto/create-order.dto';
@@ -19,15 +19,13 @@ import {JwtAuthGuard} from '../auth/jwt-auth.guard';
 import {RolesGuard} from '../auth/roles.guard';
 import {Roles} from '../decorators/role.decorator';
 import {UserRoles} from '../enums/roles';
-import e = require('express');
-import console = require('console');
-import {create} from "domain";
 import {ServiceService} from "../service/service.service";
+import {UserService} from "../user/user.service";
 
 @ApiTags("Order")
 @Controller("orders")
 export class OrderController {
-    constructor(private readonly orderService: OrderService, private readonly serviceService: ServiceService) {
+    constructor(private readonly orderService: OrderService, private readonly serviceService: ServiceService, private readonly userService: UserService) {
     }
 
     @Post()
@@ -102,7 +100,8 @@ export class OrderController {
         }
     }
 
-    @Get(":userId")
+    @Get("users/:userId")
+    @Roles(UserRoles.ADMIN)
     async findByAccount(@Param('userId') id: string) {
         try {
             const data = await this.orderService.findByAccount(id);

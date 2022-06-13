@@ -11,7 +11,6 @@ import {
     Put,
     Request,
     UseGuards,
-    Headers
 } from "@nestjs/common";
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user.dto";
@@ -38,17 +37,6 @@ export class UserController {
     @Roles(UserRoles.ADMIN)
     create(@Body() createUserDto: CreateUserDto) {
         return this.userService.create(createUserDto);
-    }
-
-    @Post(":id/reward")
-    async setReward(@Headers("service") service, @Param("id") id: string, @Body() rewardDto: RewardDto) {
-        try {
-            console.log(service, id);
-            // await this.userService.setReward(id, rewardDto);
-            return {success: true, data: rewardDto}
-        } catch (e) {
-            throw new InternalServerErrorException({success: false, message: e.message})
-        }
     }
 
     @Get("/me")

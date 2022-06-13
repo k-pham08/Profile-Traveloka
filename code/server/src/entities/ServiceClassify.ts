@@ -1,4 +1,4 @@
-import {Column, Entity, Index, JoinColumn, ManyToOne} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne} from "typeorm";
 import {Service} from "./Service";
 
 @Entity("SERVICE_CLASSIFY", {schema: "dbo"})

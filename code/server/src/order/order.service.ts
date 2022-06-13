@@ -10,6 +10,7 @@ import {Roles} from "../decorators/role.decorator";
 import {UserRoles} from "../enums/roles";
 import {OrderDetail} from "../entities/OrderDetail";
 import {Service} from "../entities/Service";
+import {makeSelected} from "../utils/selected";
 
 @Injectable()
 export class OrderService {
@@ -25,10 +26,14 @@ export class OrderService {
 
     async create(createOrderDto: CreateOrderDto, service: Service) {
         const details: OrderDetail[] = [];
+
         createOrderDto.createdAt = new Date();
+
         const user = await this.userRepository.findOneBy({userId: createOrderDto.userId});
         const partner = await this.userRepository.findOneBy({userId: createOrderDto.partnerId});
+
         user.reward += createOrderDto.reward;
+
         const order = await this.orderRepository.create({
             createdAt: createOrderDto.createdAt,
             total: 0,
@@ -39,9 +44,7 @@ export class OrderService {
             service,
         });
         for (const detail of createOrderDto.details) {
-            detail.order = order;
-            const orderDetail = await this.orderDetailRepository.create(detail);
-
+            const orderDetail = await this.orderDetailRepository.save(detail);
             order.total += orderDetail.price * orderDetail.quantity;
             details.push(orderDetail);
         }
@@ -53,20 +56,35 @@ export class OrderService {
     }
 
     findAll() {
-        return this.orderRepository.find({relations: ["user", "partner", "details"]});
+        return this.orderRepository.find({
+            relations: [
+                'user', "partner", "details"], select: {
+                user: {
+                    password: false
+                }
+            }
+
+        });
     }
 
     async findOfAccount(id: string, type) {
         return this.orderRepository.find({
             where: type == "USER" ? {user: {userId: id}} : {partner: {userId: id}},
-            relations: {
-                details: true, partner: true, user: true
-            }
+            select: {
+                user: {
+                    password: false,
+                },
+                partner: {
+                    password: false
+                }
+            },
+            relations: ["details", "partner", "user", "service"]
         })
     }
 
     async findByAccount(id: string) {
         const user = await this.userRepository.findOne({where: {userId: id}});
+
         if (user) {
             if (user.type == UserRoles.USER)
                 return this.orderRepository.find({

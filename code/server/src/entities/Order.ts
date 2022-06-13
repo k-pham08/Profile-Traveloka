@@ -27,6 +27,9 @@ export class Order {
     @Column("nvarchar", {name: "voucher_code", length: 255, nullable: true})
     voucherCode: string;
 
+    @OneToMany(() => OrderDetail, detail => detail.order)
+    details: OrderDetail[];
+
     @ManyToOne(() => Service, (service) => service.orders)
     @JoinColumn({name: "serviceId"})
     service: Service;
@@ -38,7 +41,4 @@ export class Order {
     @ManyToOne(() => User, (user) => user.orders)
     @JoinColumn([{name: "partner_id", referencedColumnName: "userId"}])
     partner: User;
-
-    @OneToMany(() => OrderDetail, (detail) => detail.order)
-    details: OrderDetail[];
 }

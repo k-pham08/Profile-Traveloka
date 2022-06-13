@@ -1,4 +1,4 @@
-import { Column, Entity, Index, OneToMany } from "typeorm";
+import { Column, Entity, OneToMany } from "typeorm";
 import { ServiceClassify } from "./ServiceClassify";
 import {Order} from "./Order";
 
@@ -13,9 +13,9 @@ export class Service {
      @Column("nvarchar", {name: "service_name", length: 255})
      serviceName: string;
 
-     @OneToMany(() => ServiceClassify, serviceClassify => serviceClassify.service)
-     serviceClassifies: ServiceClassify[];
-
      @OneToMany(() => Order, order => order.service)
      orders: Order[];
+
+     @OneToMany(() => ServiceClassify, serviceClassify => serviceClassify.service)
+     serviceClassifies: ServiceClassify[];
 }
