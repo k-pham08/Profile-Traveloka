@@ -12,6 +12,9 @@ export class ProfileStore extends ServiceStore{
     @observable confirm_password: string = "";
     @observable old_password: string = "";
     @observable orders :Order[]= new Array<Order>();
+    @observable UsedVouchers: [] = [];
+    @observable AvailableVouchers: [] = [];
+    @observable ExpiredVouchers: [] = [];
 
     constructor() {
         super();
@@ -21,6 +24,16 @@ export class ProfileStore extends ServiceStore{
     @action
     set_orders(v: Order[]){
         this.orders = v;
+    }
+
+    @action set_usedvouchers(v: []){
+        this.UsedVouchers = v;
+    }
+    @action set_availblevouchers(v: []){
+        this.AvailableVouchers = v;
+    }
+    @action set_expiredvouchers(v: []){
+        this.ExpiredVouchers = v;
     }
 
     @action

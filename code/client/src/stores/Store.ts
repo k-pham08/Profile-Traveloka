@@ -21,4 +21,6 @@ export class Store extends AuthorizedStore {
 	sServiceDetail = new ServiceDetailStore();
 	@observable
 	sOrder = new OrderStore();
+	@observable
+	sOrderDetail = new OrderDetailStore();
 }
