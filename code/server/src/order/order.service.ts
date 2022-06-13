@@ -46,20 +46,21 @@ export class OrderService {
             details.push(orderDetail);
         }
 
-        order.orderDetails = details;
+        order.details = details;
         await this.orderRepository.save(order);
+
         return order;
     }
 
     findAll() {
-        return this.orderRepository.find();
+        return this.orderRepository.find({relations: ["user", "partner", "details"]});
     }
 
     async findOfAccount(id: string, type) {
         return this.orderRepository.find({
             where: type == "USER" ? {user: {userId: id}} : {partner: {userId: id}},
             relations: {
-                orderDetails: true, partner: true, user: true
+                details: true, partner: true, user: true
             }
         })
     }
@@ -70,17 +71,17 @@ export class OrderService {
             if (user.type == UserRoles.USER)
                 return this.orderRepository.find({
                     where: {user: {userId: id}},
-                    relations: {orderDetails: true, partner: true, user: true}
+                    relations: {details: true, partner: true, user: true}
                 })
             else if (user.type == UserRoles.PARTNER)
                 return this.orderRepository.find({
                     where: {partner: {userId: id}},
-                    relations: {orderDetails: true, partner: true, user: true}
+                    relations: {details: true, partner: true, user: true}
                 })
         } else {
             return this.orderRepository.findOne({
                 where: {orderId: id},
-                relations: {orderDetails: true, partner: true, user: true}
+                relations: {details: true, partner: true, user: true}
             })
         }
 
@@ -89,7 +90,7 @@ export class OrderService {
     findOne(id) {
         return this.orderRepository.findOne({
             where: {orderId: id},
-            relations: {orderDetails: true, partner: true, user: true}
+            relations: {details: true, partner: true, user: true}
         })
     }
 

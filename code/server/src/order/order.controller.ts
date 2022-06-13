@@ -81,7 +81,9 @@ export class OrderController {
        }
         try {
             const data = await this.orderService.create(createOrderDto, service);
-            return {success: true, data};
+            const order = await this.orderService.findOne(data.orderId);
+
+            return {success: true, data: order};
         } catch (e) {
             throw new InternalServerErrorException({success: false, message: e.message})
         }
@@ -92,8 +94,8 @@ export class OrderController {
     @Roles(UserRoles.ALL)
     async findAll(@Request() req) {
         try {
-            const {sub, type} = req.user;
-            const data = await (type == UserRoles.ADMIN ? this.orderService.findAll() : this.orderService.findOfAccount(sub, type));
+            const {userId, type} = req.user;
+            const data = await (type == UserRoles.ADMIN ? this.orderService.findAll() : this.orderService.findOfAccount(userId, type));
             return {success: true, data};
         } catch (e) {
             throw new InternalServerErrorException({success: false, message: e.message});

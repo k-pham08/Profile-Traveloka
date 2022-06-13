@@ -22,18 +22,21 @@ export class VoucherController {
             throw new BadRequestException({success: false, message: "userId is required"});
         if(!rewardDto.reward)
             throw new BadRequestException({success: false, message: "reward is required"});
+
+        const user:User = await this.userService.findOne({userId: rewardDto.userId});
+        if(!user)
+            throw new BadRequestException({success: false, message: "USER_NOT_EXIST"});
+
+        if(user.type != UserRoles.USER)
+            throw new BadRequestException({success: false, message: "NOT_USER"});
+
+        if(user.reward < rewardDto.reward )
+            throw new BadRequestException({success: false, message: "REWARD_NOT_ENOUGH"})
+
+        user.reward = user.reward - rewardDto.reward;
+
         try {
-            const user:User = await this.userService.findOne({userId: rewardDto.userId});
-
-            if(!user)
-                throw new BadRequestException({success: false, message: "USER_NOT_EXIST"});
-
-            if(user.type != UserRoles.USER)
-                throw new BadRequestException({success: false, message: "NOT_USER"});
-
-            user.reward = rewardDto.reward;
-
-            const {userId, ...data} = user;
+            const {userId, ...data} = user; 
 
             await this.userService.update(userId, data)
 
@@ -41,5 +44,7 @@ export class VoucherController {
         }catch (e) {
             throw new InternalServerErrorException({success: false, message: e.message});
         }
+
+
     }
 }
