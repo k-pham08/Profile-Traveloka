@@ -21,6 +21,7 @@ import {Roles} from '../decorators/role.decorator';
 import {UserRoles} from '../enums/roles';
 import {ServiceService} from "../service/service.service";
 import {UserService} from "../user/user.service";
+import {User} from "../entities/User";
 
 @ApiTags("Order")
 @Controller("orders")
@@ -59,24 +60,24 @@ export class OrderController {
             })
         }
 
-       try {
-           let orderIsValid = CreateOrderDto.orderIsValidChecker(createOrderDto);
+        try {
+            let orderIsValid = CreateOrderDto.orderIsValidChecker(createOrderDto);
 
-           let userIsValid = await this.orderService.userIsValid(createOrderDto.userId, "USER");
+            let userIsValid = await this.orderService.userIsValid(createOrderDto.userId, "USER");
 
-           let partnerIsValid = await this.orderService.userIsValid(createOrderDto.partnerId, "PARTNER");
+            let partnerIsValid = await this.orderService.userIsValid(createOrderDto.partnerId, "PARTNER");
 
-           if (!userIsValid) {
-               throw new Error("Wrong user type or user do not existed");
-           }
+            if (!userIsValid) {
+                throw new Error("Wrong user type or user do not existed");
+            }
 
-           if (!partnerIsValid) {
-               throw new Error("Wrong partner or partner do not existed");
-           }
+            if (!partnerIsValid) {
+                throw new Error("Wrong partner or partner do not existed");
+            }
 
-       } catch (e) {
+        } catch (e) {
             throw new BadRequestException({success: false, message: e.message, data: createOrderDto, schema});
-       }
+        }
         try {
             const data = await this.orderService.create(createOrderDto, service);
             const order = await this.orderService.findOne(data.orderId);
@@ -102,9 +103,14 @@ export class OrderController {
 
     @Get("users/:userId")
     @Roles(UserRoles.ADMIN)
-    async findByAccount(@Param('userId') id: string) {
+    async findByAccount(@Param('userId') userId: string) {
         try {
-            const data = await this.orderService.findByAccount(id);
+            const user: User= await this.userService.findOne({userId})
+
+            if(!user)
+                return new BadRequestException({success: false, message: "USER_NOT_EXIST"})
+
+            const data = await this.orderService.findOfAccount(userId, user.type);
             return {success: true, data};
         } catch (e) {
             throw new InternalServerErrorException({success: false, message: e.message})

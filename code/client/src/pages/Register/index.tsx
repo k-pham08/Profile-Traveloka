@@ -97,7 +97,7 @@ export const Register: FC = observer(() => {
                                 style={{margin: "1rem"}}
                                 onClick={handleSignUp}
                             >
-                                Đăng ký đối tác
+                                {sSignUp.isRegisterPartner ? "Đăng ký đối tác" : "Đăng ký tài khoản"}
                             </Button>
                         </Grid>
                     </> :

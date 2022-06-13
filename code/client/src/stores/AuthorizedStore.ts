@@ -106,22 +106,8 @@ export class AuthorizedStore extends BaseStore {
 
     @action Logout() {
         clearAll();
-
         // eslint-disable-next-line no-restricted-globals
         location.reload();
     }
 
-    gotoVoucher(errorCallback: Function) {
-        const {REACT_APP_VOUCHER_HOST} = process.env;
-        // const role = this.role;
-
-        FetchAPI<{ redirect: string }>(Method.POST, "/vouchers").then(([err, data]) => {
-            if (err) {
-                if (errorCallback) errorCallback(err);
-                console.log(err)
-                return;
-            }
-            window.location.href = REACT_APP_VOUCHER_HOST + data.redirect;
-        });
-    }
 }

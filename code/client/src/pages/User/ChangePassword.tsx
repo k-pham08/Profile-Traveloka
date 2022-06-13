@@ -1,6 +1,6 @@
 import {FC, MouseEvent, useState} from "react";
 import {observer} from "mobx-react-lite";
-import {FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Typography} from "@mui/material";
+import {FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Paper, Typography} from "@mui/material";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useStore} from "../../stores";
 import {UserRole} from "../../models/types";
@@ -29,12 +29,13 @@ export const ChangePassword: FC = observer(() => {
         event.preventDefault();
     };
 
-    return <Grid container spacing={1}>
+    return <Paper elevation={8} style={{padding: "2rem", marginBottom: "1rem"}}>
+        <Grid container spacing={1}>
         <Grid item>
             <h2>Đổi Mật Khẩu</h2>
         </Grid>
 
-        {role != UserRole.ADMIN && <Grid item xs={12}>
+        {role !== UserRole.ADMIN && <Grid item xs={12}>
             <FormControl sx={{width: 1}}>
                 <InputLabel htmlFor="old_password">
                     Mật khẩu
@@ -146,4 +147,5 @@ export const ChangePassword: FC = observer(() => {
             </FormControl>
         </Grid>}
     </Grid>
+    </Paper>
 });

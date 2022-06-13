@@ -11,13 +11,14 @@ import {useSnackbar} from "notistack";
 import {User} from "../../models/User";
 import {useStore} from "../../stores";
 import {MODE, UserRole} from "../../models/types";
-import {FormControl, InputLabel, MenuList, OutlinedInput, Typography} from "@mui/material";
+import {FormControl, InputLabel, MenuList, OutlinedInput} from "@mui/material";
 import {observer} from "mobx-react";
 import {DropdownSetting} from "../../components/Settings";
 import {USER_SETTINGS} from "../../utils/constraint";
 import {theme} from "../../utils/theme";
 import {ServicesChooseGroup} from "../../components/Service";
 import {ChangePassword} from "../User/ChangePassword";
+import {Order} from "../../models/Order";
 
 export const Profile: FC = observer(() => {
     const {sProfile, role} = useStore();
@@ -29,25 +30,26 @@ export const Profile: FC = observer(() => {
 
     useEffect(() => {
         if (mode) {
-            sProfile.set_IsView(mode == MODE.VIEW);
-            if (typeof account == "string") {
-                User.getUserById(account).then(([err, data]) => {
-                    if (err) {
-                        enqueueSnackbar(err.message, {variant: "error"});
-                        return;
-                    }
-                    sProfile.set_user(data);
-                })
-            } else {
-                User.getMe().then(([err, data]) => {
-                    if (err) {
-                        enqueueSnackbar(err.message, {variant: "error"});
-                        return;
-                    }
-                    sProfile.set_user(data);
-                })
-            }
+            sProfile.set_IsView(mode === MODE.VIEW);
 
+            (typeof account == "string" ? User.getUserById(account) : User.getMe()).then(([err, data]) => {
+                if (err) {
+                    enqueueSnackbar(err.message, {variant: "error"});
+                    return;
+                }
+                sProfile.set_user(data);
+
+                sProfile.set_orders([]);
+                if (sProfile.user.type != UserRole.ADMIN)
+                    (typeof account == "string" ? Order.getByAccount(account) : Order.getOfMe()).then(([err, data]) => {
+                        if (err) {
+                            enqueueSnackbar(err.message, {variant: "error"})
+                            return;
+                        }
+                        sProfile.set_orders(data);
+                    })
+
+            });
         } else {
             navigator("/404");
         }
@@ -76,7 +78,7 @@ export const Profile: FC = observer(() => {
                 setSubmitting(true);
                 const {user, old_password, new_password, confirm_password} = sProfile;
 
-                if (role != UserRole.ADMIN) {
+                if (role !== UserRole.ADMIN) {
                     if (!old_password)
                         throw new Error("Vui lòng điền mật khẩu cũ !");
                     if (!new_password)
@@ -127,7 +129,7 @@ export const Profile: FC = observer(() => {
                         </MenuList> : <UserOptionBar/>}
                 </Grid>
 
-                <Grid item xs md={8}>
+                <Grid item xs={12} md={8}>
                     <UserInfo user={sProfile.user} setUser={sProfile.user} isView={sProfile.isView}/>
                     <Grid container mt={2}>
                         {sProfile.user.type == UserRole.PARTNER &&
@@ -153,10 +155,12 @@ export const Profile: FC = observer(() => {
 
                     {sProfile.isChangePassword && <ChangePassword/>}
 
-                    <Grid container spacing={1} direction="row" justifyContent="flex-end" style={{margin: theme.spacing(1)}}>
+                    <Grid container spacing={1} direction="row" justifyContent="flex-end"
+                          style={{margin: theme.spacing(1)}}>
 
                         {sProfile.isChangePassword && <Grid item>
-                            <Button variant="outlined" color="error" onClick={CancelChangePasswordHandle}>Cancel</Button>
+                            <Button variant="outlined" color="error"
+                                    onClick={CancelChangePasswordHandle}>Cancel</Button>
                         </Grid>}
 
                         {sProfile.isView &&
@@ -171,13 +175,15 @@ export const Profile: FC = observer(() => {
                         <Grid item>
                             <Button disabled={submitting} variant="contained"
                                     color={sProfile.isView ? "primary" : "success"}
-                                    onClick={ChangeModeHandle}>
+                                    onClick={ChangeModeHandle}
+                                    sx={{mb: 1}}>
                                 {sProfile.isView ? "Chỉnh sửa" : "Lưu"}
                             </Button>
                         </Grid>
                     </Grid>
-                    <UserReward/>
-                    <UserOrderHistory/>
+                    {sProfile.user.type === UserRole.USER && <UserReward reward={sProfile.user.reward}/>}
+                    {sProfile.user.type !== UserRole.ADMIN &&
+                        <UserOrderHistory displayType={sProfile.user.type} orders={sProfile.orders}/>}
                 </Grid>
             </Grid>
         </BasicLayout>

@@ -27,7 +27,7 @@ export const ServiceTable: FC = observer(() => {
                 return Service.update(newData).then(([err, data]) => {
                     enqueueSnackbar(err ? err.message : data.message, {variant: err ? "error" : "success"});
                     if (!err) {
-                        store.set_services(services.map((s) => s.serviceId == newData.serviceId ? newData : s));
+                        store.set_services(services.map((s) => s.serviceId === newData.serviceId ? newData : s));
                     }
                 });
             },
@@ -35,7 +35,7 @@ export const ServiceTable: FC = observer(() => {
                 return Service.delete(oldData.serviceId).then(([err, data]) => {
                     enqueueSnackbar(err ? err.message : data.message, {variant: err ? "error" : "success"});
                     if (!err) {
-                        store.set_services(services.filter((s) => s.serviceId != oldData.serviceId));
+                        store.set_services(services.filter((s) => s.serviceId !== oldData.serviceId));
                     }
                 });
             },

@@ -40,6 +40,8 @@ export const Appbar = () => {
         setAnchorElUser(null);
     };
 
+    const {REACT_APP_VOUCHER_HOST} = process.env;
+
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
@@ -118,7 +120,7 @@ export const Appbar = () => {
                             display: {xs: "none", md: "flex"},
                         }}
                     >
-                        {(role == UserRole.ADMIN ? MENU_ADMIN : MENU_PARTNER).map(({name, path}) => (
+                        {(role === UserRole.ADMIN ? MENU_ADMIN : MENU_PARTNER).map(({name, path}) => (
                             <Link to={path} key={name}>
                                 <Button
                                     key={name}

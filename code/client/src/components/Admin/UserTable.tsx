@@ -1,4 +1,4 @@
-import {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
+import { FC, useEffect, useState} from "react";
 import {User} from "../../models/User";
 import MaterialTable, {Column} from "material-table";
 import {formatDDMMYYYY} from "../../utils/date";
@@ -17,7 +17,6 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
                                                                                                       reloadList,
                                                                                                       setList
                                                                                                   }) => {
-    const [data, setData] = useState<User[]>([]);
     const {sAccount, sSignIn, types} = useStore();
     const navigator = useNavigate();
     const [typesLookUp, setTypesLookUp] = useState<any>([]);
@@ -29,10 +28,6 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
             return r;
         }, Object.assign({})));
     }, [types]);
-
-    // useEffect(() => {
-    //     setData(list);
-    // }, [list]);
 
     const columns: Column<User>[] = [
         {title: 'Name', field: 'name'},
@@ -77,12 +72,6 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
         editable={{
             onRowUpdate: (newData, oldData) => {
                 return new Promise((resolve, reject) => {
-                    // setData((state) => {
-                    //     return state.map((e) => {
-                    //         return e.userId == newData.userId ? newData : e;
-                    //     });
-                    // })
-
                     const {userId, ...user} = newData;
                     if (!user.name || !user.username || !user.email || !user.phone) {
                         enqueueSnackbar("Please Enter Info Before Update It!", {variant: "error"});
@@ -91,7 +80,7 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
                     User.update(userId, user).then(([err, data]) => {
                         enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
                         if (!err) {
-                            sAccount.set_users(list.map((e) => e.userId == newData.userId ? newData : e));
+                            sAccount.set_users(list.map((e) => e.userId === newData.userId ? newData : e));
                         }
                         resolve({});
 
@@ -102,7 +91,7 @@ export const UserTable: FC<{ list: User[], reloadList: Function, setList: Functi
                 return User.delete(oldData.userId).then(([err, data]) => {
                     enqueueSnackbar((err ? err : data).message, {variant: err ? "error" : "success"});
                     if (!err) {
-                        sAccount.set_users(list.filter((u) => u.userId != oldData.userId));
+                        sAccount.set_users(list.filter((u) => u.userId !== oldData.userId));
                     }
                 });
             },

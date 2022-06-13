@@ -14,6 +14,18 @@ import {makeSelected} from "../utils/selected";
 
 @Injectable()
 export class OrderService {
+    select: Object = {
+        user: {
+            name: true
+        },
+        partner: {
+            companyName: true
+        },
+        service: {
+            serviceName: true
+        }
+    }
+
     constructor(
         @InjectRepository(Order)
         private readonly orderRepository: Repository<Order>,
@@ -57,51 +69,29 @@ export class OrderService {
 
     findAll() {
         return this.orderRepository.find({
-            relations: [
-                'user', "partner", "details"], select: {
-                user: {
-                    password: false
-                }
+            relations: ['user', "partner", "details", "service"],
+            select: this.select,
+            order: {
+                createdAt: "ASC"
             }
-
         });
     }
 
     async findOfAccount(id: string, type) {
         return this.orderRepository.find({
             where: type == "USER" ? {user: {userId: id}} : {partner: {userId: id}},
-            select: {
-                user: {
-                    password: false,
-                },
-                partner: {
-                    password: false
-                }
-            },
-            relations: ["details", "partner", "user", "service"]
+            relations: ["details", "user", "partner", "service"],
+            select: this.select,
+            order: {
+                createdAt: "ASC"
+            }
         })
     }
 
     async findByAccount(id: string) {
         const user = await this.userRepository.findOne({where: {userId: id}});
 
-        if (user) {
-            if (user.type == UserRoles.USER)
-                return this.orderRepository.find({
-                    where: {user: {userId: id}},
-                    relations: {details: true, partner: true, user: true}
-                })
-            else if (user.type == UserRoles.PARTNER)
-                return this.orderRepository.find({
-                    where: {partner: {userId: id}},
-                    relations: {details: true, partner: true, user: true}
-                })
-        } else {
-            return this.orderRepository.findOne({
-                where: {orderId: id},
-                relations: {details: true, partner: true, user: true}
-            })
-        }
+
 
     }
 

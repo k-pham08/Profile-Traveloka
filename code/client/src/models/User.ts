@@ -1,6 +1,7 @@
 import {FetchAPI, Method} from "../service/fetchAPI";
 import {Service} from "./Service";
 import {action, makeObservable, observable} from "mobx";
+import {UserRole} from "./types";
 
 export class User {
     @observable
@@ -20,7 +21,7 @@ export class User {
     @observable
     address: string;
     @observable
-    type: string;
+    type: UserRole | string;
     @observable
     reward: number;
     @observable
@@ -39,7 +40,7 @@ export class User {
         this.dob = new Date();
         this.phone = "";
         this.address = "";
-        this.type = "";
+        this.type = UserRole.USER;
         this.reward = 0;
         this.companyName = "";
         this.services = [];

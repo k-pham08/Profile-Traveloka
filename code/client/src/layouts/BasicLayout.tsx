@@ -16,7 +16,7 @@ export const BasicLayout: FC<{ children: ReactNode }> = observer(
 		return (
 			<>
 				<div className="App">
-					{store.isLoggedIn && role != UserRole.USER ? (
+					{store.isLoggedIn && role !== UserRole.USER ? (
 						<Appbar />
 					) : (
 						<UserNavbar />

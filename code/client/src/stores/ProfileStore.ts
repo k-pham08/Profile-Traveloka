@@ -1,6 +1,7 @@
 import {action, makeObservable, observable} from "mobx";
 import {User} from "../models/User";
 import {ServiceStore} from "./ServiceStore";
+import {Order} from "../models/Order";
 
 export class ProfileStore extends ServiceStore{
     @observable username: string = "";
@@ -10,10 +11,16 @@ export class ProfileStore extends ServiceStore{
     @observable new_password: string = "";
     @observable confirm_password: string = "";
     @observable old_password: string = "";
+    @observable orders :Order[]= new Array<Order>();
 
     constructor() {
         super();
         makeObservable(this);
+    }
+
+    @action
+    set_orders(v: Order[]){
+        this.orders = v;
     }
 
     @action

@@ -1,4 +1,4 @@
-import { Fragment } from "react";
+import {FC, Fragment} from "react";
 import {
 	Paper,
 	Typography,
@@ -10,23 +10,22 @@ import {
 import { useStore } from "../../stores";
 
 
-export const UserReward = () => {
+export const UserReward: FC<{reward: number}> = ({reward}) => {
 	const {sProfile} = useStore();
 	return (
-		<Paper>
+		<Paper elevation={8} style={{marginTop: "2rem"}}>
 			<Card variant="outlined">
 				<Fragment>
 					<CardContent>
-						<h2>Avialable Reward</h2>
+						<h2>Điểm thưởng hiện có</h2>
 						<Typography variant="h2" component="div">
-							{sProfile.user.reward}
+							{reward}
 						</Typography>
 						<Typography sx={{ mb: 1.5 }} color="text.secondary">
-							Value {sProfile.user.reward} VND
+							Trị giá {reward} VND
 						</Typography>
 					</CardContent>
 					<CardActions>
-						<Button size="small">Detail</Button>
 					</CardActions>
 				</Fragment>
 			</Card>
