@@ -19,6 +19,8 @@ import {theme} from "../../utils/theme";
 import {ServicesChooseGroup} from "../../components/Service";
 import {ChangePassword} from "../User/ChangePassword";
 import {Order} from "../../models/Order";
+import { Voucher } from "../../models/Voucher";
+import { MyVoucher } from "../User/MyVoucher";
 
 export const Profile: FC = observer(() => {
     const {sProfile, role} = useStore();
@@ -40,6 +42,15 @@ export const Profile: FC = observer(() => {
                 sProfile.set_user(data);
 
                 sProfile.set_orders([]);
+                Voucher.getMyVoucher(`${sProfile.user.userId}`, 'used').then((res) => {
+                    sProfile.set_usedvouchers(res.data.vouchers);
+                })
+                Voucher.getMyVoucher(`${sProfile.user.userId}`, 'available').then((res) => {
+                    sProfile.set_availblevouchers(res.data.vouchers);
+                })
+                Voucher.getMyVoucher(`${sProfile.user.userId}`, 'expired').then((res) => {
+                    sProfile.set_expiredvouchers(res.data.vouchers);
+                })
                 if (sProfile.user.type != UserRole.ADMIN)
                     (typeof account == "string" ? Order.getByAccount(account) : Order.getOfMe()).then(([err, data]) => {
                         if (err) {
@@ -181,7 +192,9 @@ export const Profile: FC = observer(() => {
                             </Button>
                         </Grid>
                     </Grid>
-                    {sProfile.user.type === UserRole.USER && <UserReward reward={sProfile.user.reward}/>}
+                    {sProfile.user.type === UserRole.USER && <div><UserReward reward={sProfile.user.reward}/><MyVoucher usedVoucher={sProfile.UsedVouchers} 
+                                                                                                                        availVouchers={sProfile.AvailableVouchers}
+                                                                                                                        expiredVouchers={sProfile.ExpiredVouchers}/></div>}
                     {sProfile.user.type !== UserRole.ADMIN &&
                         <UserOrderHistory displayType={sProfile.user.type} orders={sProfile.orders}/>}
                 </Grid>
