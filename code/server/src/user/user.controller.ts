@@ -4,12 +4,14 @@ import {
     Controller,
     Delete, ForbiddenException,
     Get,
+    InternalServerErrorException,
     NotFoundException,
     Param,
     Post,
     Put,
     Request,
     UseGuards,
+    Headers
 } from "@nestjs/common";
 import {UserService} from "./user.service";
 import {CreateUserDto} from "./dto/create-user.dto";
@@ -22,7 +24,8 @@ import {RolesGuard} from "../auth/roles.guard";
 import {User} from "../entities/User";
 import {ServiceService} from "../service/service.service";
 import {md5} from "../utils/md5";
-import { AuthService } from "../auth/auth.service";
+import {AuthService} from "../auth/auth.service";
+import {RewardDto} from '../user/dto/reward.dto';
 
 @ApiTags("Users")
 @Controller("users")
@@ -35,6 +38,17 @@ export class UserController {
     @Roles(UserRoles.ADMIN)
     create(@Body() createUserDto: CreateUserDto) {
         return this.userService.create(createUserDto);
+    }
+
+    @Post(":id/reward")
+    async setReward(@Headers("service") service, @Param("id") id: string, @Body() rewardDto: RewardDto) {
+        try {
+            console.log(service, id);
+            // await this.userService.setReward(id, rewardDto);
+            return {success: true, data: rewardDto}
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message})
+        }
     }
 
     @Get("/me")
@@ -54,7 +68,7 @@ export class UserController {
             const users: User[] = await this.userService.findAll();
             const data = [];
 
-            for(const user of users) 
+            for (const user of users)
                 data.push({...user, ...(await this.authService.login(user))});
 
             if (data) {

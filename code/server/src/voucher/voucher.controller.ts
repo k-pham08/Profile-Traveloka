@@ -1,49 +1,45 @@
-import {Controller, Post, UseGuards, Request, UnauthorizedException, BadRequestException, Get} from '@nestjs/common';
-import {JwtAuthGuard} from "../auth/jwt-auth.guard";
-import {VoucherService} from "./voucher.service";
-import {UserRoles} from "../enums/roles";
-import {User} from "../entities/User";
+import {
+    Controller,
+    Post,
+    Headers, Body, InternalServerErrorException, BadRequestException
+} from '@nestjs/common';
 import {UserService} from "../user/user.service";
+import {RewardDto} from "../user/dto/reward.dto";
+import {User} from "../entities/User";
+import {UserRoles} from "../enums/roles";
 
 @Controller('vouchers')
-// @UseGuards(JwtAuthGuard)
 export class VoucherController {
-    constructor(private voucherService: VoucherService, private userService: UserService) {
+    constructor(private userService: UserService) {
     }
 
-    @Get()
-    async signup() {
-        const users: User[] = await this.userService.findAll();
-        const res: { userId: string, message: object }[] = []
-        for (const user of users) {
-            try {
-                const data = await this.voucherService.registerVoucherService(user);
-                res.push({userId: user.userId, message: data})
-            } catch (e) {
-                console.log(e);
-                res.push({userId: user.userId, message: e.message});
-            }
-        }
-        return res;
-    }
+    @Post("/reward")
+    async setRewardUser(@Headers("service") service, @Body() rewardDto: RewardDto) {
+        if(service != "VOUCHER")
+            throw new BadRequestException({success: false, message: "NOT_PERMISSION"});
 
-    @Post()
-    async getTokenVoucherService(@Request() req) {
+        if(!rewardDto.userId)
+            throw new BadRequestException({success: false, message: "userId is required"});
+        if(!rewardDto.reward)
+            throw new BadRequestException({success: false, message: "reward is required"});
         try {
-            const {username, email, type} = req.user;
+            const user:User = await this.userService.findOne({userId: rewardDto.userId});
 
-            if (type == UserRoles.ADMIN) throw new BadRequestException({
-                success: false,
-                message: "ADMIN_NOT_USED_VOUCHER_SERVICE"
-            });
+            if(!user)
+                throw new BadRequestException({success: false, message: "USER_NOT_EXIST"});
 
-            const {data} = await this.voucherService.login(type == UserRoles.PARTNER ? username : email, type);
+            if(user.type != UserRoles.USER)
+                throw new BadRequestException({success: false, message: "NOT_USER"});
 
-            const redirect = (type == UserRoles.PARTNER ? "/partner/auth" : "/user/home") + "?token=" + data.token;
+            user.reward = rewardDto.reward;
 
-            return {success: true, data: {redirect}}
-        } catch (e) {
-            throw new UnauthorizedException({success: false, message: e});
+            const {userId, ...data} = user;
+
+            await this.userService.update(userId, data)
+
+            return {success: true, data: user, message: "CHANGE SUCCESSFUL"};
+        }catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message});
         }
     }
 }

@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { OrderDetail } from "./OrderDetail";
 import { User } from "./User";
+import {Service} from "./Service";
 
 @Entity("ORDER", { schema: "dbo" })
 export class Order {
@@ -20,20 +21,24 @@ export class Order {
   @Column("int", { name: "total" })
   total: number;
 
-  @Column("int", { name: "reward" })
+  @Column("int", { name: "reward"})
   reward: number;
 
-  @Column("nvarchar", { name: "voucher_code", length: 255 })
+  @Column("nvarchar", { name: "voucher_code", length: 255, nullable: true })
   voucherCode: string;
 
-  @ManyToOne(() => User, (user) => user.ordersUser)
+  @ManyToOne(() => Service, (service) => service.orders)
+  @JoinColumn({name: "serviceId"})
+  service: Service;
+
+  @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn([{ name: "user_id", referencedColumnName: "userId" }])
   user: User;
 
-  @ManyToOne(() => User, (user) => user.ordersPartner)
+  @ManyToOne(() => User, (user) => user.orders)
   @JoinColumn([{ name: "partner_id", referencedColumnName: "userId" }])
   partner: User;
 
-  @OneToMany(() => OrderDetail, (orderDetail) => orderDetail.order)
+  @OneToMany(() => OrderDetail, detail => detail.order)
   orderDetails: OrderDetail[];
 }

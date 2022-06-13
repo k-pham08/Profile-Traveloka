@@ -46,8 +46,5 @@ export class User {
     services: Service[];
 
     @OneToMany(() => Order, order => order.user)
-    ordersUser: Order[];
-
-    @OneToMany(() => Order, order => order.user)
-    ordersPartner: Order[];
+    orders: Order[];
 }

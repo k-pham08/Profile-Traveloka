@@ -1,5 +1,6 @@
 import { Column, Entity, Index, OneToMany } from "typeorm";
 import { ServiceClassify } from "./ServiceClassify";
+import {Order} from "./Order";
 
 @Entity("SERVICE", { schema: "dbo" })
 export class Service {
@@ -14,4 +15,7 @@ export class Service {
 
      @OneToMany(() => ServiceClassify, serviceClassify => serviceClassify.service)
      serviceClassifies: ServiceClassify[];
+
+     @OneToMany(() => Order, order => order.service)
+     orders: Order[];
 }

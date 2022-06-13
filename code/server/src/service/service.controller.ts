@@ -21,7 +21,6 @@ export class ServiceController {
     @Roles(UserRoles.ADMIN)
     async create(@Body() createServiceDto: CreateServiceDto) {
         try {
-
             const service: Service = await this.serviceService.create(createServiceDto);
 
             return {success: true, message: "Create Service Successful!"};

@@ -50,7 +50,6 @@ export class ServiceClassifyController {
     @Roles(UserRoles.ADMIN)
     async remove(@Param("id") id: string) {
         try{
-
             await this.serviceClassifyService.remove(id);
             return {success: true, message: "Delete Classify Successful"};
         }catch(e) {

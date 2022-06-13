@@ -1,37 +1,145 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UseGuards } from '@nestjs/common';
-import { OrderService } from './order.service';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { UpdateOrderDto } from './dto/update-order.dto';
-import { ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import {
+    Controller,
+    Get,
+    Post,
+    Body,
+    Patch,
+    Param,
+    Delete,
+    Put,
+    UseGuards,
+    Request,
+    InternalServerErrorException, BadRequestException
+} from '@nestjs/common';
+import {OrderService} from './order.service';
+import {CreateOrderDto} from './dto/create-order.dto';
+import {UpdateOrderDto} from './dto/update-order.dto';
+import {ApiTags} from '@nestjs/swagger';
+import {JwtAuthGuard} from '../auth/jwt-auth.guard';
+import {RolesGuard} from '../auth/roles.guard';
+import {Roles} from '../decorators/role.decorator';
+import {UserRoles} from '../enums/roles';
+import e = require('express');
+import console = require('console');
+import {create} from "domain";
+import {ServiceService} from "../service/service.service";
 
 @ApiTags("Order")
-@Controller("order")
+@Controller("orders")
 export class OrderController {
-  constructor(private readonly orderService: OrderService) {}
+    constructor(private readonly orderService: OrderService, private readonly serviceService: ServiceService) {
+    }
 
-  @Post()
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.create(createOrderDto);
-  }
+    @Post()
+    async create(@Body() createOrderDto: CreateOrderDto, @Request() req) {
+        const schema = {
+            reward: "number (required)",
+            details: [{
+                productName: "string (required)",
+                quantity: "number (required)",
+                price: "number (required)",
+                thumbnail: "string (required)",
+                link: "string (required)"
+            }],
+            voucherCode: "string | null",
+            partnerId: "string (required)",
+            userId: "string (required)"
+        }
+        const {service_code} = req.headers;
 
-  @Get()
-  findAll() {
-    return this.orderService.findAll();
-  }
+        createOrderDto = createOrderDto as CreateOrderDto;
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.orderService.findOne(id);
-  }
+        const services = await this.serviceService.findAll();
 
-  @Put(':id')
-  update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
-    return this.orderService.update(id, updateOrderDto);
-  }
+        const service = services.find((e) => e.serviceCode == service_code)
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.orderService.remove(id);
-  }
+        if (!service_code || !service) {
+            throw new BadRequestException({
+                success: false,
+                message: `Need "service_code" in request headers`,
+                enum: services.map((e) => e.serviceCode)
+            })
+        }
+
+       try {
+           let orderIsValid = CreateOrderDto.orderIsValidChecker(createOrderDto);
+
+           let userIsValid = await this.orderService.userIsValid(createOrderDto.userId, "USER");
+
+           let partnerIsValid = await this.orderService.userIsValid(createOrderDto.partnerId, "PARTNER");
+
+           if (!userIsValid) {
+               throw new Error("Wrong user type or user do not existed");
+           }
+
+           if (!partnerIsValid) {
+               throw new Error("Wrong partner or partner do not existed");
+           }
+
+       } catch (e) {
+            throw new BadRequestException({success: false, message: e.message, data: createOrderDto, schema});
+       }
+        try {
+            const data = await this.orderService.create(createOrderDto, service);
+            return {success: true, data};
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message})
+        }
+    }
+
+    @Get()
+    @UseGuards(JwtAuthGuard, RolesGuard)
+    @Roles(UserRoles.ALL)
+    async findAll(@Request() req) {
+        try {
+            const {sub, type} = req.user;
+            const data = await (type == UserRoles.ADMIN ? this.orderService.findAll() : this.orderService.findOfAccount(sub, type));
+            return {success: true, data};
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message});
+        }
+    }
+
+    @Get(":userId")
+    async findByAccount(@Param('userId') id: string) {
+        try {
+            const data = await this.orderService.findByAccount(id);
+            return {success: true, data};
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message})
+        }
+    }
+
+    @Get(':id')
+    @Roles(UserRoles.ADMIN)
+    async findOne(@Param('id') id: string) {
+        try {
+            const data = await this.orderService.findOne(id);
+            return {success: true, data};
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message});
+        }
+    }
+
+    @Put(':id')
+    @Roles(UserRoles.ADMIN)
+    async update(@Param('id') id: string, @Body() updateOrderDto: UpdateOrderDto) {
+        try {
+            await this.orderService.update(id, updateOrderDto);
+            return {success: true, message: "Update Order Successful"}
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message})
+        }
+    }
+
+    @Delete(':id')
+    @Roles(UserRoles.ADMIN)
+    async remove(@Param('id') id: string) {
+        try {
+            await this.orderService.remove(id);
+            return {success: true, message: "Delete Order Successful"}
+        } catch (e) {
+            throw new InternalServerErrorException({success: false, message: e.message})
+        }
+    }
 }

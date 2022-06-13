@@ -21,7 +21,7 @@ export class OrderDetail {
   @Column("nvarchar", { name: "link", nullable: true, length: 255 })
   link: string | null;
 
-  @ManyToOne(() => Order, (order) => order.orderDetails)
-  @JoinColumn([{ name: "order_id", referencedColumnName: "orderId" }])
+  @ManyToOne(() => Order, order => order.orderDetails)
+  @JoinColumn({ name: "order_id"})
   order: Order;
 }

@@ -6,6 +6,7 @@ import {CreateUserDto} from "./dto/create-user.dto";
 import {UpdateUserDto} from "./dto/update-user.dto";
 import {makeSelected} from "../utils/selected";
 import {DateUtils} from "typeorm/util/DateUtils";
+import { RewardDto } from "../user/dto/reward.dto";
 
 @Injectable()
 export class UserService {
@@ -28,6 +29,10 @@ export class UserService {
             console.log(e)
         }
         return null;
+    }
+
+    setReward(id: string, rewardDto: RewardDto){
+        return this.userRepository.update(id, {reward: rewardDto.reward})
     }
 
     findAll() {
