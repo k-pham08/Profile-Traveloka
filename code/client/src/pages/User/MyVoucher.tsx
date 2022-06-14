@@ -1,4 +1,4 @@
-import Typography from '@mui/material/Typography';
+    import Typography from '@mui/material/Typography';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -58,8 +58,8 @@ export const MyVoucher: FC<{usedVoucher: {
             <Box sx={{ width: '100%'}}>
             <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Voucher khả dụng" {...a11yProps(0)} />
-                <Tab label="Voucher đã sử dụng" {...a11yProps(1)} />
+                <Tab label="Voucher đã sử dụng" {...a11yProps(0)} />
+                <Tab label="Voucher khả dụng" {...a11yProps(1)} />
                 <Tab label="Voucher hết hạn" {...a11yProps(2)} />
                 </Tabs>
             </Box>
